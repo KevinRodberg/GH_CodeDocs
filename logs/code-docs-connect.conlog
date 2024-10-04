@@ -1,0 +1,17 @@
+Thu Jul 11 9:57:19 AM 2024 Rows Selected for Deletion: 1 RECID = 678
+Thu Jul 11 9:57:19 AM 2024 UPDATE  WSUP.codeDocs  SET DELETED = 'Y' where  RECID = 678
+Thu Jul 11 9:57:19 AM 2024 Record deleted= TRUE
+ 
+Thu Jul 11 9:57:55 AM 2024 App Test Script entry was recorded
+Thu Jul 11 9:58:41 AM 2024 Rows Selected for Deletion: 1 RECID = 679
+Thu Jul 11 9:58:41 AM 2024 UPDATE  WSUP.codeDocs  SET DELETED = 'Y' where  RECID = 679
+Thu Jul 11 9:58:41 AM 2024 Record deleted= TRUE
+ 
+Thu Jul 11 11:29:40 AM 2024 App 12345 entry was recorded
+Thu Jul 11 11:30:02 AM 2024 Rows Selected for Deletion: 1 RECID = 680
+Thu Jul 11 11:30:02 AM 2024 UPDATE  WSUP.codeDocs  SET DELETED = 'Y' where  RECID = 680
+Thu Jul 11 11:30:02 AM 2024 Record deleted= TRUE
+Fri Jul 12 1:14:00 PM 2024 App fgsd entry was recorded
+Fri Jul 12 1:14:37 PM 2024 Rows Selected for Deletion: 1 RECID = 681
+Fri Jul 12 1:14:37 PM 2024 Record deleted= TRUE
+Mon Jul 15 1:18:02 PM 2024 App New code entry was recorded

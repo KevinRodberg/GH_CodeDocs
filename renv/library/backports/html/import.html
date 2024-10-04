@@ -1,0 +1,90 @@
+<!DOCTYPE html><html><head><title>R: Import backported functions into your package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>import {backports}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Import backported functions into your package</h2>
+
+<h3>Description</h3>
+
+<p>Imports objects from <span class="pkg">backports</span> into the namespace of other packages
+by assigning it during load-time.
+See examples for a code snippet to copy to your package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>import(pkgname, obj = NULL, force = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="pkgname">pkgname</code></td>
+<td>
+<p>[<code>character(1)</code>]<br />
+Name of the package where the backported function should be assigned.</p>
+</td></tr>
+<tr><td><code id="obj">obj</code></td>
+<td>
+<p>[<code>character</code>]<br />
+Name of objects to assign, as character vector.
+If <code>NULL</code>, all backports which are not provided by R itself are assigned.</p>
+</td></tr>
+<tr><td><code id="force">force</code></td>
+<td>
+<p>[<code>logical</code>]<br />
+If <code>obj</code> is provided and <code>force</code> is set to <code>FALSE</code>, only backports
+not provided by the base package of the executing R interpreter are imported.
+Set to <code>TRUE</code> to ignore this check and always import the backport into the package's namespace.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/ns-hooks.html">.onLoad</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+# This imports all functions implemented in backports while the package is loaded
+.onLoad &lt;- function(libname, pkgname) {
+  backports::import(pkgname)
+}
+
+# This only imports the function "trimws"
+.onLoad &lt;- function(libname, pkgname) {
+  backports::import(pkgname, "trimws")
+}
+
+# This imports all backports from base and force-imports "hasName" from utils
+.onLoad &lt;- function(libname, pkgname) {
+  backports::import(pkgname)
+  backports::import(pkgname, "hasName", force = TRUE)
+}
+
+## End(Not run)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>backports</em> version 1.5.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>
