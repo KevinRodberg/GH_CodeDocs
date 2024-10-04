@@ -1,0 +1,95 @@
+<!DOCTYPE html><html><head><title>R: Upgrade renv</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>upgrade {renv}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Upgrade renv</h2>
+
+<h3>Description</h3>
+
+<p>Upgrade the version of renv associated with a project, including using
+a development version from GitHub. Automatically snapshots the update
+renv, updates the activate script, and restarts R.
+</p>
+<p>If you want to update all packages (including renv) to their latest CRAN
+versions, use <code><a href="../../renv/help/update.html">update()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>upgrade(project = NULL, version = NULL, reload = NULL, prompt = interactive())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="project">project</code></td>
+<td>
+<p>The project directory. If <code>NULL</code>, then the active project will
+be used. If no project is currently active, then the current working
+directory is used instead.</p>
+</td></tr>
+<tr><td><code id="version">version</code></td>
+<td>
+<p>The version of renv to be installed.
+</p>
+<p>When <code>NULL</code> (the default), the latest version of renv will be installed as
+available from CRAN (or whatever active package repositories are active)
+Alternatively, you can install the latest development version with
+<code>"main"</code>, or a specific commit with a SHA, e.g. <code>"5049cef8a"</code>.</p>
+</td></tr>
+<tr><td><code id="reload">reload</code></td>
+<td>
+<p>Boolean; reload renv after install? When <code>NULL</code> (the
+default), renv will be re-loaded only if updating renv for the
+active project. Since it's not possible to guarantee a clean reload
+in the current session, this will attempt to restart your R session.</p>
+</td></tr>
+<tr><td><code id="prompt">prompt</code></td>
+<td>
+<p>Boolean; prompt upgrade before proceeding?</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A boolean value, indicating whether the requested version of
+renv was successfully installed. Note that this function is normally
+called for its side effects.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+
+# upgrade to the latest version of renv
+renv::upgrade()
+
+# upgrade to the latest version of renv on GitHub (development version)
+renv::upgrade(version = "main")
+
+
+## End(Not run)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>renv</em> version 1.0.9 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

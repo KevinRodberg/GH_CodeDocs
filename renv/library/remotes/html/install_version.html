@@ -1,0 +1,217 @@
+<!DOCTYPE html><html><head><title>R: Install specific version of a package.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>install_version {remotes}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Install specific version of a package.</h2>
+
+<h3>Description</h3>
+
+<p>This function knows how to look in multiple CRAN-like package repositories, and in their
+<code>archive</code> directories, in order to find specific versions of the requested package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>install_version(
+  package,
+  version = NULL,
+  dependencies = NA,
+  upgrade = c("default", "ask", "always", "never"),
+  force = FALSE,
+  quiet = FALSE,
+  build = FALSE,
+  build_opts = c("--no-resave-data", "--no-manual", "--no-build-vignettes"),
+  build_manual = FALSE,
+  build_vignettes = FALSE,
+  repos = getOption("repos"),
+  type = "source",
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="package">package</code></td>
+<td>
+<p>Name of the package to install.</p>
+</td></tr>
+<tr><td><code id="version">version</code></td>
+<td>
+<p>Version of the package to install.  Can either be a string giving the exact
+version required, or a specification in the same format as the parenthesized expressions used
+in package dependencies. One of the following formats:
+</p>
+
+<ul>
+<li><p> An exact version required, as a string, e.g. <code>"0.1.13"</code>
+</p>
+</li>
+<li><p> A comparison operator and a version, e.g. <code>"&gt;= 0.1.12"</code>
+</p>
+</li>
+<li><p> Several criteria to satisfy, as a comma-separated string, e.g. <code>"&gt;= 1.12.0, &lt; 1.14"</code>
+</p>
+</li>
+<li><p> Several criteria to satisfy, as elements of a character vector, e.g. <code>c("&gt;= 1.12.0", "&lt; 1.14")</code>
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="dependencies">dependencies</code></td>
+<td>
+<p>logical indicating whether to also install
+uninstalled packages which these packages depend on/link
+to/import/suggest (and so on recursively).
+Not used if <code>repos = NULL</code>.
+Can also be a character vector, a subset of
+<code>c("Depends", "Imports", "LinkingTo", "Suggests", "Enhances")</code>.
+</p>
+<p>Only supported if <code>lib</code> is of length one (or missing),
+so it is unambiguous where to install the dependent packages.  If
+this is not the case it is ignored, with a warning.
+</p>
+<p>The default, <code>NA</code>, means
+<code>c("Depends", "Imports", "LinkingTo")</code>.
+</p>
+<p><code>TRUE</code> means to use
+<code>c("Depends", "Imports", "LinkingTo", "Suggests")</code> for
+<code>pkgs</code> and
+<code>c("Depends", "Imports", "LinkingTo")</code> for added dependencies:
+this installs all the packages needed to run <code>pkgs</code>, their
+examples, tests and vignettes (if the package author specified them
+correctly).
+</p>
+<p>In all of these, <code>"LinkingTo"</code> is omitted for binary packages.
+</p>
+</td></tr>
+<tr><td><code id="upgrade">upgrade</code></td>
+<td>
+<p>Should package dependencies be upgraded? One of &quot;default&quot;, &quot;ask&quot;, &quot;always&quot;, or &quot;never&quot;. &quot;default&quot;
+respects the value of the <code>R_REMOTES_UPGRADE</code> environment variable if set,
+and falls back to &quot;ask&quot; if unset. &quot;ask&quot; prompts the user for which out of
+date packages to upgrade. For non-interactive sessions &quot;ask&quot; is equivalent
+to &quot;always&quot;. <code>TRUE</code> and <code>FALSE</code> are also accepted and correspond to
+&quot;always&quot; and &quot;never&quot; respectively.</p>
+</td></tr>
+<tr><td><code id="force">force</code></td>
+<td>
+<p>Force installation, even if the remote state has not changed
+since the previous install.</p>
+</td></tr>
+<tr><td><code id="quiet">quiet</code></td>
+<td>
+
+<p>logical: if true, reduce the amount of output.  This is <em>not</em>
+passed to <code><a href="../../utils/help/available.packages.html">available.packages</a>()</code> in case that is called, on
+purpose.
+</p>
+</td></tr>
+<tr><td><code id="build">build</code></td>
+<td>
+<p>If <code>TRUE</code> build the package before installing.</p>
+</td></tr>
+<tr><td><code id="build_opts">build_opts</code></td>
+<td>
+<p>Options to pass to <code style="white-space: pre;">&#8288;R CMD build&#8288;</code>, only used when <code>build</code> is <code>TRUE</code>.</p>
+</td></tr>
+<tr><td><code id="build_manual">build_manual</code></td>
+<td>
+<p>If <code>FALSE</code>, don't build PDF manual ('&ndash;no-manual').</p>
+</td></tr>
+<tr><td><code id="build_vignettes">build_vignettes</code></td>
+<td>
+<p>If <code>FALSE</code>, don't build package vignettes ('&ndash;no-build-vignettes').</p>
+</td></tr>
+<tr><td><code id="repos">repos</code></td>
+<td>
+
+<p>character vector, the base URL(s) of the repositories
+to use, e.g., the URL of a CRAN mirror such as
+<code>"https://cloud.r-project.org"</code>.  For more details on
+supported URL schemes see <code><a href="../../base/html/connections.html">url</a></code>.
+</p>
+<p>Can be <code>NULL</code> to install from local files, directories or URLs:
+this will be inferred by extension from <code>pkgs</code> if of length one.
+</p>
+</td></tr>
+<tr><td><code id="type">type</code></td>
+<td>
+<p>character, indicating the type of package to download and
+install.  Will be <code>"source"</code> except on Windows and some macOS
+builds: see the section on &lsquo;Binary packages&rsquo; for those.
+</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Other arguments passed on to <code><a href="../../utils/help/install.packages.html">utils::install.packages()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The repositories are searched in the order specified by the <code>repos</code> argument.  This enables
+teams to maintain multiple in-house repositories with different policies - for instance, one repo
+for development snapshots and one for official releases.  A common setup would be to first search
+the official release repo, then the dev snapshot repo, then a public CRAN mirror.
+</p>
+<p>Older versions of packages on CRAN are usually only available in source form.  If your requested
+package contains compiled code, you will need to have an R development environment installed. You
+can check if you do by running <code>devtools::has_devel</code> (you need the <code>devtools</code> package for this).
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other package installation: 
+<code><a href="../../remotes/help/install_bioc.html">install_bioc</a>()</code>,
+<code><a href="../../remotes/help/install_bitbucket.html">install_bitbucket</a>()</code>,
+<code><a href="../../remotes/help/install_cran.html">install_cran</a>()</code>,
+<code><a href="../../remotes/help/install_dev.html">install_dev</a>()</code>,
+<code><a href="../../remotes/help/install_github.html">install_github</a>()</code>,
+<code><a href="../../remotes/help/install_gitlab.html">install_gitlab</a>()</code>,
+<code><a href="../../remotes/help/install_git.html">install_git</a>()</code>,
+<code><a href="../../remotes/help/install_local.html">install_local</a>()</code>,
+<code><a href="../../remotes/help/install_svn.html">install_svn</a>()</code>,
+<code><a href="../../remotes/help/install_url.html">install_url</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+install_version("devtools", "1.11.0")
+install_version("devtools", "&gt;= 1.12.0, &lt; 1.14")
+
+## Specify search order (e.g. in ~/.Rprofile)
+options(repos = c(
+  prod = "http://mycompany.example.com/r-repo",
+  dev = "http://mycompany.example.com/r-repo-dev",
+  CRAN = "https://cran.revolutionanalytics.com"
+))
+install_version("mypackage", "1.15") # finds in 'prod'
+install_version("mypackage", "1.16-39487") # finds in 'dev'
+
+## End(Not run)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>remotes</em> version 2.5.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

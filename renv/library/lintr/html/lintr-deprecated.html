@@ -1,0 +1,100 @@
+<!DOCTYPE html><html><head><title>R: Deprecated functions in lintr</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>lintr-deprecated {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Deprecated functions in lintr</h2>
+
+<h3>Description</h3>
+
+<p>These functions have been deprecated from lintr.
+</p>
+
+<ul>
+<li> <p><code>open_curly_linter()</code> and <code>closed_curly_linter()</code> check that open and closed curly braces
+are on their own line unless they follow an else, a comma, or a closing bracket.
+Deprecated in favor of <code>brace_linter()</code>.
+</p>
+</li>
+<li> <p><code>paren_brace_linter()</code> checks that there is a space between right parentheses and an opening
+curly brace. E.g., <code>function(){}</code> doesn't have a space, while <code>function() {}</code> does.
+Deprecated in favor of <code>brace_linter()</code>.
+</p>
+</li>
+<li> <p><code>semicolon_terminator_linter()</code> checks that no semicolons terminate expressions.
+Deprecated in favor of <code>semicolon_linter()</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>closed_curly_linter(allow_single_line = FALSE)
+
+open_curly_linter(allow_single_line = FALSE)
+
+paren_brace_linter()
+
+semicolon_terminator_linter(semicolon = c("compound", "trailing"))
+
+unneeded_concatenation_linter(allow_single_expression = TRUE)
+
+single_quotes_linter()
+
+consecutive_stopifnot_linter()
+
+no_tab_linter()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="allow_single_line">allow_single_line</code></td>
+<td>
+<p>if <code>TRUE</code>, allow an open and closed curly pair on the same line.</p>
+</td></tr>
+<tr><td><code id="semicolon">semicolon</code></td>
+<td>
+<p>A character vector defining which semicolons to report:
+</p>
+
+<dl>
+<dt>compound</dt><dd><p>Semicolons that separate two statements on the same line.</p>
+</dd>
+<dt>trailing</dt><dd><p>Semicolons following the last statement on the line.</p>
+</dd>
+</dl>
+</td></tr>
+</table>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/configurable_linters.html">configurable</a>, <a href="../../lintr/help/deprecated_linters.html">deprecated</a>, <a href="../../lintr/help/readability_linters.html">readability</a>, <a href="../../lintr/help/style_linters.html">style</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

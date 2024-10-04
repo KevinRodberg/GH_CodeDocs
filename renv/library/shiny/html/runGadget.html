@@ -1,0 +1,102 @@
+<!DOCTYPE html><html><head><title>R: Run a gadget</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>runGadget {shiny}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Run a gadget</h2>
+
+<h3>Description</h3>
+
+<p>Similar to <code>runApp</code>, but handles <code>input$cancel</code> automatically, and
+if running in RStudio, defaults to viewing the app in the Viewer pane.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>runGadget(
+  app,
+  server = NULL,
+  port = getOption("shiny.port"),
+  viewer = paneViewer(),
+  stopOnCancel = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="app">app</code></td>
+<td>
+<p>Either a Shiny app object as created by
+<code><a href="../../shiny/help/shiny.html">shinyApp()</a></code> et al, or, a UI object.</p>
+</td></tr>
+<tr><td><code id="server">server</code></td>
+<td>
+<p>Ignored if <code>app</code> is a Shiny app object; otherwise, passed
+along to <code>shinyApp</code> (i.e. <code>shinyApp(ui = app, server = server)</code>).</p>
+</td></tr>
+<tr><td><code id="port">port</code></td>
+<td>
+<p>See <code><a href="../../shiny/help/shiny.html">runApp()</a></code>.</p>
+</td></tr>
+<tr><td><code id="viewer">viewer</code></td>
+<td>
+<p>Specify where the gadget should be displayed&ndash;viewer pane,
+dialog window, or external browser&ndash;by passing in a call to one of the
+<code><a href="../../shiny/help/viewer.html">viewer()</a></code> functions.</p>
+</td></tr>
+<tr><td><code id="stopOnCancel">stopOnCancel</code></td>
+<td>
+<p>If <code>TRUE</code> (the default), then an <code>observeEvent</code>
+is automatically created that handles <code>input$cancel</code> by calling
+<code>stopApp()</code> with an error. Pass <code>FALSE</code> if you want to handle
+<code>input$cancel</code> yourself.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The value returned by the gadget.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+library(shiny)
+
+ui &lt;- fillPage(...)
+
+server &lt;- function(input, output, session) {
+  ...
+}
+
+# Either pass ui/server as separate arguments...
+runGadget(ui, server)
+
+# ...or as a single app object
+runGadget(shinyApp(ui, server))
+
+## End(Not run)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>shiny</em> version 1.9.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

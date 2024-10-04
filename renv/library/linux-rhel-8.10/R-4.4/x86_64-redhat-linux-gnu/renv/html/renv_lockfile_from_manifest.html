@@ -1,0 +1,70 @@
+<!DOCTYPE html><html><head><title>R: Generate 'renv.lock' from an RStudio Connect 'manifest.json'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>renv_lockfile_from_manifest {renv}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate <code>renv.lock</code> from an RStudio Connect <code>manifest.json</code></h2>
+
+<h3>Description</h3>
+
+<p>Use <code>renv_lockfile_from_manifest()</code> to convert a <code>manifest.json</code> file from
+an RStudio Connect content bundle into an <code>renv.lock</code> lockfile.
+</p>
+<p>This function can be useful when you need to recreate the package environment
+of a piece of content that is deployed to RStudio Connect. The content bundle
+contains a <code>manifest.json</code> file that is used to recreate the package
+environment. This function will let you convert that manifest file to an
+<code>renv.lock</code> file. Run <code>renv::restore()</code> after you've converted the file to
+restore the package environment.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>renv_lockfile_from_manifest(
+  manifest = "manifest.json",
+  lockfile = NA,
+  project = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="manifest">manifest</code></td>
+<td>
+<p>The path to a <code>manifest.json</code> file.</p>
+</td></tr>
+<tr><td><code id="lockfile">lockfile</code></td>
+<td>
+<p>The path to the lockfile to be generated and / or updated.
+When <code>NA</code> (the default), the generated lockfile is returned as an <span class="rlang"><b>R</b></span>
+object; otherwise, the lockfile will be written to the path specified by
+<code>lockfile</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An renv lockfile.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>renv</em> version 1.0.9 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

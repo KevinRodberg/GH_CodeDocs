@@ -1,0 +1,73 @@
+<!DOCTYPE html><html><head><title>R: Consent to usage of renv</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>consent {renv}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Consent to usage of renv</h2>
+
+<h3>Description</h3>
+
+<p>Provide consent to renv, allowing it to write and update certain files
+on your filesystem.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>consent(provided = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="provided">provided</code></td>
+<td>
+<p>The default provided response. If you need to provide
+consent from a non-interactive <span class="rlang"><b>R</b></span> session, you can invoke
+<code>renv::consent(provided = TRUE)</code> explicitly.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>As part of its normal operation, renv will write and update some files
+in your project directory, as well as an application-specific cache
+directory. These paths are documented within <a href="../../renv/help/paths.html">paths</a>.
+</p>
+<p>In accordance with the
+<a href="https://cran.r-project.org/web/packages/policies.html">CRAN Repository Policy</a>,
+renv must first obtain consent from you, the user, before these actions
+can be taken. Please call <code>renv::consent()</code> first to provide this consent.
+</p>
+<p>You can also set the <span class="rlang"><b>R</b></span> option:
+</p>
+<div class="sourceCode"><pre>options(renv.consent = TRUE)
+</pre></div>
+<p>to implicitly provide consent for e.g. non-interactive <span class="rlang"><b>R</b></span> sessions.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>TRUE</code> if consent is provided, or an <span class="rlang"><b>R</b></span> error otherwise.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>renv</em> version 1.0.9 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

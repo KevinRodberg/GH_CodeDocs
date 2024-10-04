@@ -1,0 +1,133 @@
+<!DOCTYPE html><html><head><title>R: Copy packages from user libraries to a project library</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>hydrate {renv}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Copy packages from user libraries to a project library</h2>
+
+<h3>Description</h3>
+
+<p><code>hydrate()</code> installs missing packages from a user library into the project
+library. <code>hydrate()</code> is called automatically by <code><a href="../../renv/help/init.html">init()</a></code>, and it is rare
+that you should need it otherwise, as it can easily get your project into
+an inconsistent state.
+</p>
+<p>It may very occasionally be useful to call <code>hydrate(update = "all")</code> if you
+want to update project packages to match those installed in your global
+library (as opposed to using <code><a href="../../renv/help/update.html">update()</a></code> which will get the latest versions
+from CRAN). In this case, you should verify that your code continues to work,
+then call <code><a href="../../renv/help/snapshot.html">snapshot()</a></code> to record updated package versions in the lockfile.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>hydrate(
+  packages = NULL,
+  ...,
+  library = NULL,
+  repos = getOption("repos"),
+  update = FALSE,
+  sources = NULL,
+  prompt = interactive(),
+  report = TRUE,
+  project = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="packages">packages</code></td>
+<td>
+<p>The set of <span class="rlang"><b>R</b></span> packages to install. When <code>NULL</code>, the
+packages found by <code><a href="../../renv/help/dependencies.html">dependencies()</a></code> are used.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Unused arguments, reserved for future expansion. If any arguments
+are matched to <code>...</code>, renv will signal an error.</p>
+</td></tr>
+<tr><td><code id="library">library</code></td>
+<td>
+<p>The <span class="rlang"><b>R</b></span> library to be hydrated. When <code>NULL</code>, the active
+library as reported by <code>.libPaths()</code> is used.</p>
+</td></tr>
+<tr><td><code id="repos">repos</code></td>
+<td>
+<p>The <span class="rlang"><b>R</b></span> repositories to be used. If the project depends on any
+<span class="rlang"><b>R</b></span> packages which cannot be found within the user library paths, then
+those packages will be installed from these repositories instead.</p>
+</td></tr>
+<tr><td><code id="update">update</code></td>
+<td>
+<p>Boolean; should <code>hydrate()</code> attempt to update already-installed
+packages if the requested package is already installed in the project
+library? Set this to <code>"all"</code> if you'd like <em>all</em> packages to be refreshed
+from the source library if possible.</p>
+</td></tr>
+<tr><td><code id="sources">sources</code></td>
+<td>
+<p>A vector of library paths where renv should look for packages.
+When <code>NULL</code> (the default), <code>hydrate()</code> will look in the system libraries
+(the user library, the site library and the default library) then the
+renv cache.
+</p>
+<p>If a package is not found in any of these locations, <code>hydrate()</code>
+will try to install it from the active R repositories.</p>
+</td></tr>
+<tr><td><code id="prompt">prompt</code></td>
+<td>
+<p>Boolean; prompt the user before taking any action? Ignored
+when <code>report = FALSE</code>.</p>
+</td></tr>
+<tr><td><code id="report">report</code></td>
+<td>
+<p>Boolean; display a report of what packages will be installed
+by <code>renv::hydrate()</code>?</p>
+</td></tr>
+<tr><td><code id="project">project</code></td>
+<td>
+<p>The project directory. If <code>NULL</code>, then the active project will
+be used. If no project is currently active, then the current working
+directory is used instead.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A named <span class="rlang"><b>R</b></span> list, giving the packages that were used for hydration
+as well as the set of packages which were not found.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+
+# hydrate the active library
+renv::hydrate()
+
+
+## End(Not run)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>renv</em> version 1.0.9 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

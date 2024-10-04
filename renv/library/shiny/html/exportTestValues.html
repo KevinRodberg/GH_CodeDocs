@@ -1,0 +1,117 @@
+<!DOCTYPE html><html><head><title>R: Register expressions for export in test mode</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>exportTestValues {shiny}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Register expressions for export in test mode</h2>
+
+<h3>Description</h3>
+
+<p>This function registers expressions that will be evaluated when a test export
+event occurs. These events are triggered by accessing a snapshot URL.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>exportTestValues(
+  ...,
+  quoted_ = FALSE,
+  env_ = parent.frame(),
+  session_ = getDefaultReactiveDomain()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Named arguments that are quoted or unquoted expressions that will
+be captured and evaluated when snapshot URL is visited.</p>
+</td></tr>
+<tr><td><code id="quoted_">quoted_</code></td>
+<td>
+<p>Are the expression quoted? Default is <code>FALSE</code>.</p>
+</td></tr>
+<tr><td><code id="env_">env_</code></td>
+<td>
+<p>The environment in which the expression should be evaluated.</p>
+</td></tr>
+<tr><td><code id="session_">session_</code></td>
+<td>
+<p>A Shiny session object.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function only has an effect if the app is launched in test mode. This is
+done by calling <code>runApp()</code> with <code>test.mode=TRUE</code>, or by setting the
+global option <code>shiny.testmode</code> to <code>TRUE</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Only run this example in interactive R sessions
+if (interactive()) {
+
+options(shiny.testmode = TRUE)
+
+# This application shows the test snapshot URL; clicking on it will
+# fetch the input, output, and exported values in JSON format.
+shinyApp(
+  ui = basicPage(
+    h4("Snapshot URL: "),
+    uiOutput("url"),
+    h4("Current values:"),
+    verbatimTextOutput("values"),
+    actionButton("inc", "Increment x")
+  ),
+
+  server = function(input, output, session) {
+    vals &lt;- reactiveValues(x = 1)
+    y &lt;- reactive({ vals$x + 1 })
+
+    observeEvent(input$inc, {
+      vals$x &lt;&lt;- vals$x + 1
+    })
+
+    exportTestValues(
+      x = vals$x,
+      y = y()
+    )
+
+    output$url &lt;- renderUI({
+      url &lt;- session$getTestSnapshotUrl(format="json")
+      a(href = url, url)
+    })
+
+    output$values &lt;- renderText({
+      paste0("vals$x: ", vals$x, "\ny: ", y())
+    })
+  }
+)
+}
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>shiny</em> version 1.9.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

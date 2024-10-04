@@ -1,0 +1,106 @@
+<!DOCTYPE html><html><head><title>R: Add an ORCID to one or more authors in Authors@R, in...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>desc_add_orcid {desc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Add an ORCID to one or more authors in Authors@R, in DESCRIPTION</h2>
+
+<h3>Description</h3>
+
+<p>The author(s) can be specified by a combination of the <code>given</code>,
+<code>family</code>, <code>email</code>, <code>comment</code> and <code>role</code> fields.
+If multiple filters are specified, then all must match
+to identify the author(s).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>desc_add_orcid(
+  orcid,
+  given = NULL,
+  family = NULL,
+  email = NULL,
+  comment = NULL,
+  role = NULL,
+  file = ".",
+  normalize = FALSE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="orcid">orcid</code></td>
+<td>
+<p>orcid to add.</p>
+</td></tr>
+<tr><td><code id="given">given</code></td>
+<td>
+<p>Given name to filter on. Regular expression.</p>
+</td></tr>
+<tr><td><code id="family">family</code></td>
+<td>
+<p>Family name to filter on. Regular expression.</p>
+</td></tr>
+<tr><td><code id="email">email</code></td>
+<td>
+<p>Email address to filter on. Regular expression.</p>
+</td></tr>
+<tr><td><code id="comment">comment</code></td>
+<td>
+<p>Comment field to filter on. Regular expression.</p>
+</td></tr>
+<tr><td><code id="role">role</code></td>
+<td>
+<p>Role field to filter on.</p>
+</td></tr>
+<tr><td><code id="file">file</code></td>
+<td>
+<p>DESCRIPTION file to use. By default the DESCRIPTION
+file of the current package (i.e. the package the working directory
+is part of) is used.</p>
+</td></tr>
+<tr><td><code id="normalize">normalize</code></td>
+<td>
+<p>Whether to &quot;normalize&quot; (reorder and reformat) the fields when writing back
+the result. See <code><a href="../../desc/help/desc_normalize.html">desc_normalize()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other Authors@R: 
+<code><a href="../../desc/help/desc_add_author_gh.html">desc_add_author_gh</a>()</code>,
+<code><a href="../../desc/help/desc_add_author.html">desc_add_author</a>()</code>,
+<code><a href="../../desc/help/desc_add_me.html">desc_add_me</a>()</code>,
+<code><a href="../../desc/help/desc_add_role.html">desc_add_role</a>()</code>,
+<code><a href="../../desc/help/desc_change_maintainer.html">desc_change_maintainer</a>()</code>,
+<code><a href="../../desc/help/desc_coerce_authors_at_r.html">desc_coerce_authors_at_r</a>()</code>,
+<code><a href="../../desc/help/desc_del_author.html">desc_del_author</a>()</code>,
+<code><a href="../../desc/help/desc_del_role.html">desc_del_role</a>()</code>,
+<code><a href="../../desc/help/desc_get_authors.html">desc_get_authors</a>()</code>,
+<code><a href="../../desc/help/desc_get_author.html">desc_get_author</a>()</code>,
+<code><a href="../../desc/help/desc_get_maintainer.html">desc_get_maintainer</a>()</code>,
+<code><a href="../../desc/help/desc_set_authors.html">desc_set_authors</a>()</code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>desc</em> version 1.4.3 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

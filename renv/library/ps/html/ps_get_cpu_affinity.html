@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><title>R: Query or set CPU affinity</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ps_get_cpu_affinity {ps}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Query or set CPU affinity</h2>
+
+<h3>Description</h3>
+
+<p><code>ps_get_cpu_affinity()</code> queries the
+<a href="https://www.linuxjournal.com/article/6799?page=0,0">CPU affinity</a> of
+a process. <code>ps_set_cpu_affinity()</code> sets the CPU affinity of a process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ps_get_cpu_affinity(p = ps_handle())
+
+ps_set_cpu_affinity(p = ps_handle(), affinity)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="p">p</code></td>
+<td>
+<p>Process handle.</p>
+</td></tr>
+<tr><td><code id="affinity">affinity</code></td>
+<td>
+<p>Integer vector of CPU numbers to restrict a process to.
+CPU numbers start with zero, and they have to be smaller than the
+number of (logical) CPUs, see <code><a href="../../ps/help/ps_cpu_count.html">ps_cpu_count()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>CPU affinity consists in telling the OS to run a process on a limited
+set of CPUs only (on Linux cmdline, the <code>taskset</code> command is typically
+used).
+</p>
+<p>These functions are only supported on Linux and Windows. They error on macOS.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>ps_get_cpu_affinity()</code> returns an integer vector of CPU
+numbers, starting with zero.
+</p>
+<p><code>ps_set_cpu_affinity()</code> returns <code>NULL</code>, invisibly.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+# current
+orig &lt;- ps_get_cpu_affinity()
+orig
+
+# restrict
+ps_set_cpu_affinity(affinity = 0:0)
+ps_get_cpu_affinity()
+
+# restore
+ps_set_cpu_affinity(affinity = orig)
+ps_get_cpu_affinity()
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>ps</em> version 1.8.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

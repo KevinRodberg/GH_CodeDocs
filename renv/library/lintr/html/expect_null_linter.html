@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><title>R: Require usage of 'expect_null' for checking 'NULL'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>expect_null_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Require usage of <code>expect_null</code> for checking <code>NULL</code></h2>
+
+<h3>Description</h3>
+
+<p>Require usage of <code>expect_null(x)</code> over <code>expect_equal(x, NULL)</code> and similar
+usages.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>expect_null_linter()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p><code><a href="../../testthat/help/expect_null.html">testthat::expect_null()</a></code> exists specifically for testing for <code>NULL</code> objects.
+<code><a href="../../testthat/help/equality-expectations.html">testthat::expect_equal()</a></code>, <code><a href="../../testthat/help/equality-expectations.html">testthat::expect_identical()</a></code>, and
+<code><a href="../../testthat/help/logical-expectations.html">testthat::expect_true()</a></code> can also be used for such tests,
+but it is better to use the tailored function instead.
+</p>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/package_development_linters.html">package_development</a>, <a href="../../lintr/help/pkg_testthat_linters.html">pkg_testthat</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "expect_equal(x, NULL)",
+  linters = expect_null_linter()
+)
+
+lint(
+  text = "expect_identical(x, NULL)",
+  linters = expect_null_linter()
+)
+
+lint(
+  text = "expect_true(is.null(x))",
+  linters = expect_null_linter()
+)
+
+
+# okay
+lint(
+  text = "expect_null(x)",
+  linters = expect_null_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

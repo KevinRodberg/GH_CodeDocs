@@ -1,0 +1,99 @@
+<!DOCTYPE html><html><head><title>R: List currently running applications</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ps_apps {ps}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>List currently running applications</h2>
+
+<h3>Description</h3>
+
+<p>This function currently only works on macOS.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ps_apps()
+</code></pre>
+
+
+<h3>Value</h3>
+
+<p>A data frame with columns:
+</p>
+
+<ul>
+<li> <p><code>pid</code>: integer process id.
+</p>
+</li>
+<li> <p><code>name</code>: process name.
+</p>
+</li>
+<li> <p><code>bundle_identifier</code>: bundle identifier, e.g. <code>com.apple.dock</code>.
+</p>
+</li>
+<li> <p><code>bundle_url</code>: bundle URL, a <code style="white-space: pre;">&#8288;file://&#8288;</code> URL to the app bundle.
+</p>
+</li>
+<li> <p><code>arch</code>: executable architecture, possible values are
+arm64, i386, x86_64, ppc, ppc64.
+</p>
+</li>
+<li> <p><code>executable_url</code>: <code style="white-space: pre;">&#8288;file://&#8288;</code> URL to the executable file.
+</p>
+</li>
+<li> <p><code>launch_date</code>: launch time stamp, a <code>POSIXct</code> object, may be <code>NA</code>.
+</p>
+</li>
+<li> <p><code>finished_launching</code>: whether the app has finished launching.
+</p>
+</li>
+<li> <p><code>active</code>: whether the app is active.
+</p>
+</li>
+<li> <p><code>activation_policy</code>: one of the following values:
+</p>
+
+<ul>
+<li> <p><code>regular</code>: the application is an ordinary app that appears in the
+Dock and may have a user interface.
+</p>
+</li>
+<li> <p><code>accessory</code>: the application doesn’t appear in the Dock and
+doesn’t have a menu bar, but it may be activated programmatically
+or by clicking on one of its windows.
+</p>
+</li>
+<li> <p><code>prohibited</code>: the application doesn’t appear in the Dock and may
+not create windows or be activated.
+</p>
+</li></ul>
+
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+ps_apps()
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>ps</em> version 1.8.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

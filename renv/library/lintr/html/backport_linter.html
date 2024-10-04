@@ -1,0 +1,90 @@
+<!DOCTYPE html><html><head><title>R: Backport linter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>backport_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Backport linter</h2>
+
+<h3>Description</h3>
+
+<p>Check for usage of unavailable functions. Not reliable for testing r-devel dependencies.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>backport_linter(r_version = getRversion(), except = character())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="r_version">r_version</code></td>
+<td>
+<p>Minimum R version to test for compatibility</p>
+</td></tr>
+<tr><td><code id="except">except</code></td>
+<td>
+<p>Character vector of functions to be excluded from linting.
+Use this to list explicitly defined backports, e.g. those imported from the <code>{backports}</code> package or manually
+defined in your package.</p>
+</td></tr>
+</table>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/configurable_linters.html">configurable</a>, <a href="../../lintr/help/package_development_linters.html">package_development</a>, <a href="../../lintr/help/robustness_linters.html">robustness</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "trimws(x)",
+  linters = backport_linter("3.0.0")
+)
+
+lint(
+  text = "str2lang(x)",
+  linters = backport_linter("3.2.0")
+)
+
+# okay
+lint(
+  text = "trimws(x)",
+  linters = backport_linter("3.6.0")
+)
+
+lint(
+  text = "str2lang(x)",
+  linters = backport_linter("4.0.0")
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

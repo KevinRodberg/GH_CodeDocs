@@ -1,0 +1,99 @@
+<!DOCTYPE html><html><head><title>R: System CPU times.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ps_system_cpu_times {ps}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>System CPU times.</h2>
+
+<h3>Description</h3>
+
+<p>Every attribute represents the seconds the CPU has spent in the given
+mode. The attributes availability varies depending on the platform:
+</p>
+
+<ul>
+<li> <p><code>user</code>: time spent by normal processes executing in user mode;
+on Linux this also includes guest time.
+</p>
+</li>
+<li> <p><code>system</code>: time spent by processes executing in kernel mode.
+</p>
+</li>
+<li> <p><code>idle</code>: time spent doing nothing.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ps_system_cpu_times()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p>Platform-specific fields:
+</p>
+
+<ul>
+<li> <p><code>nice</code> (UNIX): time spent by niced (prioritized) processes executing
+in user mode; on Linux this also includes guest_nice time.
+</p>
+</li>
+<li> <p><code>iowait</code> (Linux): time spent waiting for I/O to complete. This is not
+accounted in idle time counter.
+</p>
+</li>
+<li> <p><code>irq</code> (Linux): time spent for servicing hardware interrupts.
+</p>
+</li>
+<li> <p><code>softirq</code> (Linux): time spent for servicing software interrupts.
+</p>
+</li>
+<li> <p><code>steal</code> (Linux 2.6.11+): time spent by other operating systems
+running in a virtualized environment.
+</p>
+</li>
+<li> <p><code>guest</code> (Linux 2.6.24+): time spent running a virtual CPU for guest
+operating systems under the control of the Linux kernel.
+</p>
+</li>
+<li> <p><code>guest_nice</code> (Linux 3.2.0+): time spent running a niced guest
+(virtual CPU for guest operating systems under the control of the
+Linux kernel).
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>Named list
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+ps_system_cpu_times()
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>ps</em> version 1.8.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

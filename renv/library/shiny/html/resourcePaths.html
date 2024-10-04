@@ -1,0 +1,111 @@
+<!DOCTYPE html><html><head><title>R: Resource Publishing</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>addResourcePath {shiny}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Resource Publishing</h2>
+
+<h3>Description</h3>
+
+<p>Add, remove, or list directory of static resources to Shiny's web server,
+with the given path prefix. Primarily intended for package authors to make
+supporting JavaScript/CSS files available to their components.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>addResourcePath(prefix, directoryPath)
+
+resourcePaths()
+
+removeResourcePath(prefix)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="prefix">prefix</code></td>
+<td>
+<p>The URL prefix (without slashes). Valid characters are a-z,
+A-Z, 0-9, hyphen, period, and underscore. For example, a value of 'foo'
+means that any request paths that begin with '/foo' will be mapped to the
+given directory.</p>
+</td></tr>
+<tr><td><code id="directoryPath">directoryPath</code></td>
+<td>
+<p>The directory that contains the static resources to be
+served.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Shiny provides two ways of serving static files (i.e., resources):
+</p>
+
+<ol>
+<li><p> Static files under the <code style="white-space: pre;">&#8288;www/&#8288;</code> directory are automatically made available
+under a request path that begins with <code>/</code>.
+</p>
+</li>
+<li> <p><code>addResourcePath()</code> makes static files in a <code>directoryPath</code> available
+under a request path that begins with <code>prefix</code>.
+</p>
+</li></ol>
+
+<p>The second approach is primarily intended for package authors to make
+supporting JavaScript/CSS files available to their components.
+</p>
+<p>Tools for managing static resources published by Shiny's web server:
+</p>
+
+<ul>
+<li> <p><code>addResourcePath()</code> adds a directory of static resources.
+</p>
+</li>
+<li> <p><code>resourcePaths()</code> lists the currently active resource mappings.
+</p>
+</li>
+<li> <p><code>removeResourcePath()</code> removes a directory of static resources.
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../shiny/help/singleton.html">singleton()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>addResourcePath('datasets', system.file('data', package='datasets'))
+resourcePaths()
+removeResourcePath('datasets')
+resourcePaths()
+
+# make sure all resources are removed
+lapply(names(resourcePaths()), removeResourcePath)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>shiny</em> version 1.9.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

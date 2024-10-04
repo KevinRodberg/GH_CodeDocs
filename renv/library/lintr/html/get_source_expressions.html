@@ -1,0 +1,154 @@
+<!DOCTYPE html><html><head><title>R: Parsed sourced file from a filename</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>get_source_expressions {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Parsed sourced file from a filename</h2>
+
+<h3>Description</h3>
+
+<p>This object is given as input to each linter.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>get_source_expressions(filename, lines = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="filename">filename</code></td>
+<td>
+<p>the file to be parsed.</p>
+</td></tr>
+<tr><td><code id="lines">lines</code></td>
+<td>
+<p>a character vector of lines.
+If <code>NULL</code>, then <code>filename</code> will be read.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The file is read using the <code>encoding</code> setting.
+This setting is found by taking the first valid result from the following locations
+</p>
+
+<ol>
+<li><p> The <code>encoding</code> key from the usual lintr configuration settings.
+</p>
+</li>
+<li><p> The <code>Encoding</code> field from a Package <code>DESCRIPTION</code> file in a parent directory.
+</p>
+</li>
+<li><p> The <code>Encoding</code> field from an R Project <code>.Rproj</code> file in a parent directory.
+</p>
+</li>
+<li> <p><code>"UTF-8"</code> as a fallback.
+</p>
+</li></ol>
+
+
+
+<h3>Value</h3>
+
+<p>A <code>list</code> with three components:
+</p>
+
+<dl>
+<dt>expressions</dt><dd><p>a <code>list</code> of
+<code>n+1</code> objects. The first <code>n</code> elements correspond to each expression in
+<code>filename</code>, and consist of a list of 9 elements:
+</p>
+
+<ul>
+<li><p><code>filename</code> (<code>character</code>)
+</p>
+</li>
+<li><p><code>line</code> (<code>integer</code>) the line in <code>filename</code> where this expression begins
+</p>
+</li>
+<li><p><code>column</code> (<code>integer</code>) the column in <code>filename</code> where this expression begins
+</p>
+</li>
+<li><p><code>lines</code> (named <code>character</code>) vector of all lines spanned by this
+expression, named with the line number corresponding to <code>filename</code>
+</p>
+</li>
+<li><p><code>parsed_content</code> (<code>data.frame</code>) as given by <code><a href="../../utils/help/getParseData.html">utils::getParseData()</a></code> for this expression
+</p>
+</li>
+<li><p><code>xml_parsed_content</code> (<code>xml_document</code>) the XML parse tree of this
+expression as given by <code><a href="../../xmlparsedata/help/xml_parse_data.html">xmlparsedata::xml_parse_data()</a></code>
+</p>
+</li>
+<li><p><code>content</code> (<code>character</code>) the same as <code>lines</code> as a single string (not split across lines)
+</p>
+</li></ul>
+
+<p>The final element of <code>expressions</code> is a list corresponding to the full file
+consisting of 6 elements:
+</p>
+
+<ul>
+<li><p><code>filename</code> (<code>character</code>)
+</p>
+</li>
+<li><p><code>file_lines</code> (<code>character</code>) the <code><a href="../../base/html/readLines.html">readLines()</a></code> output for this file
+</p>
+</li>
+<li><p><code>content</code> (<code>character</code>) for .R files, the same as <code>file_lines</code>;
+for .Rmd or .qmd scripts, this is the extracted R source code (as text)
+</p>
+</li>
+<li><p><code>full_parsed_content</code> (<code>data.frame</code>) as given by
+<code><a href="../../utils/help/getParseData.html">utils::getParseData()</a></code> for the full content
+</p>
+</li>
+<li><p><code>full_xml_parsed_content</code> (<code>xml_document</code>) the XML parse tree of all
+expressions as given by <code><a href="../../xmlparsedata/help/xml_parse_data.html">xmlparsedata::xml_parse_data()</a></code>
+</p>
+</li>
+<li><p><code>terminal_newline</code> (<code>logical</code>) records whether <code>filename</code> has a terminal
+newline (as determined by <code><a href="../../base/html/readLines.html">readLines()</a></code> producing a corresponding warning)
+</p>
+</li></ul>
+
+</dd>
+<dt>error</dt><dd><p>A <code>Lint</code> object describing any parsing error.</p>
+</dd>
+<dt>lines</dt><dd><p>The <code><a href="../../base/html/readLines.html">readLines()</a></code> output for this file.</p>
+</dd>
+</dl>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+tmp &lt;- withr::local_tempfile(lines = c("x &lt;- 1", "y &lt;- x + 1"))
+get_source_expressions(tmp)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

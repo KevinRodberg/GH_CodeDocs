@@ -1,0 +1,77 @@
+<!DOCTYPE html><html><head><title>R: Get the name of the function matched by an XPath</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>xp_call_name {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get the name of the function matched by an XPath</h2>
+
+<h3>Description</h3>
+
+<p>Often, it is more helpful to tailor the <code>message</code> of a lint to record
+which function was matched by the lint logic. This function encapsulates
+the logic to pull out the matched call in common situations.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>xp_call_name(expr, depth = 1L, condition = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="expr">expr</code></td>
+<td>
+<p>An <code>xml_node</code> or <code>xml_nodeset</code>, e.g. from <code><a href="../../xml2/help/xml_find_all.html">xml2::xml_find_all()</a></code>.</p>
+</td></tr>
+<tr><td><code id="depth">depth</code></td>
+<td>
+<p>Integer, default <code>1L</code>. How deep in the AST represented by <code>expr</code>
+should we look to find the call? By default, we assume <code>expr</code> is matched
+to an <code style="white-space: pre;">&#8288;&lt;expr&gt;&#8288;</code> node under which the corresponding <code style="white-space: pre;">&#8288;&lt;SYMBOL_FUNCTION_CALL&gt;&#8288;</code>
+node is found directly. <code>depth = 0L</code> means <code>expr</code> is matched directly
+to the <code>SYMBOL_FUNCTION_CALL</code>; <code>depth &gt; 1L</code> means <code>depth</code> total <code style="white-space: pre;">&#8288;&lt;expr&gt;&#8288;</code>
+nodes must be traversed before finding the call.</p>
+</td></tr>
+<tr><td><code id="condition">condition</code></td>
+<td>
+<p>An additional (XPath condition on the <code>SYMBOL_FUNCTION_CALL</code>
+required for a match. The default (<code>NULL</code>) is no condition. See examples.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>xml_from_code &lt;- function(str) {
+  xml2::read_xml(xmlparsedata::xml_parse_data(parse(text = str, keep.source = TRUE)))
+}
+xml &lt;- xml_from_code("sum(1:10)")
+xp_call_name(xml, depth = 2L)
+
+xp_call_name(xml2::xml_find_first(xml, "expr"))
+
+xml &lt;- xml_from_code(c("sum(1:10)", "sd(1:10)"))
+xp_call_name(xml, depth = 2L, condition = "text() = 'sum'")
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

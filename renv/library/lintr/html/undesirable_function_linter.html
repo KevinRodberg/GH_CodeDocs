@@ -1,0 +1,115 @@
+<!DOCTYPE html><html><head><title>R: Undesirable function linter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>undesirable_function_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Undesirable function linter</h2>
+
+<h3>Description</h3>
+
+<p>Report the use of undesirable functions (e.g. <code><a href="../../base/help/function.html">base::return()</a></code>, <code><a href="../../base/help/options.html">base::options()</a></code>, or
+<code><a href="../../base/help/lapply.html">base::sapply()</a></code>) and suggest an alternative.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>undesirable_function_linter(
+  fun = default_undesirable_functions,
+  symbol_is_undesirable = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="fun">fun</code></td>
+<td>
+<p>Named character vector. <code>names(fun)</code> correspond to undesirable functions,
+while the values give a description of why the function is undesirable.
+If <code>NA</code>, no additional information is given in the lint message. Defaults to
+<a href="../../lintr/help/default_undesirable_functions.html">default_undesirable_functions</a>. To make small customizations to this list,
+use <code><a href="../../lintr/help/modify_defaults.html">modify_defaults()</a></code>.</p>
+</td></tr>
+<tr><td><code id="symbol_is_undesirable">symbol_is_undesirable</code></td>
+<td>
+<p>Whether to consider the use of an undesirable function
+name as a symbol undesirable or not.</p>
+</td></tr>
+</table>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/configurable_linters.html">configurable</a>, <a href="../../lintr/help/efficiency_linters.html">efficiency</a>, <a href="../../lintr/help/robustness_linters.html">robustness</a>, <a href="../../lintr/help/style_linters.html">style</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># defaults for which functions are considered undesirable
+names(default_undesirable_functions)
+
+# will produce lints
+lint(
+  text = "sapply(x, mean)",
+  linters = undesirable_function_linter()
+)
+
+lint(
+  text = "log10(x)",
+  linters = undesirable_function_linter(fun = c("log10" = NA))
+)
+
+lint(
+  text = "log10(x)",
+  linters = undesirable_function_linter(fun = c("log10" = "use log()"))
+)
+
+lint(
+  text = 'dir &lt;- "path/to/a/directory"',
+  linters = undesirable_function_linter(fun = c("dir" = NA))
+)
+
+# okay
+lint(
+  text = "vapply(x, mean, FUN.VALUE = numeric(1))",
+  linters = undesirable_function_linter()
+)
+
+lint(
+  text = "log(x, base = 10)",
+  linters = undesirable_function_linter(fun = c("log10" = "use log()"))
+)
+
+lint(
+  text = 'dir &lt;- "path/to/a/directory"',
+  linters = undesirable_function_linter(fun = c("dir" = NA), symbol_is_undesirable = FALSE)
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

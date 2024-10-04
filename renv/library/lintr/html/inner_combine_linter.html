@@ -1,0 +1,73 @@
+<!DOCTYPE html><html><head><title>R: Require 'c()' to be applied before relatively expensive...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>inner_combine_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Require <code>c()</code> to be applied before relatively expensive vectorized functions</h2>
+
+<h3>Description</h3>
+
+<p><code>as.Date(c(a, b))</code> is logically equivalent to <code>c(as.Date(a), as.Date(b))</code>.
+The same equivalence holds for several other vectorized functions like
+<code><a href="../../base/html/as.POSIXlt.html">as.POSIXct()</a></code> and math functions like <code><a href="../../base/html/Trig.html">sin()</a></code>. The former is to be
+preferred so that the most expensive part of the operation (<code><a href="../../base/html/as.Date.html">as.Date()</a></code>)
+is applied only once.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>inner_combine_linter()
+</code></pre>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/consistency_linters.html">consistency</a>, <a href="../../lintr/help/efficiency_linters.html">efficiency</a>, <a href="../../lintr/help/readability_linters.html">readability</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "c(log10(x), log10(y), log10(z))",
+  linters = inner_combine_linter()
+)
+
+# okay
+lint(
+  text = "log10(c(x, y, z))",
+  linters = inner_combine_linter()
+)
+
+lint(
+  text = "c(log(x, base = 10), log10(x, base = 2))",
+  linters = inner_combine_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

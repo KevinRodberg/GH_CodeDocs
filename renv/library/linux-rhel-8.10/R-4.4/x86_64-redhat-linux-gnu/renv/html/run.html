@@ -1,0 +1,76 @@
+<!DOCTYPE html><html><head><title>R: Run a script</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>run {renv}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Run a script</h2>
+
+<h3>Description</h3>
+
+<p>Run an <span class="rlang"><b>R</b></span> script, in the context of a project using renv. The script will
+be run within an <span class="rlang"><b>R</b></span> sub-process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>run(script, ..., job = NULL, name = NULL, project = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="script">script</code></td>
+<td>
+<p>The path to an <span class="rlang"><b>R</b></span> script.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Unused arguments, reserved for future expansion. If any arguments
+are matched to <code>...</code>, renv will signal an error.</p>
+</td></tr>
+<tr><td><code id="job">job</code></td>
+<td>
+<p>Run the requested script as an RStudio job? Requires a recent
+version of both RStudio and the rstudioapi packages. When <code>NULL</code>, the
+script will be run as a job if possible, and as a regular <span class="rlang"><b>R</b></span> process
+launched by <code><a href="../../base/html/system2.html">system2()</a></code> if not.</p>
+</td></tr>
+<tr><td><code id="name">name</code></td>
+<td>
+<p>The name to associate with the job, for scripts run as a job.</p>
+</td></tr>
+<tr><td><code id="project">project</code></td>
+<td>
+<p>The path to the renv project. This project will be loaded
+before the requested script is executed. When <code>NULL</code> (the default), renv
+will automatically determine the project root for the associated script
+if possible.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The project directory, invisibly. Note that this function is normally
+called for its side effects.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>renv</em> version 1.0.9 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

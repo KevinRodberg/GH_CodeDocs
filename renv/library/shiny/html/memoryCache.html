@@ -1,0 +1,88 @@
+<!DOCTYPE html><html><head><title>R: Create memory cache (deprecated)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>memoryCache {shiny}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create memory cache (deprecated)</h2>
+
+<h3>Description</h3>
+
+<p>Create memory cache (deprecated)
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>memoryCache(
+  max_size = 200 * 1024^2,
+  max_age = Inf,
+  max_n = Inf,
+  evict = c("lru", "fifo"),
+  missing = key_missing(),
+  exec_missing = deprecated(),
+  logfile = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="max_size">max_size</code></td>
+<td>
+<p>Maximum size of the cache, in bytes. If the cache exceeds
+this size, cached objects will be removed according to the value of the
+<code>evict</code>. Use <code>Inf</code> for no size limit. The default is 512 megabytes.</p>
+</td></tr>
+<tr><td><code id="max_age">max_age</code></td>
+<td>
+<p>Maximum age of files in cache before they are evicted, in
+seconds. Use <code>Inf</code> for no age limit.</p>
+</td></tr>
+<tr><td><code id="max_n">max_n</code></td>
+<td>
+<p>Maximum number of objects in the cache. If the number of objects
+exceeds this value, then cached objects will be removed according to the
+value of <code>evict</code>. Use <code>Inf</code> for no limit of number of items.</p>
+</td></tr>
+<tr><td><code id="evict">evict</code></td>
+<td>
+<p>The eviction policy to use to decide which objects are removed
+when a cache pruning occurs. Currently, <code>"lru"</code> and <code>"fifo"</code> are supported.</p>
+</td></tr>
+<tr><td><code id="missing">missing</code></td>
+<td>
+<p>A value to return when <code>get(key)</code> is called but the key is not
+present in the cache. The default is a <code><a href="../../cachem/help/key_missing.html">key_missing()</a></code> object. It is
+actually an expression that is evaluated each time there is a cache miss.
+See section Missing keys for more information.</p>
+</td></tr>
+<tr><td><code id="exec_missing">exec_missing</code></td>
+<td>
+<p>Deprecated.</p>
+</td></tr>
+<tr><td><code id="logfile">logfile</code></td>
+<td>
+<p>An optional filename or connection object to where logging
+information will be written. To log to the console, use <code>stderr()</code> or
+<code>stdout()</code>.</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>shiny</em> version 1.9.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

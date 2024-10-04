@@ -1,0 +1,75 @@
+<!DOCTYPE html><html><head><title>R: Require usage of boolean operators over equivalent arithmetic</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>boolean_arithmetic_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Require usage of boolean operators over equivalent arithmetic</h2>
+
+<h3>Description</h3>
+
+<p><code>length(which(x == y)) == 0</code> is the same as <code>!any(x == y)</code>, but the latter
+is more readable and more efficient.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>boolean_arithmetic_linter()
+</code></pre>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/efficiency_linters.html">efficiency</a>, <a href="../../lintr/help/readability_linters.html">readability</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "length(which(x == y)) == 0L",
+  linters = boolean_arithmetic_linter()
+)
+
+lint(
+  text = "sum(grepl(pattern, x)) == 0",
+  linters = boolean_arithmetic_linter()
+)
+
+# okay
+lint(
+  text = "!any(x == y)",
+  linters = boolean_arithmetic_linter()
+)
+
+lint(
+  text = "!any(grepl(pattern, x))",
+  linters = boolean_arithmetic_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

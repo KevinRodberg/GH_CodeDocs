@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><title>R: Read lintr settings</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>read_settings {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Read lintr settings</h2>
+
+<h3>Description</h3>
+
+<p>Lintr searches for settings for a given source file in the following order:
+</p>
+
+<ol>
+<li><p> options defined as <code>linter.setting</code>.
+</p>
+</li>
+<li> <p><code>linter_file</code> in the same directory
+</p>
+</li>
+<li> <p><code>linter_file</code> in the project directory
+</p>
+</li>
+<li> <p><code>linter_file</code> in the user home directory
+</p>
+</li>
+<li> <p><code><a href="../../lintr/help/default_settings.html">default_settings()</a></code>
+</p>
+</li></ol>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>read_settings(filename)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="filename">filename</code></td>
+<td>
+<p>source file to be linted</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The default linter_file name is <code>.lintr</code> but it can be changed with option <code>lintr.linter_file</code>
+or the environment variable <code>R_LINTR_LINTER_FILE</code>
+This file is a DCF file, see <code><a href="../../base/help/dcf.html">base::read.dcf()</a></code> for details.
+Experimentally, we also support keeping the config in a plain R file. By default we look for
+a file named '.lintr.R' (in the same directories where we search for '.lintr').
+We are still deciding the future of config support in lintr, so user feedback is welcome.
+The advantage of R is that it maps more closely to how the configs are actually stored,
+whereas the DCF approach requires somewhat awkward formatting of parseable R code within
+valid DCF key-value pairs. The main disadvantage of the R file is it might be <em>too</em> flexible,
+with users tempted to write configs with side effects causing hard-to-detect bugs or
+like YAML could work, but require new dependencies and are harder to parse
+both programmatically and visually.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html><html><head><title>R: Tools for Bioconductor repositories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>bioc_version {remotes}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Tools for Bioconductor repositories</h2>
+
+<h3>Description</h3>
+
+<p><code>bioc_version()</code> returns the Bioconductor version for the current or the
+specified R version.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>bioc_version(r_ver = getRversion())
+
+bioc_install_repos(r_ver = getRversion(), bioc_ver = bioc_version(r_ver))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="r_ver">r_ver</code></td>
+<td>
+<p>R version to use. For <code>bioc_install_repos()</code> it is
+ignored if <code>bioc_ver</code> is specified.</p>
+</td></tr>
+<tr><td><code id="bioc_ver">bioc_ver</code></td>
+<td>
+<p>Bioconductor version to use. Defaults to the default one
+corresponding to <code>r_ver</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>bioc_install_repos()</code> deduces the URLs of the Bioconductor repositories.
+</p>
+<p>Both functions observe the <code>R_BIOC_VERSION</code> environment variable, which
+can be set to force a Bioconductor version. If this is set, then the
+<code>r_ver</code> and <code>bioc_ver</code> arguments are ignored.
+</p>
+<p><code>bioc_install_repos()</code> observes the <code>R_BIOC_MIRROR</code> environment variable
+and also the <code>BioC_mirror</code> option, which can be set to the desired
+Bioconductor mirror. The option takes precedence if both are set. Its
+default value is <code style="white-space: pre;">&#8288;https://bioconductor.org&#8288;</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>bioc_version()</code> returns a Bioconductor version, a <code>package_version</code>
+object.
+</p>
+<p><code>bioc_install_repos()</code> returns a named character vector of the URLs of
+the Bioconductor repositories, appropriate for the current or the
+specified R version.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>bioc_version()
+bioc_version("3.4")
+bioc_install_repos()
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>remotes</em> version 2.5.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

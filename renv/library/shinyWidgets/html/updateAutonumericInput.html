@@ -1,0 +1,153 @@
+<!DOCTYPE html><html><head><title>R: Update an Autonumeric Input Object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>updateAutonumericInput {shinyWidgets}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Update an Autonumeric Input Object</h2>
+
+<h3>Description</h3>
+
+<p>Update an Autonumeric Input Object
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>updateAutonumericInput(
+  session = getDefaultReactiveDomain(),
+  inputId,
+  label = NULL,
+  value = NULL,
+  options = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="session">session</code></td>
+<td>
+<p>Standard shiny <code>session</code>.</p>
+</td></tr>
+<tr><td><code id="inputId">inputId</code></td>
+<td>
+<p>The id of the input object.</p>
+</td></tr>
+<tr><td><code id="label">label</code></td>
+<td>
+<p>The label to set for the input object.</p>
+</td></tr>
+<tr><td><code id="value">value</code></td>
+<td>
+<p>The value to set for the input object.</p>
+</td></tr>
+<tr><td><code id="options">options</code></td>
+<td>
+<p>List of additional parameters to update, use
+<code>autonumericInput</code>'s arguments.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other autonumeric: 
+<code><a href="../../shinyWidgets/help/autonumericInput.html">autonumericInput</a>()</code>,
+<code><a href="../../shinyWidgets/help/currencyInput.html">currencyInput</a>()</code>,
+<code><a href="../../shinyWidgets/help/updateCurrencyInput.html">updateCurrencyInput</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>if (interactive()) {
+  library(shiny)
+  library(shinyWidgets)
+
+  ui &lt;- fluidPage(
+    h1("AutonumericInput Update Example"),
+    br(),
+    autonumericInput(
+      inputId = "id1",
+      label = "Autonumeric Input",
+      value = 1234.56,
+      align = "center",
+      currencySymbol = "$ ",
+      currencySymbolPlacement = "p",
+      decimalCharacter = ".",
+      digitGroupSeparator = ","
+    ),
+    verbatimTextOutput("res1"),
+    actionButton("bttn1", "Change Input to Euros"),
+    actionButton("bttn2", "Change Input to Dollars"),
+    br(),
+    br(),
+    sliderInput("decimals", "Select Number of Decimal Places",
+                value = 2, step = 1, min = 0, max = 6),
+    actionButton("bttn3", "Update Number of Decimal Places")
+  )
+
+  server &lt;- function(input, output, session) {
+    output$res1 &lt;- renderPrint(input$id1)
+
+    observeEvent(input$bttn1, {
+      updateAutonumericInput(
+        session = session,
+        inputId = "id1",
+        label = "Euros:",
+        value = 6543.21,
+        options = list(
+          currencySymbol = "\u20ac",
+          currencySymbolPlacement = "s",
+          decimalCharacter = ",",
+          digitGroupSeparator = "."
+        )
+      )
+    })
+    observeEvent(input$bttn2, {
+      updateAutonumericInput(
+        session = session,
+        inputId = "id1",
+        label = "Dollars:",
+        value = 6543.21,
+        options = list(
+          currencySymbol = "$",
+          currencySymbolPlacement = "p",
+          decimalCharacter = ".",
+          digitGroupSeparator = ","
+        )
+      )
+    })
+    observeEvent(input$bttn3, {
+      updateAutonumericInput(
+        session = session,
+        inputId = "id1",
+        options = list(
+          decimalPlaces = input$decimals
+        )
+      )
+    })
+  }
+
+  shinyApp(ui, server)
+}
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>shinyWidgets</em> version 0.8.6 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

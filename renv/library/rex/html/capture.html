@@ -1,0 +1,98 @@
+<!DOCTYPE html><html><head><title>R: Create a capture group</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>capture {rex}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a capture group</h2>
+
+<h3>Description</h3>
+
+<p>Used to save the matched value within the group for use later in the regular
+expression or to extract the values captured.  Both named and unnamed groups
+can later be referenced using <code><a href="../../rex/help/capture_group.html">capture_group</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>capture(..., name = NULL)
+
+capture_group(name)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="...">...</code></td>
+<td>
+<p><code><a href="../../rex/help/shortcuts.html">shortcuts</a></code>, R variables, text, or other <span class="pkg">rex</span>
+functions.</p>
+</td></tr>
+<tr><td><code id="name">name</code></td>
+<td>
+<p>of the group.  Unnamed capture groups are numbers starting at 1
+in the order they appear in the regular expression.  If two groups have the
+same name, the leftmost group is the used in any reference.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../rex/help/group.html">group</a></code> for grouping without capturing.  Perl 5 Capture
+Groups <a href="https://perldoc.perl.org/perlre#Capture-groups">https://perldoc.perl.org/perlre#Capture-groups</a>
+</p>
+<p>Other rex: 
+<code><a href="../../rex/help/+25or+25.html">%or%</a>()</code>,
+<code><a href="../../rex/help/character_class.html">character_class</a>()</code>,
+<code><a href="../../rex/help/counts.html">counts</a></code>,
+<code><a href="../../rex/help/group.html">group</a>()</code>,
+<code><a href="../../rex/help/lookarounds.html">lookarounds</a></code>,
+<code><a href="../../rex/help/not.html">not</a>()</code>,
+<code><a href="../../rex/help/rex.html">rex</a>()</code>,
+<code><a href="../../rex/help/shortcuts.html">shortcuts</a></code>,
+<code><a href="../../rex/help/wildcards.html">wildcards</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+# Match paired quotation marks
+re &lt;- rex(
+  # first quotation mark
+  capture(quotes),
+
+  # match all non-matching quotation marks
+  zero_or_more(except(capture_group(1))),
+
+  # end quotation mark (matches first)
+  capture_group(1)
+)
+
+#named capture - don't match apples to oranges
+re &lt;- rex(
+  capture(name = "fruit", or("apple", "orange")),
+  "=",
+  capture_group("fruit")
+)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>rex</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

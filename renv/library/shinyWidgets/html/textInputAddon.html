@@ -1,0 +1,98 @@
+<!DOCTYPE html><html><head><title>R: Text with Add-on Input Control</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>textInputAddon {shinyWidgets}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Text with Add-on Input Control</h2>
+
+<h3>Description</h3>
+
+<p>Create text field with add-on.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>textInputAddon(
+  inputId,
+  label,
+  value = "",
+  placeholder = NULL,
+  addon,
+  width = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="inputId">inputId</code></td>
+<td>
+<p>The <code>input</code> slot that will be used to access the value.</p>
+</td></tr>
+<tr><td><code id="label">label</code></td>
+<td>
+<p>Display label for the control, or <code>NULL</code> for no label.</p>
+</td></tr>
+<tr><td><code id="value">value</code></td>
+<td>
+<p>Initial value..</p>
+</td></tr>
+<tr><td><code id="placeholder">placeholder</code></td>
+<td>
+<p>A character string giving the user a hint as to what can be entered into the control.</p>
+</td></tr>
+<tr><td><code id="addon">addon</code></td>
+<td>
+<p>An icon tag, created by <code><a href="../../shiny/help/icon.html">shiny::icon()</a></code>.</p>
+</td></tr>
+<tr><td><code id="width">width</code></td>
+<td>
+<p>The width of the input : 'auto', 'fit', '100px', '75%'.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A switch control that can be added to a UI definition.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Only run examples in interactive R sessions
+if (interactive()) {
+shinyApp(
+  ui = fluidPage(
+    textInputAddon(inputId = "id", label = "Label", placeholder = "Username", addon = icon("at")),
+    verbatimTextOutput(outputId = "out")
+  ),
+  server = function(input, output) {
+    output$out &lt;- renderPrint({
+      input$id
+    })
+  }
+)
+}
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>shinyWidgets</em> version 0.8.6 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

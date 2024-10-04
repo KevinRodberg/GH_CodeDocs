@@ -1,0 +1,97 @@
+<!DOCTYPE html><html><head><title>R: Modify lintr defaults</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>modify_defaults {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Modify lintr defaults</h2>
+
+<h3>Description</h3>
+
+<p>Modify a list of defaults by name, allowing for replacement, deletion and addition of new elements.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>modify_defaults(defaults, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="defaults">defaults</code></td>
+<td>
+<p>named list of elements to modify.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>arguments of elements to change. If unnamed, the argument is automatically named.
+If the named argument already exists in <code>defaults</code>, it is replaced by the new element.
+If it does not exist, it is added. If the value is <code>NULL</code>, the element is removed.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A modified list of elements, sorted by name. To achieve this sort in a platform-independent way, two
+transformations are applied to the names: (1) replace <code style="white-space: pre;">&#8288;_&#8288;</code> with <code>0</code> and (2) convert <code><a href="../../base/html/chartr.html">tolower()</a></code>.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../lintr/help/linters_with_defaults.html">linters_with_defaults</a> for basing off lintr's set of default linters.
+</p>
+</li>
+<li> <p><a href="../../lintr/help/all_linters.html">all_linters</a> for basing off all available linters in lintr.
+</p>
+</li>
+<li> <p><a href="../../lintr/help/linters_with_tags.html">linters_with_tags</a> for basing off tags attached to linters, possibly across multiple packages.
+</p>
+</li>
+<li> <p><a href="../../lintr/help/available_linters.html">available_linters</a> to get a data frame of available linters.
+</p>
+</li>
+<li> <p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># custom list of undesirable functions:
+#    remove `sapply` (using `NULL`)
+#    add `cat` (with an accompanying message),
+#    add `print` (unnamed, i.e. with no accompanying message)
+#    add `source` (as taken from `all_undesirable_functions`)
+my_undesirable_functions &lt;- modify_defaults(
+  defaults = default_undesirable_functions,
+  sapply = NULL, "cat" = "No cat allowed", "print", all_undesirable_functions[["source"]]
+)
+
+# list names of functions specified as undesirable
+names(my_undesirable_functions)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html><html><head><title>R: Extraction operator linter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>extraction_operator_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extraction operator linter</h2>
+
+<h3>Description</h3>
+
+<p>Check that the <code>[[</code> operator is used when extracting a single element from an object,
+not <code>[</code> (subsetting) nor <code>$</code> (interactive use).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>extraction_operator_linter()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p>There are three subsetting operators in R (<code>[[</code>, <code>[</code>, and <code>$</code>) and they interact differently
+with different data structures (atomic vector, list, data frame, etc.).
+</p>
+<p>Here are a few reasons to prefer the <code>[[</code> operator over <code>[</code> or <code>$</code> when you want to extract
+an element from a data frame or a list:
+</p>
+
+<ul>
+<li><p> Subsetting a list with <code>[</code> always returns a smaller list, while <code>[[</code> returns
+the list element.
+</p>
+</li>
+<li><p> Subsetting a named atomic vector with <code>[</code> returns a named vector, while <code>[[</code> returns
+the vector element.
+</p>
+</li>
+<li><p> Subsetting a data frame (but not tibble) with <code>[</code> is type unstable; it can return
+a vector or a data frame. <code>[[</code>, on the other hand, always returns a vector.
+</p>
+</li>
+<li><p> For a data frame (but not tibble), <code>$</code> does partial matching (e.g. <code>df$a</code> will subset
+<code>df$abc</code>), which can be a source of bugs. <code>[[</code> doesn't do partial matching.
+</p>
+</li></ul>
+
+<p>For data frames (and tibbles), irrespective of the size, the <code>[[</code> operator is slower than <code>$</code>.
+For lists, however, the reverse is true.
+</p>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/style_linters.html">style</a>
+</p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> Subsetting <a href="https://adv-r.hadley.nz/subsetting.html">chapter</a> from <em>Advanced R</em> (Wickham, 2019).
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = 'iris["Species"]',
+  linters = extraction_operator_linter()
+)
+
+lint(
+  text = "iris$Species",
+  linters = extraction_operator_linter()
+)
+
+# okay
+lint(
+  text = 'iris[["Species"]]',
+  linters = extraction_operator_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

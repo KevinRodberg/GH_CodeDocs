@@ -1,0 +1,119 @@
+<!DOCTYPE html><html><head><title>R: Efficiency linters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>efficiency_linters {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Efficiency linters</h2>
+
+<h3>Description</h3>
+
+<p>Linters highlighting code efficiency problems, such as unnecessary function calls.
+</p>
+
+
+<h3>Linters</h3>
+
+<p>The following linters are tagged with 'efficiency':
+</p>
+
+<ul>
+<li><p><code><a href="../../lintr/help/any_duplicated_linter.html">any_duplicated_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/any_is_na_linter.html">any_is_na_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/boolean_arithmetic_linter.html">boolean_arithmetic_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/fixed_regex_linter.html">fixed_regex_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/ifelse_censor_linter.html">ifelse_censor_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/inner_combine_linter.html">inner_combine_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/length_test_linter.html">length_test_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/lengths_linter.html">lengths_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/literal_coercion_linter.html">literal_coercion_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/matrix_apply_linter.html">matrix_apply_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/nested_ifelse_linter.html">nested_ifelse_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/outer_negation_linter.html">outer_negation_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/redundant_equals_linter.html">redundant_equals_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/redundant_ifelse_linter.html">redundant_ifelse_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/regex_subset_linter.html">regex_subset_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/routine_registration_linter.html">routine_registration_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/scalar_in_linter.html">scalar_in_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/seq_linter.html">seq_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/sort_linter.html">sort_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/string_boundary_linter.html">string_boundary_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/undesirable_function_linter.html">undesirable_function_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/undesirable_operator_linter.html">undesirable_operator_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/unnecessary_concatenation_linter.html">unnecessary_concatenation_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/unnecessary_lambda_linter.html">unnecessary_lambda_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/vector_logic_linter.html">vector_logic_linter</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

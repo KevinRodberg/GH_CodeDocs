@@ -1,0 +1,100 @@
+<!DOCTYPE html><html><head><title>R: Create a linter configuration based on defaults</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>linters_with_defaults {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a linter configuration based on defaults</h2>
+
+<h3>Description</h3>
+
+<p>Make a new list based on <span class="pkg">lintr</span>'s default linters.
+The result of this function is meant to be passed to the <code>linters</code> argument of <code>lint()</code>,
+or to be put in your configuration file.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>linters_with_defaults(..., defaults = default_linters)
+
+with_defaults(..., default = default_linters)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Arguments of elements to change. If unnamed, the argument is automatically named.
+If the named argument already exists in the list of linters, it is replaced by the new element.
+If it does not exist, it is added. If the value is <code>NULL</code>, the linter is removed.</p>
+</td></tr>
+<tr><td><code id="defaults">defaults</code>, <code id="default">default</code></td>
+<td>
+<p>Default list of linters to modify. Must be named.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../lintr/help/linters_with_tags.html">linters_with_tags</a> for basing off tags attached to linters, possibly across multiple packages.
+</p>
+</li>
+<li> <p><a href="../../lintr/help/all_linters.html">all_linters</a> for basing off all available linters in lintr.
+</p>
+</li>
+<li> <p><a href="../../lintr/help/available_linters.html">available_linters</a> to get a data frame of available linters.
+</p>
+</li>
+<li> <p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+# When using interactively you will usually pass the result onto `lint` or `lint_package()`
+f &lt;- withr::local_tempfile(lines = "my_slightly_long_variable_name &lt;- 2.3", fileext = "R")
+lint(f, linters = linters_with_defaults(line_length_linter = line_length_linter(120)))
+
+# the default linter list with a different line length cutoff
+my_linters &lt;- linters_with_defaults(line_length_linter = line_length_linter(120))
+
+# omit the argument name if you are just using different arguments
+my_linters &lt;- linters_with_defaults(defaults = my_linters, object_name_linter("camelCase"))
+
+# remove assignment checks (with NULL), add absolute path checks
+my_linters &lt;- linters_with_defaults(
+  defaults = my_linters,
+  assignment_linter = NULL,
+  absolute_path_linter()
+)
+
+# checking the included linters
+names(my_linters)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html><html><head><title>R: Shiny modules</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>moduleServer {shiny}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Shiny modules</h2>
+
+<h3>Description</h3>
+
+<p>Shiny's module feature lets you break complicated UI and server logic into
+smaller, self-contained pieces. Compared to large monolithic Shiny apps,
+modules are easier to reuse and easier to reason about. See the article at
+<a href="https://shiny.rstudio.com/articles/modules.html">https://shiny.rstudio.com/articles/modules.html</a> to learn more.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>moduleServer(id, module, session = getDefaultReactiveDomain())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="id">id</code></td>
+<td>
+<p>An ID string that corresponds with the ID used to call the module's
+UI function.</p>
+</td></tr>
+<tr><td><code id="module">module</code></td>
+<td>
+<p>A Shiny module server function.</p>
+</td></tr>
+<tr><td><code id="session">session</code></td>
+<td>
+<p>Session from which to make a child scope (the default should
+almost always be used).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Starting in Shiny 1.5.0, we recommend using <code>moduleServer</code> instead of
+<code><a href="../../shiny/help/callModule.html">callModule()</a></code>, because the syntax is a little easier
+to understand, and modules created with <code>moduleServer</code> can be tested with
+<code><a href="../../shiny/help/testServer.html">testServer()</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The return value, if any, from executing the module server function
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="https://shiny.rstudio.com/articles/modules.html">https://shiny.rstudio.com/articles/modules.html</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Define the UI for a module
+counterUI &lt;- function(id, label = "Counter") {
+  ns &lt;- NS(id)
+  tagList(
+    actionButton(ns("button"), label = label),
+    verbatimTextOutput(ns("out"))
+  )
+}
+
+# Define the server logic for a module
+counterServer &lt;- function(id) {
+  moduleServer(
+    id,
+    function(input, output, session) {
+      count &lt;- reactiveVal(0)
+      observeEvent(input$button, {
+        count(count() + 1)
+      })
+      output$out &lt;- renderText({
+        count()
+      })
+      count
+    }
+  )
+}
+
+# Use the module in an app
+ui &lt;- fluidPage(
+  counterUI("counter1", "Counter #1"),
+  counterUI("counter2", "Counter #2")
+)
+server &lt;- function(input, output, session) {
+  counterServer("counter1")
+  counterServer("counter2")
+}
+if (interactive()) {
+  shinyApp(ui, server)
+}
+
+
+
+# If you want to pass extra parameters to the module's server logic, you can
+# add them to your function. In this case `prefix` is text that will be
+# printed before the count.
+counterServer2 &lt;- function(id, prefix = NULL) {
+  moduleServer(
+    id,
+    function(input, output, session) {
+      count &lt;- reactiveVal(0)
+      observeEvent(input$button, {
+        count(count() + 1)
+      })
+      output$out &lt;- renderText({
+        paste0(prefix, count())
+      })
+      count
+    }
+  )
+}
+
+ui &lt;- fluidPage(
+  counterUI("counter", "Counter"),
+)
+server &lt;- function(input, output, session) {
+  counterServer2("counter", "The current count is: ")
+}
+if (interactive()) {
+  shinyApp(ui, server)
+}
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>shiny</em> version 1.9.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

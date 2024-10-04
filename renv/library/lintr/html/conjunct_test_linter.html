@@ -1,0 +1,138 @@
+<!DOCTYPE html><html><head><title>R: Force '&amp;&amp;' conditions to be written separately where...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>conjunct_test_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Force <code>&amp;&amp;</code> conditions to be written separately where appropriate</h2>
+
+<h3>Description</h3>
+
+<p>For readability of test outputs, testing only one thing per call to
+<code><a href="../../testthat/help/logical-expectations.html">testthat::expect_true()</a></code> is preferable, i.e.,
+<code style="white-space: pre;">&#8288;expect_true(A); expect_true(B)&#8288;</code> is better than <code>expect_true(A &amp;&amp; B)</code>, and
+<code style="white-space: pre;">&#8288;expect_false(A); expect_false(B)&#8288;</code> is better than <code>expect_false(A || B)</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>conjunct_test_linter(
+  allow_named_stopifnot = TRUE,
+  allow_filter = c("never", "not_dplyr", "always")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="allow_named_stopifnot">allow_named_stopifnot</code></td>
+<td>
+<p>Logical, <code>TRUE</code> by default. If <code>FALSE</code>, &quot;named&quot; calls to <code>stopifnot()</code>,
+available since R 4.0.0 to provide helpful messages for test failures, are also linted.</p>
+</td></tr>
+<tr><td><code id="allow_filter">allow_filter</code></td>
+<td>
+<p>Character naming the method for linting calls to <code>filter()</code>. The default, <code>"never"</code>, means
+<code>filter()</code> and <code>dplyr::filter()</code> calls are linted; <code>"not_dplyr"</code> means only <code>dplyr::filter()</code> calls are linted;
+and <code>"always"</code> means no calls to <code>filter()</code> are linted. Calls like <code>stats::filter()</code> are never linted.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Similar reasoning applies to <code>&amp;&amp;</code> usage inside <code><a href="../../base/html/stopifnot.html">stopifnot()</a></code> and <code>assertthat::assert_that()</code> calls.
+</p>
+<p>Relatedly, <code>dplyr::filter(DF, A &amp; B)</code> is the same as <code>dplyr::filter(DF, A, B)</code>, but the latter will be more readable
+/ easier to format for long conditions. Note that this linter assumes usages of <code>filter()</code> are <code>dplyr::filter()</code>;
+if you're using another function named <code>filter()</code>, e.g. <code><a href="../../stats/help/filter.html">stats::filter()</a></code>, please namespace-qualify it to avoid
+false positives. You can omit linting <code>filter()</code> expressions altogether via <code>allow_filter = TRUE</code>.
+</p>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/configurable_linters.html">configurable</a>, <a href="../../lintr/help/package_development_linters.html">package_development</a>, <a href="../../lintr/help/pkg_testthat_linters.html">pkg_testthat</a>, <a href="../../lintr/help/readability_linters.html">readability</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "expect_true(x &amp;&amp; y)",
+  linters = conjunct_test_linter()
+)
+
+lint(
+  text = "expect_false(x || (y &amp;&amp; z))",
+  linters = conjunct_test_linter()
+)
+
+lint(
+  text = "stopifnot('x must be a logical scalar' = length(x) == 1 &amp;&amp; is.logical(x) &amp;&amp; !is.na(x))",
+  linters = conjunct_test_linter(allow_named_stopifnot = FALSE)
+)
+
+lint(
+  text = "dplyr::filter(mtcars, mpg &gt; 20 &amp; vs == 0)",
+  linters = conjunct_test_linter()
+)
+
+lint(
+  text = "filter(mtcars, mpg &gt; 20 &amp; vs == 0)",
+  linters = conjunct_test_linter()
+)
+
+# okay
+lint(
+  text = "expect_true(x || (y &amp;&amp; z))",
+  linters = conjunct_test_linter()
+)
+
+lint(
+  text = 'stopifnot("x must be a logical scalar" = length(x) == 1 &amp;&amp; is.logical(x) &amp;&amp; !is.na(x))',
+  linters = conjunct_test_linter(allow_named_stopifnot = TRUE)
+)
+
+lint(
+  text = "dplyr::filter(mtcars, mpg &gt; 20 &amp; vs == 0)",
+  linters = conjunct_test_linter(allow_filter = "always")
+)
+
+lint(
+  text = "filter(mtcars, mpg &gt; 20 &amp; vs == 0)",
+  linters = conjunct_test_linter(allow_filter = "not_dplyr")
+)
+
+lint(
+  text = "stats::filter(mtcars$cyl, mtcars$mpg &gt; 20 &amp; mtcars$vs == 0)",
+  linters = conjunct_test_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

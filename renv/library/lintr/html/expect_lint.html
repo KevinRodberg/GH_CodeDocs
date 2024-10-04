@@ -1,0 +1,108 @@
+<!DOCTYPE html><html><head><title>R: Lint expectation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>expect_lint {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Lint expectation</h2>
+
+<h3>Description</h3>
+
+<p>This is an expectation function to test that the lints produced by <code>lint</code> satisfy a number of checks.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>expect_lint(content, checks, ..., file = NULL, language = "en")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="content">content</code></td>
+<td>
+<p>a character vector for the file content to be linted, each vector element representing a line of
+text.</p>
+</td></tr>
+<tr><td><code id="checks">checks</code></td>
+<td>
+<p>checks to be performed:
+</p>
+
+<dl>
+<dt>NULL</dt><dd><p>check that no lints are returned.</p>
+</dd>
+<dt>single string or regex object</dt><dd><p>check that the single lint returned has a matching message.</p>
+</dd>
+<dt>named list</dt><dd><p>check that the single lint returned has fields that match. Accepted fields are the same as those
+taken by <code><a href="../../lintr/help/Lint.html">Lint()</a></code>.</p>
+</dd>
+<dt>list of named lists</dt><dd><p>for each of the multiple lints returned, check that it matches the checks in the
+corresponding named list (as described in the point above).</p>
+</dd>
+</dl>
+
+<p>Named vectors are also accepted instead of named lists, but this is a compatibility feature that
+is not recommended for new code.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>arguments passed to <code><a href="../../lintr/help/lint.html">lint()</a></code>, e.g. the linters or cache to use.</p>
+</td></tr>
+<tr><td><code id="file">file</code></td>
+<td>
+<p>if not <code>NULL</code>, read content from the specified file rather than from <code>content</code>.</p>
+</td></tr>
+<tr><td><code id="language">language</code></td>
+<td>
+<p>temporarily override Rs <code>LANGUAGE</code> envvar, controlling localization of base R error messages.
+This makes testing them reproducible on all systems irrespective of their native R language setting.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>NULL</code>, invisibly.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># no expected lint
+expect_lint("a", NULL, trailing_blank_lines_linter())
+
+# one expected lint
+expect_lint("a\n", "superfluous", trailing_blank_lines_linter())
+expect_lint("a\n", list(message = "superfluous", line_number = 2), trailing_blank_lines_linter())
+
+# several expected lints
+expect_lint("a\n\n", list("superfluous", "superfluous"), trailing_blank_lines_linter())
+expect_lint(
+  "a\n\n",
+  list(
+    list(message = "superfluous", line_number = 2),
+    list(message = "superfluous", line_number = 3)
+  ),
+  trailing_blank_lines_linter()
+)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

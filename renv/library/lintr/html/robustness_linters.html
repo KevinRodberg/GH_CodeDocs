@@ -1,0 +1,86 @@
+<!DOCTYPE html><html><head><title>R: Robustness linters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>robustness_linters {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Robustness linters</h2>
+
+<h3>Description</h3>
+
+<p>Linters highlighting code robustness issues, such as possibly wrong edge case behavior.
+</p>
+
+
+<h3>Linters</h3>
+
+<p>The following linters are tagged with 'robustness':
+</p>
+
+<ul>
+<li><p><code><a href="../../lintr/help/absolute_path_linter.html">absolute_path_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/backport_linter.html">backport_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/class_equals_linter.html">class_equals_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/equals_na_linter.html">equals_na_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/for_loop_index_linter.html">for_loop_index_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/missing_package_linter.html">missing_package_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/namespace_linter.html">namespace_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/nonportable_path_linter.html">nonportable_path_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/routine_registration_linter.html">routine_registration_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/seq_linter.html">seq_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/strings_as_factors_linter.html">strings_as_factors_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/T_and_F_symbol_linter.html">T_and_F_symbol_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/undesirable_function_linter.html">undesirable_function_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/undesirable_operator_linter.html">undesirable_operator_linter</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

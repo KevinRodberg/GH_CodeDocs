@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><title>R: Print message for deprecated functions in Shiny</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>shinyDeprecated {shiny}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Print message for deprecated functions in Shiny</h2>
+
+<h3>Description</h3>
+
+<p>To disable these messages, use <code>options(shiny.deprecation.messages=FALSE)</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>shinyDeprecated(
+  version,
+  what,
+  with = NULL,
+  details = NULL,
+  type = c("deprecated", "superseded")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="version">version</code></td>
+<td>
+<p>Shiny version when the function was deprecated</p>
+</td></tr>
+<tr><td><code id="what">what</code></td>
+<td>
+<p>Function with possible arguments</p>
+</td></tr>
+<tr><td><code id="with">with</code></td>
+<td>
+<p>Possible function with arguments that should be used instead</p>
+</td></tr>
+<tr><td><code id="details">details</code></td>
+<td>
+<p>Additional information to be added after a new line to the displayed message</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>shiny</em> version 1.9.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

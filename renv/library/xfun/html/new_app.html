@@ -1,0 +1,76 @@
+<!DOCTYPE html><html><head><title>R: Create a local web application</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>new_app {xfun}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a local web application</h2>
+
+<h3>Description</h3>
+
+<p>An experimental function to create a local web application based on R's
+internal <code>httpd</code> server (which is primarily for running R's dynamic help
+system).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>new_app(name, handler, open = interactive(), ports = 4321 + 1:10)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="name">name</code></td>
+<td>
+<p>The app name (a character string, and each app should have a
+unique name).</p>
+</td></tr>
+<tr><td><code id="handler">handler</code></td>
+<td>
+<p>A function that takes the HTTP request information (the first
+argument is the requested path) and returns a response.</p>
+</td></tr>
+<tr><td><code id="open">open</code></td>
+<td>
+<p>Whether to open the app, or a function to open the app URL.</p>
+</td></tr>
+<tr><td><code id="ports">ports</code></td>
+<td>
+<p>A vector of ports to try for starting the server.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The app URL of the form <code style="white-space: pre;">&#8288;http://127.0.0.1:port/custom/name/&#8288;</code>.
+</p>
+
+
+<h3>Note</h3>
+
+<p>This function is not based on base R's public API, and is possible to
+break in the future, which is also why the documentation here is terse.
+Please avoid creating public-facing web apps with it. You may consider
+packages like <span class="pkg">httpuv</span> and <span class="pkg">Rserve</span> for production web apps.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>xfun</em> version 0.47 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

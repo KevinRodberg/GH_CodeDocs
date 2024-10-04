@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><title>R: Save objects to files and lazy-load them</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>lazy_save {xfun}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Save objects to files and lazy-load them</h2>
+
+<h3>Description</h3>
+
+<p>The function <code><a href="../../xfun/help/lazy_save.html">lazy_save()</a></code> saves objects to files with incremental integer
+names (e.g., the first object is saved to <code style="white-space: pre;">&#8288;1.rds&#8288;</code>, and the second object is
+saved to <code style="white-space: pre;">&#8288;2.rds&#8288;</code>, etc.). The function <code><a href="../../xfun/help/lazy_load.html">lazy_load()</a></code> lazy-load objects from
+files saved via <code><a href="../../xfun/help/lazy_save.html">lazy_save()</a></code>, i.e., a file will not be read until the object
+is used.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>lazy_save(list = NULL, path = "./", method = "auto", envir = parent.frame())
+
+lazy_load(path = "./", method = "auto", envir = parent.frame())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="list">list</code></td>
+<td>
+<p>A character vector of object names. This list will be written to
+an index file with <code>0</code> as the base name (e.g., <code style="white-space: pre;">&#8288;0.rds&#8288;</code>).</p>
+</td></tr>
+<tr><td><code id="path">path</code></td>
+<td>
+<p>The path to write files to / read files from.</p>
+</td></tr>
+<tr><td><code id="method">method</code></td>
+<td>
+<p>The file save/load method. It can be a string (e.g., <code>rds</code>,
+<code>raw</code>, or <code>qs</code>) or a list. See the <code>rw</code> argument of <code><a href="../../xfun/help/cache_exec.html">cache_exec()</a></code>. By
+default, it is automatically detected by checking the existence of the
+index file (e.g., <code style="white-space: pre;">&#8288;0.rds&#8288;</code>, <code style="white-space: pre;">&#8288;0.raw&#8288;</code>, or <code style="white-space: pre;">&#8288;0.qs&#8288;</code>).</p>
+</td></tr>
+<tr><td><code id="envir">envir</code></td>
+<td>
+<p>The environment to <a href="../../base/html/get.html">get</a> or <a href="../../base/html/assign.html">assign</a> objects.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code><a href="../../xfun/help/lazy_save.html">lazy_save()</a></code> returns invisible <code>NULL</code>; <code><a href="../../xfun/help/lazy_load.html">lazy_load()</a></code> returns the
+object names invisibly.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/delayedAssign.html">delayedAssign()</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>xfun</em> version 0.47 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

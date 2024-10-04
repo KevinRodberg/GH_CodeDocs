@@ -1,0 +1,86 @@
+<!DOCTYPE html><html><head><title>R: Block usage of '==', '!=' on logical vectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>redundant_equals_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Block usage of <code>==</code>, <code>!=</code> on logical vectors</h2>
+
+<h3>Description</h3>
+
+<p>Testing <code>x == TRUE</code> is redundant if <code>x</code> is a logical vector. Wherever this is
+used to improve readability, the solution should instead be to improve the
+naming of the object to better indicate that its contents are logical. This
+can be done using prefixes (is, has, can, etc.). For example, <code>is_child</code>,
+<code>has_parent_supervision</code>, <code>can_watch_horror_movie</code> clarify their logical
+nature, while <code>child</code>, <code>parent_supervision</code>, <code>watch_horror_movie</code> don't.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>redundant_equals_linter()
+</code></pre>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/common_mistakes_linters.html">common_mistakes</a>, <a href="../../lintr/help/efficiency_linters.html">efficiency</a>, <a href="../../lintr/help/readability_linters.html">readability</a>
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+</li>
+<li> <p><code><a href="../../lintr/help/outer_negation_linter.html">outer_negation_linter()</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "if (any(x == TRUE)) 1",
+  linters = redundant_equals_linter()
+)
+
+lint(
+  text = "if (any(x != FALSE)) 0",
+  linters = redundant_equals_linter()
+)
+
+# okay
+lint(
+  text = "if (any(x)) 1",
+  linters = redundant_equals_linter()
+)
+
+lint(
+  text = "if (!all(x)) 0",
+  linters = redundant_equals_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

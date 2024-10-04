@@ -1,0 +1,55 @@
+<!DOCTYPE html><html><head><title>R: Reorder fields in a DESCRIPTION file</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>desc_reorder_fields {desc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Reorder fields in a DESCRIPTION file</h2>
+
+<h3>Description</h3>
+
+<p>Reorder the fields in DESCRIPTION in a standard way.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>desc_reorder_fields(file = ".")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="file">file</code></td>
+<td>
+<p>DESCRIPTION file to use. By default the DESCRIPTION
+file of the current package (i.e. the package the working directory
+is part of) is used.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other repair functions: 
+<code><a href="../../desc/help/desc_normalize.html">desc_normalize</a>()</code>,
+<code><a href="../../desc/help/desc_reformat_fields.html">desc_reformat_fields</a>()</code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>desc</em> version 1.4.3 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

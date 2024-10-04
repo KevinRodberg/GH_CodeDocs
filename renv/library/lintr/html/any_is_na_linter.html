@@ -1,0 +1,81 @@
+<!DOCTYPE html><html><head><title>R: Require usage of 'anyNA(x)' over 'any(is.na(x))'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>any_is_na_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Require usage of <code>anyNA(x)</code> over <code>any(is.na(x))</code></h2>
+
+<h3>Description</h3>
+
+<p><code><a href="../../base/html/NA.html">anyNA()</a></code> exists as a replacement for <code>any(is.na(x))</code> which is more efficient
+for simple objects, and is at worst equally efficient.
+Therefore, it should be used in all situations instead of the latter.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>any_is_na_linter()
+</code></pre>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/efficiency_linters.html">efficiency</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "any(is.na(x), na.rm = TRUE)",
+  linters = any_is_na_linter()
+)
+
+lint(
+  text = "any(is.na(foo(x)))",
+  linters = any_is_na_linter()
+)
+
+# okay
+lint(
+  text = "anyNA(x)",
+  linters = any_is_na_linter()
+)
+
+lint(
+  text = "anyNA(foo(x))",
+  linters = any_is_na_linter()
+)
+
+lint(
+  text = "any(!is.na(x), na.rm = TRUE)",
+  linters = any_is_na_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

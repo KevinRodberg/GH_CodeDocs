@@ -1,0 +1,158 @@
+<!DOCTYPE html><html><head><title>R: Style linters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>style_linters {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Style linters</h2>
+
+<h3>Description</h3>
+
+<p>Linters highlighting code style issues.
+</p>
+
+
+<h3>Linters</h3>
+
+<p>The following linters are tagged with 'style':
+</p>
+
+<ul>
+<li><p><code><a href="../../lintr/help/assignment_linter.html">assignment_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/brace_linter.html">brace_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/commas_linter.html">commas_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/commented_code_linter.html">commented_code_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/consecutive_assertion_linter.html">consecutive_assertion_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/cyclocomp_linter.html">cyclocomp_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/extraction_operator_linter.html">extraction_operator_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/function_argument_linter.html">function_argument_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/function_left_parentheses_linter.html">function_left_parentheses_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/implicit_assignment_linter.html">implicit_assignment_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/implicit_integer_linter.html">implicit_integer_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/indentation_linter.html">indentation_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/infix_spaces_linter.html">infix_spaces_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/keyword_quote_linter.html">keyword_quote_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/library_call_linter.html">library_call_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/line_length_linter.html">line_length_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/numeric_leading_zero_linter.html">numeric_leading_zero_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/object_length_linter.html">object_length_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/object_name_linter.html">object_name_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/object_usage_linter.html">object_usage_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/package_hooks_linter.html">package_hooks_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/paren_body_linter.html">paren_body_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/pipe_call_linter.html">pipe_call_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/pipe_consistency_linter.html">pipe_consistency_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/pipe_continuation_linter.html">pipe_continuation_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/quotes_linter.html">quotes_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/repeat_linter.html">repeat_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/semicolon_linter.html">semicolon_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/spaces_inside_linter.html">spaces_inside_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/spaces_left_parentheses_linter.html">spaces_left_parentheses_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/T_and_F_symbol_linter.html">T_and_F_symbol_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/todo_comment_linter.html">todo_comment_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/trailing_blank_lines_linter.html">trailing_blank_lines_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/trailing_whitespace_linter.html">trailing_whitespace_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/undesirable_function_linter.html">undesirable_function_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/undesirable_operator_linter.html">undesirable_operator_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/unnecessary_concatenation_linter.html">unnecessary_concatenation_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/whitespace_linter.html">whitespace_linter</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

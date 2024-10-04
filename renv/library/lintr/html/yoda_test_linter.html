@@ -1,0 +1,78 @@
+<!DOCTYPE html><html><head><title>R: Block obvious &quot;yoda tests&quot;</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>yoda_test_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Block obvious &quot;yoda tests&quot;</h2>
+
+<h3>Description</h3>
+
+<p>Yoda tests use <code style="white-space: pre;">&#8288;(expected, actual)&#8288;</code> instead of the more common <code style="white-space: pre;">&#8288;(actual, expected)&#8288;</code>.
+This is not always possible to detect statically; this linter focuses on
+the simple case of testing an expression against a literal value, e.g.
+<code style="white-space: pre;">&#8288;(1L, foo(x))&#8288;</code> should be <code style="white-space: pre;">&#8288;(foo(x), 1L)&#8288;</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>yoda_test_linter()
+</code></pre>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/package_development_linters.html">package_development</a>, <a href="../../lintr/help/pkg_testthat_linters.html">pkg_testthat</a>, <a href="../../lintr/help/readability_linters.html">readability</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+<a href="https://en.wikipedia.org/wiki/Yoda_conditions">https://en.wikipedia.org/wiki/Yoda_conditions</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "expect_equal(2, x)",
+  linters = yoda_test_linter()
+)
+
+lint(
+  text = 'expect_identical("a", x)',
+  linters = yoda_test_linter()
+)
+
+# okay
+lint(
+  text = "expect_equal(x, 2)",
+  linters = yoda_test_linter()
+)
+
+lint(
+  text = 'expect_identical(x, "a")',
+  linters = yoda_test_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

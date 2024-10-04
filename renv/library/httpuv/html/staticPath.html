@@ -1,0 +1,111 @@
+<!DOCTYPE html><html><head><title>R: Create a staticPath object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>staticPath {httpuv}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a staticPath object</h2>
+
+<h3>Description</h3>
+
+<p>The <code>staticPath</code> function creates a <code>staticPath</code> object. Note that
+if any of the arguments (other than <code>path</code>) are <code>NULL</code>, then that
+means that for this particular static path, it should inherit the behavior
+from the staticPathOptions set for the application as a whole.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>staticPath(
+  path,
+  indexhtml = NULL,
+  fallthrough = NULL,
+  html_charset = NULL,
+  headers = NULL,
+  validation = NULL
+)
+
+excludeStaticPath()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="path">path</code></td>
+<td>
+<p>The local path.</p>
+</td></tr>
+<tr><td><code id="indexhtml">indexhtml</code></td>
+<td>
+<p>If an index.html file is present, should it be served up
+when the client requests the static path or any subdirectory?</p>
+</td></tr>
+<tr><td><code id="fallthrough">fallthrough</code></td>
+<td>
+<p>With the default value, <code>FALSE</code>, if a request is made
+for a file that doesn't exist, then httpuv will immediately send a 404
+response from the background I/O thread, without needing to call back into
+the main R thread. This offers the best performance. If the value is
+<code>TRUE</code>, then instead of sending a 404 response, httpuv will call the
+application's <code>call</code> function, and allow it to handle the request.</p>
+</td></tr>
+<tr><td><code id="html_charset">html_charset</code></td>
+<td>
+<p>When HTML files are served, the value that will be
+provided for <code>charset</code> in the Content-Type header. For example, with
+the default value, <code>"utf-8"</code>, the header is <code>Content-Type:
+  text/html; charset=utf-8</code>. If <code>""</code> is used, then no <code>charset</code>
+will be added in the Content-Type header.</p>
+</td></tr>
+<tr><td><code id="headers">headers</code></td>
+<td>
+<p>Additional headers and values that will be included in the
+response.</p>
+</td></tr>
+<tr><td><code id="validation">validation</code></td>
+<td>
+<p>An optional validation pattern. Presently, the only type of
+validation supported is an exact string match of a header. For example, if
+<code>validation</code> is <code>'"abc" = "xyz"'</code>, then HTTP requests must have a
+header named <code>abc</code> (case-insensitive) with the value <code>xyz</code>
+(case-sensitive). If a request does not have a matching header, than httpuv
+will give a 403 Forbidden response. If the <code>character(0)</code> (the
+default), then no validation check will be performed.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>excludeStaticPath</code> function tells the application to ignore a
+particular path for static serving. This is useful when you want to include a
+path for static serving (like <code>"/"</code>) but then exclude a subdirectory of
+it (like <code>"/dynamic"</code>) so that the subdirectory will always be passed to
+the R code for handling requests. <code>excludeStaticPath</code> can be used not
+only for directories; it can also exclude specific files.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../httpuv/help/staticPathOptions.html">staticPathOptions</a></code>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>httpuv</em> version 1.6.15 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

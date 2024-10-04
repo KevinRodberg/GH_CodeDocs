@@ -1,0 +1,79 @@
+<!DOCTYPE html><html><head><title>R: System swap memory statistics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ps_system_swap {ps}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>System swap memory statistics</h2>
+
+<h3>Description</h3>
+
+<p>System swap memory statistics
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ps_system_swap()
+</code></pre>
+
+
+<h3>Value</h3>
+
+<p>Named list. All numbers are in bytes:
+</p>
+
+<ul>
+<li> <p><code>total</code>: total swap memory.
+</p>
+</li>
+<li> <p><code>used</code>: used swap memory.
+</p>
+</li>
+<li> <p><code>free</code>: free swap memory.
+</p>
+</li>
+<li> <p><code>percent</code>: the percentage usage.
+</p>
+</li>
+<li> <p><code>sin</code>: the number of bytes the system has swapped in from disk
+(cumulative). This is <code>NA</code> on Windows.
+</p>
+</li>
+<li> <p><code>sout</code>: the number of bytes the system has swapped out from disk
+(cumulative). This is <code>NA</code> on Windows.
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p>Other memory functions: 
+<code><a href="../../ps/help/ps_system_memory.html">ps_system_memory</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+ps_system_swap()
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>ps</em> version 1.8.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

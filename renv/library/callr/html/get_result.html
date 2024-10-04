@@ -1,0 +1,61 @@
+<!DOCTYPE html><html><head><title>R: Read the result object from the output file, or the error</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>get_result {callr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Read the result object from the output file, or the error</h2>
+
+<h3>Description</h3>
+
+<p>Even if an error happens, the output file might still exist,
+because <code><a href="../../base/html/readRDS.html">saveRDS()</a></code> creates the file before evaluating its object
+argument. So we need to check for the error file to decide
+if an error happened.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>get_result(output, options)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="output">output</code></td>
+<td>
+<p>List of the output object from <code><a href="../../callr/help/run.html">run()</a></code> and
+the name of the result file to read. For the error file,
+<code>.error</code> is appended to this.</p>
+</td></tr>
+<tr><td><code id="options">options</code></td>
+<td>
+<p>The context, including all parameters.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>If no error happened, the result is returned. Otherwise
+we handle the error.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>callr</em> version 3.7.6 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html><html><head><title>R: Require usage of 'expect_identical(x, y)' where appropriate</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>expect_identical_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Require usage of <code>expect_identical(x, y)</code> where appropriate</h2>
+
+<h3>Description</h3>
+
+<p>This linter enforces the usage of <code><a href="../../testthat/help/equality-expectations.html">testthat::expect_identical()</a></code> as the
+default expectation for comparisons in a testthat suite. <code>expect_true(identical(x, y))</code>
+is an equivalent but unadvised method of the same test. Further,
+<code><a href="../../testthat/help/equality-expectations.html">testthat::expect_equal()</a></code> should only be used when <code>expect_identical()</code>
+is inappropriate, i.e., when <code>x</code> and <code>y</code> need only be <em>numerically
+equivalent</em> instead of fully identical (in which case, provide the
+<code style="white-space: pre;">&#8288;tolerance=&#8288;</code> argument to <code>expect_equal()</code> explicitly). This also applies
+when it's inconvenient to check full equality (e.g., names can be ignored,
+in which case <code>ignore_attr = "names"</code> should be supplied to
+<code>expect_equal()</code> (or, for 2nd edition, <code>check.attributes = FALSE</code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>expect_identical_linter()
+</code></pre>
+
+
+<h3>Exceptions</h3>
+
+<p>The linter allows <code>expect_equal()</code> in three circumstances:
+</p>
+
+<ol>
+<li><p> A named argument is set (e.g. <code>ignore_attr</code> or <code>tolerance</code>)
+</p>
+</li>
+<li><p> Comparison is made to an explicit decimal, e.g.
+<code>expect_equal(x, 1.0)</code> (implicitly setting <code>tolerance</code>)
+</p>
+</li>
+<li> <p><code>...</code> is passed (wrapper functions which might set
+arguments such as <code>ignore_attr</code> or <code>tolerance</code>)
+</p>
+</li></ol>
+
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/package_development_linters.html">package_development</a>, <a href="../../lintr/help/pkg_testthat_linters.html">pkg_testthat</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "expect_equal(x, y)",
+  linters = expect_identical_linter()
+)
+
+lint(
+  text = "expect_true(identical(x, y))",
+  linters = expect_identical_linter()
+)
+
+# okay
+lint(
+  text = "expect_identical(x, y)",
+  linters = expect_identical_linter()
+)
+
+lint(
+  text = "expect_equal(x, y, check.attributes = FALSE)",
+  linters = expect_identical_linter()
+)
+
+lint(
+  text = "expect_equal(x, y, tolerance = 1e-6)",
+  linters = expect_identical_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

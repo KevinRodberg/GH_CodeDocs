@@ -1,0 +1,157 @@
+<!DOCTYPE html><html><head><title>R: WinBox Options</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>wbOptions {shinyWidgets}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>WinBox Options</h2>
+
+<h3>Description</h3>
+
+<p>WinBox Options
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>wbOptions(
+  width = NULL,
+  height = NULL,
+  minwidth = NULL,
+  minheight = NULL,
+  x = NULL,
+  y = NULL,
+  max = NULL,
+  min = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  background = NULL,
+  border = NULL,
+  modal = NULL,
+  index = NULL,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="width">width</code>, <code id="height">height</code></td>
+<td>
+<p>Set the initial width/height of the window (supports units &quot;px&quot; and &quot;%&quot;).</p>
+</td></tr>
+<tr><td><code id="minwidth">minwidth</code>, <code id="minheight">minheight</code></td>
+<td>
+<p>Set the minimal width/height of the window (supports units &quot;px&quot; and &quot;%&quot;).</p>
+</td></tr>
+<tr><td><code id="x">x</code>, <code id="y">y</code></td>
+<td>
+<p>Set the initial position of the window (supports: &quot;right&quot; for x-axis, &quot;bottom&quot; for y-axis,
+&quot;center&quot; for both, units &quot;px&quot; and &quot;%&quot; for both).</p>
+</td></tr>
+<tr><td><code id="max">max</code>, <code id="min">min</code></td>
+<td>
+<p>Automatically toggles the window into maximized / minimized state when created.</p>
+</td></tr>
+<tr><td><code id="top">top</code>, <code id="right">right</code>, <code id="bottom">bottom</code>, <code id="left">left</code></td>
+<td>
+<p>Set or limit the viewport of the window's available area (supports units &quot;px&quot; and &quot;%&quot;).</p>
+</td></tr>
+<tr><td><code id="background">background</code></td>
+<td>
+<p>Set the background of the window (supports all CSS styles which are also supported by the style-attribute &quot;background&quot;,
+e.g. colors, transparent colors, hsl, gradients, background images).</p>
+</td></tr>
+<tr><td><code id="border">border</code></td>
+<td>
+<p>Set the border width of the window (supports all css units, like px, %, em, rem, vh, vmax).</p>
+</td></tr>
+<tr><td><code id="modal">modal</code></td>
+<td>
+<p>Shows the window as modal.</p>
+</td></tr>
+<tr><td><code id="index">index</code></td>
+<td>
+<p>Set the initial z-index of the window to this value (could be increased automatically when unfocused/focused).</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Other options, see https://github.com/nextapps-de/winbox?tab=readme-ov-file#options.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A <code>list</code> of options to use in <code><a href="../../shinyWidgets/help/WinBox.html">WinBox()</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+library(shiny)
+library(shinyWidgets)
+
+ui &lt;- fluidPage(
+  html_dependency_winbox(),
+  actionButton(inputId = "show1", label = "Show WinBox"),
+  actionButton(inputId = "show2", label = "Show WinBox as modal")
+)
+
+server &lt;- function(input, output, session) {
+
+  observeEvent(input$show1, {
+    WinBox(
+      title = "Custom background color and border",
+      ui = tagList(
+        tags$h2("Hello from WinBox!"),
+        "Text content of winbox."
+      ),
+      options = wbOptions(
+        background = "#112446",
+        border = "0.5em",
+        x = "center",
+        y = "center",
+        width = "50%",
+        height = "50%"
+      )
+    )
+  })
+
+  observeEvent(input$show2, {
+    WinBox(
+      title = "WinBox as modal",
+      ui = tagList(
+        tags$h2("Hello from WinBox!"),
+        "Text content of winbox."
+      ),
+      options = wbOptions(modal = TRUE)
+    )
+  })
+
+}
+
+if (interactive())
+  shinyApp(ui, server)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>shinyWidgets</em> version 0.8.6 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

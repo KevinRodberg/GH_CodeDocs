@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><title>R: Normalize lint exclusions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>normalize_exclusions {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Normalize lint exclusions</h2>
+
+<h3>Description</h3>
+
+<p>Normalize lint exclusions
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>normalize_exclusions(x, normalize_path = TRUE, root = getwd(), pattern = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Exclusion specification
+</p>
+
+<ul>
+<li><p> A character vector of filenames or directories relative to <code>root</code>
+</p>
+</li>
+<li><p> A named list of integers specifying lines to be excluded per file
+</p>
+</li>
+<li><p> A named list of named lists specifying linters and lines to be excluded for the linters per file.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="normalize_path">normalize_path</code></td>
+<td>
+<p>Should the names of the returned exclusion list be normalized paths?
+If no, they will be relative to <code>root</code>.</p>
+</td></tr>
+<tr><td><code id="root">root</code></td>
+<td>
+<p>Base directory for relative filename resolution.</p>
+</td></tr>
+<tr><td><code id="pattern">pattern</code></td>
+<td>
+<p>If non-NULL, only exclude files in excluded directories if they match
+<code>pattern</code>. Passed to <a href="../../base/help/list.files.html">list.files</a> if a directory is excluded.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A named list of file exclusions.
+The names of the list specify the filenames to be excluded.
+</p>
+<p>Each file exclusion is a possibly named list containing line numbers to exclude, or the sentinel <code>Inf</code> for
+completely excluded files. If the an entry is named, the exclusions only take effect for the linter with the same
+name.
+</p>
+<p>If <code>normalize_path</code> is <code>TRUE</code>, file names will be normalized relative to <code>root</code>.
+Otherwise the paths are left as provided (relative to <code>root</code> or absolute).
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

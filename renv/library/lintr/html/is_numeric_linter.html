@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><title>R: Redirect 'is.numeric(x) || is.integer(x)' to just use...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>is_numeric_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Redirect <code>is.numeric(x) || is.integer(x)</code> to just use <code>is.numeric(x)</code></h2>
+
+<h3>Description</h3>
+
+<p><code><a href="../../base/html/numeric.html">is.numeric()</a></code> returns <code>TRUE</code> when <code>typeof(x)</code> is <code>double</code> or <code>integer</code> &ndash;
+testing <code>is.numeric(x) || is.integer(x)</code> is thus redundant.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>is_numeric_linter()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p>NB: This linter plays well with <code><a href="../../lintr/help/class_equals_linter.html">class_equals_linter()</a></code>, which can help
+avoid further <code>is.numeric()</code> equivalents like
+<code>any(class(x) == c("numeric", "integer"))</code>.
+</p>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/consistency_linters.html">consistency</a>, <a href="../../lintr/help/readability_linters.html">readability</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "is.numeric(y) || is.integer(y)",
+  linters = is_numeric_linter()
+)
+
+lint(
+  text = 'class(z) %in% c("numeric", "integer")',
+  linters = is_numeric_linter()
+)
+
+# okay
+lint(
+  text = "is.numeric(y) || is.factor(y)",
+  linters = is_numeric_linter()
+)
+
+lint(
+  text = 'class(z) %in% c("numeric", "integer", "factor")',
+  linters = is_numeric_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

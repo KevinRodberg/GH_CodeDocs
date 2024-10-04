@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><title>R: Create an object for storing reactive values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>reactiveValues {shiny}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create an object for storing reactive values</h2>
+
+<h3>Description</h3>
+
+<p>This function returns an object for storing reactive values. It is similar to
+a list, but with special capabilities for reactive programming. When you read
+a value from it, the calling reactive expression takes a reactive dependency
+on that value, and when you write to it, it notifies any reactive functions
+that depend on that value. Note that values taken from the reactiveValues
+object are reactive, but the reactiveValues object itself is not.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>reactiveValues(...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Objects that will be added to the reactivevalues object. All of
+these objects must be named.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../shiny/help/isolate.html">isolate()</a></code> and <code><a href="../../shiny/help/is.reactivevalues.html">is.reactivevalues()</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Create the object with no values
+values &lt;- reactiveValues()
+
+# Assign values to 'a' and 'b'
+values$a &lt;- 3
+values[['b']] &lt;- 4
+
+## Not run: 
+# From within a reactive context, you can access values with:
+values$a
+values[['a']]
+
+## End(Not run)
+
+# If not in a reactive context (e.g., at the console), you can use isolate()
+# to retrieve the value:
+isolate(values$a)
+isolate(values[['a']])
+
+# Set values upon creation
+values &lt;- reactiveValues(a = 1, b = 2)
+isolate(values$a)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>shiny</em> version 1.9.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

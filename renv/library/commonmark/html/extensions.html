@@ -1,0 +1,69 @@
+<!DOCTYPE html><html><head><title>R: Github CommonMark Extensions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>extensions {commonmark}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Github CommonMark Extensions</h2>
+
+<h3>Description</h3>
+
+<p>The Github fork of cmark supports several markdown extensions which provide
+features which are not (yet) in the official commonmark spec.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>list_extensions()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p>Currently the following extensions are supported:
+</p>
+
+<ul>
+<li> <p><strong>table</strong> support rendering of tables: <a href="https://github.github.com/gfm/#tables-extension-">gfm-spec section 4.10</a>
+</p>
+</li>
+<li> <p><strong>strikethrough</strong> via <code style="white-space: pre;">&#8288;~sometext~&#8288;</code> syntax: <a href="https://github.github.com/gfm/#strikethrough-extension-">gfm-spec section 6.5</a>
+</p>
+</li>
+<li> <p><strong>autolink</strong> automatically turn URLs into hyperlinks: <a href="https://github.github.com/gfm/#autolinks-extension-">gfm-spec section 6.9</a>
+</p>
+</li>
+<li> <p><strong>tagfilter</strong> blacklist html tags: <code>title</code> <code>textarea</code> <code>style</code> <code>xmp</code> <code>iframe</code>
+<code>noembed</code> <code>noframes</code> <code>script</code> <code>plaintext</code>: <a href="https://github.github.com/gfm/#disallowed-raw-html-extension-">gfm-spec section 6.11</a>
+</p>
+</li>
+<li> <p><strong>tasklist</strong> turns certain list items into checkboxes: <a href="https://github.github.com/gfm/#task-list-items-extension-">gfm-spec section 5.3</a>
+</p>
+</li></ul>
+
+<p>See the full spec for <a href="https://github.github.com/gfm/">GitHub Flavored Markdown</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>print(list_extensions())
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>commonmark</em> version 1.9.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

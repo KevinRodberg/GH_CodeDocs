@@ -1,0 +1,177 @@
+<!DOCTYPE html><html><head><title>R: Raise lints for several common poor usages of 'paste()'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>paste_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Raise lints for several common poor usages of <code>paste()</code></h2>
+
+<h3>Description</h3>
+
+<p>The following issues are linted by default by this linter
+(see arguments for which can be de-activated optionally):
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>paste_linter(
+  allow_empty_sep = FALSE,
+  allow_to_string = FALSE,
+  allow_file_path = c("double_slash", "always", "never")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="allow_empty_sep">allow_empty_sep</code></td>
+<td>
+<p>Logical, default <code>FALSE</code>. If <code>TRUE</code>, usage of
+<code>paste()</code> with <code>sep = ""</code> is not linted.</p>
+</td></tr>
+<tr><td><code id="allow_to_string">allow_to_string</code></td>
+<td>
+<p>Logical, default <code>FALSE</code>. If <code>TRUE</code>, usage of
+<code>paste()</code> and <code>paste0()</code> with <code>collapse = ", "</code> is not linted.</p>
+</td></tr>
+<tr><td><code id="allow_file_path">allow_file_path</code></td>
+<td>
+<p>String, one of <code>"never"</code>, <code>"double_slash"</code>, or <code>"always"</code>; <code>"double_slash"</code> by default.
+If <code>"never"</code>, usage of <code>paste()</code> and <code>paste0()</code> to construct file paths is not linted. If <code>"double_slash"</code>,
+strings containing consecutive forward slashes will not lint. The main use case here is for URLs &ndash; &quot;paths&quot; like
+<code>"https://"</code> will not induce lints, since constructing them with <code>file.path()</code> might be deemed unnatural.
+Lastly, if <code>"always"</code>, strings with consecutive forward slashes will also lint. Note that <code>"//"</code> is never linted
+when it comes at the beginning or end of the input, to avoid requiring empty inputs like
+<code>file.path("", ...)</code> or <code>file.path(..., "")</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+<ol>
+<li><p> Block usage of <code><a href="../../base/html/paste.html">paste()</a></code> with <code>sep = ""</code>. <code><a href="../../base/html/paste.html">paste0()</a></code> is a faster, more concise alternative.
+</p>
+</li>
+<li><p> Block usage of <code>paste()</code> or <code>paste0()</code> with <code>collapse = ", "</code>. <code><a href="../../base/html/toString.html">toString()</a></code> is a direct
+wrapper for this, and alternatives like <code><a href="../../glue/help/glue_collapse.html">glue::glue_collapse()</a></code> might give better messages for humans.
+</p>
+</li>
+<li><p> Block usage of <code>paste0()</code> that supplies <code style="white-space: pre;">&#8288;sep=&#8288;</code> &ndash; this is not a formal argument to <code>paste0</code>, and
+is likely to be a mistake.
+</p>
+</li>
+<li><p> Block usage of <code>paste()</code> / <code>paste0()</code> combined with <code><a href="../../base/html/rep.html">rep()</a></code> that could be replaced by
+<code><a href="../../base/html/strrep.html">strrep()</a></code>. <code>strrep()</code> can handle the task of building a block of repeated strings
+(e.g. often used to build &quot;horizontal lines&quot; for messages). This is both more readable and
+skips the (likely small) overhead of putting two strings into the global string cache when only one is needed.
+</p>
+<p>Only target scalar usages &ndash; <code>strrep</code> can handle more complicated cases (e.g. <code>strrep(letters, 26:1)</code>,
+but those aren't as easily translated from a <code>paste(collapse=)</code> call.
+</p>
+</li></ol>
+
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/configurable_linters.html">configurable</a>, <a href="../../lintr/help/consistency_linters.html">consistency</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = 'paste("a", "b", sep = "")',
+  linters = paste_linter()
+)
+
+lint(
+  text = 'paste(c("a", "b"), collapse = ", ")',
+  linters = paste_linter()
+)
+
+lint(
+  text = 'paste0(c("a", "b"), sep = " ")',
+  linters = paste_linter()
+)
+
+lint(
+  text = 'paste0(rep("*", 10L), collapse = "")',
+  linters = paste_linter()
+)
+
+lint(
+  text = 'paste0("http://site.com/", path)',
+  linters = paste_linter(allow_file_path = "never")
+)
+
+# okay
+lint(
+  text = 'paste0("a", "b")',
+  linters = paste_linter()
+)
+
+lint(
+  text = 'paste("a", "b", sep = "")',
+  linters = paste_linter(allow_empty_sep = TRUE)
+)
+
+lint(
+  text = 'toString(c("a", "b"))',
+  linters = paste_linter()
+)
+
+lint(
+  text = 'paste(c("a", "b"), collapse = ", ")',
+  linters = paste_linter(allow_to_string = TRUE)
+)
+
+lint(
+  text = 'paste(c("a", "b"))',
+  linters = paste_linter()
+)
+
+lint(
+  text = 'strrep("*", 10L)',
+  linters = paste_linter()
+)
+
+lint(
+  text = 'paste0(year, "/", month, "/", day)',
+  linters = paste_linter(allow_file_path = "always")
+)
+
+lint(
+  text = 'paste0("http://site.com/", path)',
+  linters = paste_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

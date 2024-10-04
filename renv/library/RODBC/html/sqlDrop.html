@@ -1,0 +1,105 @@
+<!DOCTYPE html><html><head><title>R: Deletion Operations on Tables in ODBC databases</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>sqlDrop {RODBC}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Deletion Operations on Tables in ODBC databases</h2>
+
+<h3>Description</h3>
+
+<p><code>sqlClear</code> deletes all the rows of the table <code>sqtable</code>.
+</p>
+<p><code>sqlDrop</code> removes the table <code>sqtable</code> (if permitted).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>sqlClear(channel, sqtable, errors = TRUE)
+
+sqlDrop(channel, sqtable, errors = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="channel">channel</code></td>
+<td>
+<p>connection object as returned by <code><a href="../../RODBC/help/odbcConnect.html">odbcConnect</a></code>.</p>
+</td></tr>
+<tr><td><code id="sqtable">sqtable</code></td>
+<td>
+<p>character string: a database table name accessible from the
+connected DSN.  This can be a &lsquo;dotted&rsquo; name of the form
+<code><var>schema</var>.<var>table</var></code>.</p>
+</td></tr>
+<tr><td><code id="errors">errors</code></td>
+<td>
+<p>logical: if <code>TRUE</code> halt and display error, else
+return <code>-1</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These submit &lsquo;<span class="samp">&#8288;TRUNCATE TABLE&#8288;</span>&rsquo; and &lsquo;<span class="samp">&#8288;DROP TABLE&#8288;</span>&rsquo; SQL queries
+respectively.
+</p>
+<p>&lsquo;Dotted&rsquo; table names are allowed on systems that support them
+but the existence of the table is not checked and so attempting these
+operations on a non-existent table will give a low-level error.  (This
+can be suppressed by opening the connection with <code>interpretDot =
+    FALSE</code>.)
+</p>
+<p>The default &lsquo;drop&rsquo; behaviour in Oracle is to move the table to
+the &lsquo;recycle bin&rsquo;: use
+</p>
+<pre>
+  sqlQuery(channel, "PURGE recyclebin")
+</pre>
+<p>to empty the recycle bin.
+</p>
+<p>The current user might not have privileges to allow these operations,
+and Actual Technologies' Mac OS X SQLite driver has a bug causing them
+silently to fail.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>errors = FALSE</code>, a numeric value, invisibly.
+Otherwise a character string or <code>invisible()</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Michael Lapsley and Brian Ripley
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../RODBC/help/odbcConnect.html">odbcConnect</a></code>, <code><a href="../../RODBC/help/sqlQuery.html">sqlQuery</a></code>, <code><a href="../../RODBC/help/sqlFetch.html">sqlFetch</a></code>,
+<code><a href="../../RODBC/help/sqlSave.html">sqlSave</a></code>, <code><a href="../../RODBC/help/sqlTables.html">sqlTables</a></code>, <code><a href="../../RODBC/help/odbcGetInfo.html">odbcGetInfo</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RODBC</em> version 1.3-23 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

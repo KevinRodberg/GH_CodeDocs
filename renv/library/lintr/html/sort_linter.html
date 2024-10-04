@@ -1,0 +1,118 @@
+<!DOCTYPE html><html><head><title>R: Check for common mistakes around sorting vectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>sort_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Check for common mistakes around sorting vectors</h2>
+
+<h3>Description</h3>
+
+<p>This linter checks for some common mistakes when using <code><a href="../../base/html/order.html">order()</a></code> or <code><a href="../../base/html/sort.html">sort()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>sort_linter()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p>First, it requires usage of <code>sort()</code> over <code>.[order(.)]</code>.
+</p>
+<p><code><a href="../../base/html/sort.html">sort()</a></code> is the dedicated option to sort a list or vector. It is more legible
+and around twice as fast as <code>.[order(.)]</code>, with the gap in performance
+growing with the vector size.
+</p>
+<p>Second, it requires usage of <code><a href="../../base/html/is.unsorted.html">is.unsorted()</a></code> over equivalents using <code>sort()</code>.
+</p>
+<p>The base function <code>is.unsorted()</code> exists to test the sortedness of a vector.
+Prefer it to inefficient and less-readable equivalents like
+<code>x != sort(x)</code>. The same goes for checking <code>x == sort(x)</code> &ndash; use
+<code>!is.unsorted(x)</code> instead.
+</p>
+<p>Moreover, use of <code>x == sort(x)</code> can be risky because <code><a href="../../base/html/sort.html">sort()</a></code> drops missing
+elements by default, meaning <code>==</code> might end up trying to compare vectors
+of differing lengths.
+</p>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/efficiency_linters.html">efficiency</a>, <a href="../../lintr/help/readability_linters.html">readability</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "x[order(x)]",
+  linters = sort_linter()
+)
+
+lint(
+  text = "x[order(x, decreasing = TRUE)]",
+  linters = sort_linter()
+)
+
+lint(
+  text = "sort(x) == x",
+  linters = sort_linter()
+)
+
+# okay
+lint(
+  text = "x[sample(order(x))]",
+  linters = sort_linter()
+)
+
+lint(
+  text = "y[order(x)]",
+  linters = sort_linter()
+)
+
+lint(
+  text = "sort(x, decreasing = TRUE) == x",
+  linters = sort_linter()
+)
+
+# If you are sorting several objects based on the order of one of them, such
+# as:
+x &lt;- sample(1:26)
+y &lt;- letters
+newx &lt;- x[order(x)]
+newy &lt;- y[order(x)]
+# This will be flagged by the linter. However, in this very specific case,
+# it would be clearer and more efficient to run order() once and assign it
+# to an object, rather than mix and match order() and sort()
+index &lt;- order(x)
+newx &lt;- x[index]
+newy &lt;- y[index]
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

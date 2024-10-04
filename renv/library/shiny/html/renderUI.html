@@ -1,0 +1,102 @@
+<!DOCTYPE html><html><head><title>R: UI Output</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>renderUI {shiny}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>UI Output</h2>
+
+<h3>Description</h3>
+
+<p>Renders reactive HTML using the Shiny UI library.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>renderUI(expr, env = parent.frame(), quoted = FALSE, outputArgs = list())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="expr">expr</code></td>
+<td>
+<p>An expression that returns a Shiny tag object, <code><a href="../../shiny/help/HTML.html">HTML()</a></code>,
+or a list of such objects.</p>
+</td></tr>
+<tr><td><code id="env">env</code></td>
+<td>
+<p>The parent environment for the reactive expression. By default,
+this is the calling environment, the same as when defining an ordinary
+non-reactive expression. If <code>expr</code> is a quosure and <code>quoted</code> is <code>TRUE</code>,
+then <code>env</code> is ignored.</p>
+</td></tr>
+<tr><td><code id="quoted">quoted</code></td>
+<td>
+<p>If it is <code>TRUE</code>, then the <code><a href="../../base/html/substitute.html">quote()</a></code>ed value of <code>expr</code>
+will be used when <code>expr</code> is evaluated. If <code>expr</code> is a quosure and you
+would like to use its expression as a value for <code>expr</code>, then you must set
+<code>quoted</code> to <code>TRUE</code>.</p>
+</td></tr>
+<tr><td><code id="outputArgs">outputArgs</code></td>
+<td>
+<p>A list of arguments to be passed through to the implicit
+call to <code><a href="../../shiny/help/uiOutput.html">uiOutput()</a></code> when <code>renderUI</code> is used in an
+interactive R Markdown document.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The corresponding HTML output tag should be <code>div</code> and have the CSS class
+name <code>shiny-html-output</code> (or use <code><a href="../../shiny/help/uiOutput.html">uiOutput()</a></code>).
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../shiny/help/uiOutput.html">uiOutput()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Only run examples in interactive R sessions
+if (interactive()) {
+
+ui &lt;- fluidPage(
+  uiOutput("moreControls")
+)
+
+server &lt;- function(input, output) {
+  output$moreControls &lt;- renderUI({
+    tagList(
+      sliderInput("n", "N", 1, 1000, 500),
+      textInput("label", "Label")
+    )
+  })
+}
+shinyApp(ui, server)
+}
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>shiny</em> version 1.9.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

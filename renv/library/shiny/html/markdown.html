@@ -1,0 +1,108 @@
+<!DOCTYPE html><html><head><title>R: Insert inline Markdown</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>markdown {shiny}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Insert inline Markdown</h2>
+
+<h3>Description</h3>
+
+<p>This function accepts
+<a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a>-syntax text and returns
+HTML that may be included in Shiny UIs.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>markdown(mds, extensions = TRUE, .noWS = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="mds">mds</code></td>
+<td>
+<p>A character vector of Markdown source to convert to HTML. If the
+vector has more than one element, a single-element character vector of
+concatenated HTML is returned.</p>
+</td></tr>
+<tr><td><code id="extensions">extensions</code></td>
+<td>
+<p>Enable Github syntax extensions; defaults to <code>TRUE</code>.</p>
+</td></tr>
+<tr><td><code id=".noWS">.noWS</code></td>
+<td>
+<p>Character vector used to omit some of the whitespace that would
+normally be written around generated HTML. Valid options include <code>before</code>,
+<code>after</code>, and <code>outside</code> (equivalent to <code>before</code> and <code>end</code>).</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments to pass to <code><a href="../../commonmark/help/commonmark.html">commonmark::markdown_html()</a></code>.
+These arguments are <em><a href="../../rlang/help/dyn-dots.html">dynamic</a></em>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Leading whitespace is trimmed from Markdown text with <code><a href="../../glue/help/trim.html">glue::trim()</a></code>.
+Whitespace trimming ensures Markdown is processed correctly even when the
+call to <code>markdown()</code> is indented within surrounding R code.
+</p>
+<p>By default, <a href="../../commonmark/help/extensions.html">Github extensions</a> are enabled, but this
+can be disabled by passing <code>extensions = FALSE</code>.
+</p>
+<p>Markdown rendering is performed by <code><a href="../../commonmark/help/commonmark.html">commonmark::markdown_html()</a></code>. Additional
+arguments to <code>markdown()</code> are passed as arguments to <code>markdown_html()</code>
+</p>
+
+
+<h3>Value</h3>
+
+<p>a character vector marked as HTML.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>ui &lt;- fluidPage(
+  markdown("
+    # Markdown Example
+
+    This is a markdown paragraph, and will be contained within a `&lt;p&gt;` tag
+    in the UI.
+
+    The following is an unordered list, which will be represented in the UI as
+    a `&lt;ul&gt;` with `&lt;li&gt;` children:
+
+    * a bullet
+    * another
+
+    [Links](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) work;
+    so does *emphasis*.
+
+    To see more of what's possible, check out [commonmark.org/help](https://commonmark.org/help).
+    ")
+)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>shiny</em> version 1.9.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

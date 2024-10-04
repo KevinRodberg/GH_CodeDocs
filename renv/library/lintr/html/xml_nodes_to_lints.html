@@ -1,0 +1,104 @@
+<!DOCTYPE html><html><head><title>R: Convert an XML node or nodeset into a Lint</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>xml_nodes_to_lints {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert an XML node or nodeset into a Lint</h2>
+
+<h3>Description</h3>
+
+<p>Convenience function for converting nodes matched by XPath-based
+linter logic into a <code><a href="../../lintr/help/Lint.html">Lint()</a></code> object to return.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>xml_nodes_to_lints(
+  xml,
+  source_expression,
+  lint_message,
+  type = c("style", "warning", "error"),
+  column_number_xpath = range_start_xpath,
+  range_start_xpath = "number(./@col1)",
+  range_end_xpath = "number(./@col2)"
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="xml">xml</code></td>
+<td>
+<p>An <code>xml_node</code> object (to generate one <code>Lint</code>) or an
+<code>xml_nodeset</code> object (to generate several <code>Lint</code>s), e.g. as returned by
+<code><a href="../../xml2/help/xml_find_all.html">xml2::xml_find_all()</a></code> or <code><a href="../../xml2/help/xml_find_all.html">xml2::xml_find_first()</a></code> or a
+list of <code>xml_node</code> objects.</p>
+</td></tr>
+<tr><td><code id="source_expression">source_expression</code></td>
+<td>
+<p>A source expression object, e.g. as
+returned typically by <code><a href="../../lintr/help/lint.html">lint()</a></code>, or more generally
+by <code><a href="../../lintr/help/get_source_expressions.html">get_source_expressions()</a></code>.</p>
+</td></tr>
+<tr><td><code id="lint_message">lint_message</code></td>
+<td>
+<p>The message to be included as the <code>message</code>
+to the <code>Lint</code> object. If <code>lint_message</code> is a character vector the same length as <code>xml</code>,
+the <code>i</code>-th lint will be given the <code>i</code>-th message.</p>
+</td></tr>
+<tr><td><code id="type">type</code></td>
+<td>
+<p>type of lint.</p>
+</td></tr>
+<tr><td><code id="column_number_xpath">column_number_xpath</code></td>
+<td>
+<p>XPath expression to return the column number location of the lint.
+Defaults to the start of the range matched by <code>range_start_xpath</code>. See details for more information.</p>
+</td></tr>
+<tr><td><code id="range_start_xpath">range_start_xpath</code></td>
+<td>
+<p>XPath expression to return the range start location of the lint.
+Defaults to the start of the expression matched by <code>xml</code>. See details for more information.</p>
+</td></tr>
+<tr><td><code id="range_end_xpath">range_end_xpath</code></td>
+<td>
+<p>XPath expression to return the range end location of the lint.
+Defaults to the end of the expression matched by <code>xml</code>. See details for more information.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The location XPaths, <code>column_number_xpath</code>, <code>range_start_xpath</code> and <code>range_end_xpath</code> are evaluated using
+<code><a href="../../xml2/help/xml_find_all.html">xml2::xml_find_num()</a></code> and will usually be of the form <code>"number(./relative/xpath)"</code>.
+Note that the location line number cannot be changed and lints spanning multiple lines will ignore <code>range_end_xpath</code>.
+<code>column_number_xpath</code> and <code>range_start_xpath</code> are assumed to always refer to locations on the starting line of the
+<code>xml</code> node.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>xml_node</code>s, a <code>lint</code>. For <code>xml_nodeset</code>s, <code>lints</code> (a list of <code>lint</code>s).
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

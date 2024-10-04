@@ -1,0 +1,187 @@
+<!DOCTYPE html><html><head><title>R: Lint a file, directory, or package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>lint {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Lint a file, directory, or package</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>lint()</code> lints a single file.
+</p>
+</li>
+<li> <p><code>lint_dir()</code> lints all files in a directory.
+</p>
+</li>
+<li> <p><code>lint_package()</code> lints all likely locations for R files in a package, i.e.
+<code style="white-space: pre;">&#8288;R/&#8288;</code>, <code style="white-space: pre;">&#8288;tests/&#8288;</code>, <code style="white-space: pre;">&#8288;inst/&#8288;</code>, <code style="white-space: pre;">&#8288;vignettes/&#8288;</code>, <code style="white-space: pre;">&#8288;data-raw/&#8288;</code>, <code style="white-space: pre;">&#8288;demo/&#8288;</code>, and <code style="white-space: pre;">&#8288;exec/&#8288;</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>lint(
+  filename,
+  linters = NULL,
+  ...,
+  cache = FALSE,
+  parse_settings = TRUE,
+  text = NULL
+)
+
+lint_dir(
+  path = ".",
+  ...,
+  relative_path = TRUE,
+  exclusions = list("renv", "packrat"),
+  pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$",
+  parse_settings = TRUE,
+  show_progress = NULL
+)
+
+lint_package(
+  path = ".",
+  ...,
+  relative_path = TRUE,
+  exclusions = list("R/RcppExports.R"),
+  parse_settings = TRUE,
+  show_progress = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="filename">filename</code></td>
+<td>
+<p>Either the filename for a file to lint, or a character string of inline R code for linting.
+The latter (inline data) applies whenever <code>filename</code> has a newline character (\n).</p>
+</td></tr>
+<tr><td><code id="linters">linters</code></td>
+<td>
+<p>A named list of linter functions to apply. See <a href="../../lintr/help/linters.html">linters</a> for a full list of default and available
+linters.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Provide additional arguments to be passed to:
+</p>
+
+<ul>
+<li> <p><code><a href="../../lintr/help/exclude.html">exclude()</a></code> (in case of <code>lint()</code>; e.g. <code>lints</code> or <code>exclusions</code>)
+</p>
+</li>
+<li> <p><code><a href="../../lintr/help/lint.html">lint()</a></code> (in case of <code>lint_dir()</code> and <code>lint_package()</code>; e.g. <code>linters</code> or <code>cache</code>)
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="cache">cache</code></td>
+<td>
+<p>When logical, toggle caching of lint results. I1f passed a character string, store the cache in this
+directory.</p>
+</td></tr>
+<tr><td><code id="parse_settings">parse_settings</code></td>
+<td>
+<p>Logical, default <code>TRUE</code>. Whether to try and parse the settings;
+otherwise, the <code><a href="../../lintr/help/default_settings.html">default_settings()</a></code> are used.</p>
+</td></tr>
+<tr><td><code id="text">text</code></td>
+<td>
+<p>Optional argument for supplying a string or lines directly, e.g. if the file is already in memory or
+linting is being done ad hoc.</p>
+</td></tr>
+<tr><td><code id="path">path</code></td>
+<td>
+<p>For the base directory of the project (for <code>lint_dir()</code>) or
+package (for <code>lint_package()</code>).</p>
+</td></tr>
+<tr><td><code id="relative_path">relative_path</code></td>
+<td>
+<p>if <code>TRUE</code>, file paths are printed using their path relative to the base directory.
+If <code>FALSE</code>, use the full absolute path.</p>
+</td></tr>
+<tr><td><code id="exclusions">exclusions</code></td>
+<td>
+<p>exclusions for <code><a href="../../lintr/help/exclude.html">exclude()</a></code>, relative to the package path.</p>
+</td></tr>
+<tr><td><code id="pattern">pattern</code></td>
+<td>
+<p>pattern for files, by default it will take files with any of the extensions
+.R, .Rmd, .qmd, .Rnw, .Rhtml, .Rrst, .Rtex, .Rtxt allowing for lowercase r (.r, ...).</p>
+</td></tr>
+<tr><td><code id="show_progress">show_progress</code></td>
+<td>
+<p>Logical controlling whether to show linting progress with a simple text
+progress bar <em>via</em> <code><a href="../../utils/help/txtProgressBar.html">utils::txtProgressBar()</a></code>. The default behavior is to show progress in
+<code><a href="../../base/html/interactive.html">interactive()</a></code> sessions not running a testthat suite.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Read <code>vignette("lintr")</code> to learn how to configure which linters are run
+by default.
+Note that if files contain unparseable encoding problems, only the encoding problem will be linted to avoid
+unintelligible error messages from other linters.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>c("lints", "list")</code>, each element of which is a <code>"list"</code> object.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+f &lt;- withr::local_tempfile(lines = "a=1", fileext = "R")
+lint(f)                # linting a file
+lint("a = 123\n")      # linting inline-code
+lint(text = "a = 123") # linting inline-code
+
+if (FALSE) {
+  lint_dir()
+
+  lint_dir(
+    linters = list(semicolon_linter()),
+    exclusions = list(
+      "inst/doc/creating_linters.R" = 1,
+      "inst/example/bad.R",
+      "renv"
+    )
+  )
+}
+if (FALSE) {
+  lint_package()
+
+  lint_package(
+    linters = linters_with_defaults(semicolon_linter = semicolon_linter()),
+    exclusions = list("inst/doc/creating_linters.R" = 1, "inst/example/bad.R")
+  )
+}
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

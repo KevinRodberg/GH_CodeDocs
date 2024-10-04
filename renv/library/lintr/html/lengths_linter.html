@@ -1,0 +1,76 @@
+<!DOCTYPE html><html><head><title>R: Require usage of 'lengths()' where possible</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>lengths_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Require usage of <code>lengths()</code> where possible</h2>
+
+<h3>Description</h3>
+
+<p><code><a href="../../base/html/lengths.html">lengths()</a></code> is a function that was added to base R in version 3.2.0 to
+get the length of each element of a list. It is equivalent to
+<code>sapply(x, length)</code>, but faster and more readable.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>lengths_linter()
+</code></pre>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/efficiency_linters.html">efficiency</a>, <a href="../../lintr/help/readability_linters.html">readability</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "sapply(x, length)",
+  linters = lengths_linter()
+)
+
+lint(
+  text = "vapply(x, length, integer(1L))",
+  linters = lengths_linter()
+)
+
+lint(
+  text = "purrr::map_int(x, length)",
+  linters = lengths_linter()
+)
+
+# okay
+lint(
+  text = "lengths(x)",
+  linters = lengths_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

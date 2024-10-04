@@ -1,0 +1,127 @@
+<!DOCTYPE html><html><head><title>R: Avoid implicit assignment in function calls</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>implicit_assignment_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Avoid implicit assignment in function calls</h2>
+
+<h3>Description</h3>
+
+<p>Assigning inside function calls makes the code difficult to read, and should
+be avoided, except for functions that capture side-effects (e.g. <code><a href="../../utils/html/capture.output.html">capture.output()</a></code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>implicit_assignment_linter(
+  except = c("bquote", "expression", "expr", "quo", "quos", "quote"),
+  allow_lazy = FALSE,
+  allow_scoped = FALSE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="except">except</code></td>
+<td>
+<p>A character vector of functions to be excluded from linting.</p>
+</td></tr>
+<tr><td><code id="allow_lazy">allow_lazy</code></td>
+<td>
+<p>logical, default <code>FALSE</code>. If <code>TRUE</code>, assignments that only
+trigger conditionally (e.g. in the RHS of <code>&amp;&amp;</code> or <code>||</code> expressions) are skipped.</p>
+</td></tr>
+<tr><td><code id="allow_scoped">allow_scoped</code></td>
+<td>
+<p>Logical, default <code>FALSE</code>. If <code>TRUE</code>, &quot;scoped assignments&quot;,
+where the object is assigned in the statement beginning a branch and used only
+within that branch, are skipped.</p>
+</td></tr>
+</table>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/configurable_linters.html">configurable</a>, <a href="../../lintr/help/readability_linters.html">readability</a>, <a href="../../lintr/help/style_linters.html">style</a>
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+</li>
+<li> <p><a href="https://style.tidyverse.org/syntax.html#assignment">https://style.tidyverse.org/syntax.html#assignment</a>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "if (x &lt;- 1L) TRUE",
+  linters = implicit_assignment_linter()
+)
+
+lint(
+  text = "mean(x &lt;- 1:4)",
+  linters = implicit_assignment_linter()
+)
+
+# okay
+lines &lt;- "x &lt;- 1L\nif (x) TRUE"
+writeLines(lines)
+lint(
+  text = lines,
+  linters = implicit_assignment_linter()
+)
+
+lines &lt;- "x &lt;- 1:4\nmean(x)"
+writeLines(lines)
+lint(
+  text = lines,
+  linters = implicit_assignment_linter()
+)
+
+lint(
+  text = "A &amp;&amp; (B &lt;- foo(A))",
+  linters = implicit_assignment_linter(allow_lazy = TRUE)
+)
+
+lines &lt;- c(
+  "if (any(idx &lt;- x &lt; 0)) {",
+  "  stop('negative elements: ', toString(which(idx)))",
+  "}"
+)
+writeLines(lines)
+lint(
+  text = lines,
+  linters = implicit_assignment_linter(allow_scoped = TRUE)
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

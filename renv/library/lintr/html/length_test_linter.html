@@ -1,0 +1,65 @@
+<!DOCTYPE html><html><head><title>R: Check for a common mistake where length is applied in the...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>length_test_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Check for a common mistake where length is applied in the wrong place</h2>
+
+<h3>Description</h3>
+
+<p>Usage like <code>length(x == 0)</code> is a mistake. If you intended to check <code>x</code> is empty,
+use <code>length(x) == 0</code>. Other mistakes are possible, but running <code>length()</code> on the
+outcome of a logical comparison is never the best choice.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>length_test_linter()
+</code></pre>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/consistency_linters.html">consistency</a>, <a href="../../lintr/help/robustness_linters.html">robustness</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "length(x == 0)",
+  linters = length_test_linter()
+)
+
+# okay
+lint(
+  text = "length(x) &gt; 0",
+  linters = length_test_linter()
+)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

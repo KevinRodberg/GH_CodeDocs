@@ -1,0 +1,108 @@
+<!DOCTYPE html><html><head><title>R: Lookarounds</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>lookarounds {rex}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Lookarounds</h2>
+
+<h3>Description</h3>
+
+<p>Lookarounds
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>x %if_next_is% y
+
+x %if_next_isnt% y
+
+x %if_prev_is% y
+
+x %if_prev_isnt% y
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A regex pattern.</p>
+</td></tr>
+<tr><td><code id="y">y</code></td>
+<td>
+<p>A regex pattern.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions provide an interface to perl lookarounds.
+</p>
+<p>Special binary functions are used to infer an ordering, since often you
+might wish to match a word / set of characters conditional on the start
+and end of that word.
+</p>
+
+<ul>
+<li> <p><code>%if_next_is%</code>: <code>TRUE</code> if x follows y
+</p>
+</li>
+<li> <p><code>%if_next_isnt%</code>: <code>TRUE</code> if x does not follow y
+</p>
+</li>
+<li> <p><code>%if_prev_is%</code>: <code>TRUE</code> if y comes before x
+</p>
+</li>
+<li> <p><code>%if_prev_isnt%</code>: <code>TRUE</code> if y does not come before x
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p>Perl 5 Documentation <a href="https://perldoc.perl.org/perlre#Extended-Patterns">https://perldoc.perl.org/perlre#Extended-Patterns</a>
+</p>
+<p>Other rex: 
+<code><a href="../../rex/help/+25or+25.html">%or%</a>()</code>,
+<code><a href="../../rex/help/capture.html">capture</a>()</code>,
+<code><a href="../../rex/help/character_class.html">character_class</a>()</code>,
+<code><a href="../../rex/help/counts.html">counts</a></code>,
+<code><a href="../../rex/help/group.html">group</a>()</code>,
+<code><a href="../../rex/help/not.html">not</a>()</code>,
+<code><a href="../../rex/help/rex.html">rex</a>()</code>,
+<code><a href="../../rex/help/shortcuts.html">shortcuts</a></code>,
+<code><a href="../../rex/help/wildcards.html">wildcards</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>stopifnot(grepl(rex("crab" %if_next_is% "apple"), "crabapple", perl = TRUE))
+stopifnot(grepl(rex("crab" %if_prev_is% "apple"), "applecrab", perl = TRUE))
+stopifnot(grepl(rex(range("a", "e") %if_next_isnt% range("f", "g")),
+  "ah", perl = TRUE))
+stopifnot(grepl(rex(range("a", "e") %if_next_is% range("f", "i")),
+  "ah", perl = TRUE))
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>rex</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

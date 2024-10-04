@@ -1,0 +1,124 @@
+<!DOCTYPE html><html><head><title>R: Parse, retaining comments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>parse_all {evaluate}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Parse, retaining comments</h2>
+
+<h3>Description</h3>
+
+<p>Works very similarly to parse, but also keeps original formatting and
+comments.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>parse_all(x, filename = NULL, allow_error = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>object to parse.  Can be a string, a file connection, or a function.
+If a connection, will be opened and closed only if it was closed initially.</p>
+</td></tr>
+<tr><td><code id="filename">filename</code></td>
+<td>
+<p>string overriding the file name</p>
+</td></tr>
+<tr><td><code id="allow_error">allow_error</code></td>
+<td>
+<p>whether to allow syntax errors in <code>x</code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A data frame two columns, <code>src</code> and <code>expr</code>, and one row for each complete
+input in <code>x</code>. A complete input is R code that would trigger execution when
+typed at the console. This might consist of multiple expressions separated
+by <code style="white-space: pre;">&#8288;;&#8288;</code> or one expression spread over multiple lines (like a function
+definition).
+</p>
+<p><code>src</code> is a character vector of source code. Each element represents a
+complete input expression (which might span multiple line) and always has a
+terminal <code style="white-space: pre;">&#8288;\n&#8288;</code>.
+</p>
+<p><code>expr</code> is a list-column of <a href="../../base/html/expression.html">expression</a>s. The expressions can be of any
+length, depending on the structure of the complete input source:
+</p>
+
+<ul>
+<li><p> If <code>src</code> consists of only only whitespace and/or comments, <code>expr</code> will
+be length 0.
+</p>
+</li>
+<li><p> If <code>src</code> a single scalar (like <code>TRUE</code>, <code>1</code>, or <code>"x"</code>), name, or
+function call, <code>expr</code> will be length 1.
+</p>
+</li>
+<li><p> If <code>src</code> contains multiple expressions separated by <code style="white-space: pre;">&#8288;;&#8288;</code>, <code>expr</code> will
+have length two or more.
+</p>
+</li></ul>
+
+<p>The expressions have their srcrefs removed.
+</p>
+<p>If there are syntax errors in <code>x</code> and <code>allow_error = TRUE</code>, the data
+frame will have an attribute <code>PARSE_ERROR</code> that stores the error object.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Each of these inputs are single line, but generate different numbers of
+# expressions
+source &lt;- c(
+  "# a comment",
+  "x",
+  "x;y",
+  "x;y;z"
+)
+parsed &lt;- parse_all(source)
+lengths(parsed$expr)
+str(parsed$expr)
+
+# Each of these inputs are a single expression, but span different numbers
+# of lines
+source &lt;- c(
+  "function() {}",
+  "function() {",
+  "  # Hello!",
+  "}",
+  "function() {",
+  "  # Hello!",
+  "  # Goodbye!",
+  "}"
+)
+parsed &lt;- parse_all(source)
+lengths(parsed$expr)
+parsed$src
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>evaluate</em> version 1.0.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html><html><head><title>R: Create a 'linter' closure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>Linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a <code>linter</code> closure</h2>
+
+<h3>Description</h3>
+
+<p>Create a <code>linter</code> closure
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>Linter(fun, name = linter_auto_name())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="fun">fun</code></td>
+<td>
+<p>A function that takes a source file and returns <code>lint</code> objects.</p>
+</td></tr>
+<tr><td><code id="name">name</code></td>
+<td>
+<p>Default name of the Linter.
+Lints produced by the linter will be labelled with <code>name</code> by default.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The same function with its class set to 'linter'.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

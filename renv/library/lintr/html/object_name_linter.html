@@ -1,0 +1,142 @@
+<!DOCTYPE html><html><head><title>R: Object name linter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>object_name_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Object name linter</h2>
+
+<h3>Description</h3>
+
+<p>Check that object names conform to a naming style.
+The default naming styles are &quot;snake_case&quot; and &quot;symbols&quot;.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>object_name_linter(styles = c("snake_case", "symbols"), regexes = character())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="styles">styles</code></td>
+<td>
+<p>A subset of
+&lsquo;symbols&rsquo;, &lsquo;CamelCase&rsquo;, &lsquo;camelCase&rsquo;, &lsquo;snake_case&rsquo;, &lsquo;SNAKE_CASE&rsquo;, &lsquo;dotted.case&rsquo;, &lsquo;lowercase&rsquo;, &lsquo;UPPERCASE&rsquo;. A name should
+match at least one of these styles. The <code>"symbols"</code> style refers to
+names containing <em>only</em> non-alphanumeric characters; e.g., defining <code style="white-space: pre;">&#8288;%+%&#8288;</code>
+from ggplot2 or <code style="white-space: pre;">&#8288;%&gt;%&#8288;</code> from magrittr would not generate lint markers,
+whereas <code style="white-space: pre;">&#8288;%m+%&#8288;</code> from lubridate (containing both alphanumeric <em>and</em>
+non-alphanumeric characters) would.</p>
+</td></tr>
+<tr><td><code id="regexes">regexes</code></td>
+<td>
+<p>A (possibly named) character vector specifying a custom naming convention.
+If named, the names will be used in the lint message. Otherwise, the regexes enclosed by <code>/</code> will be used in the
+lint message.
+Note that specifying <code>regexes</code> overrides the default <code>styles</code>. So if you want to combine <code>regexes</code> and <code>styles</code>,
+both need to be explicitly specified.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Quotes (<code style="white-space: pre;">&#8288;`"'&#8288;</code>) and specials (<code style="white-space: pre;">&#8288;%&#8288;</code> and trailing <code style="white-space: pre;">&#8288;&lt;-&#8288;</code>) are not considered part of the object name.
+</p>
+<p>Note when used in a package, in order to ignore objects imported
+from other namespaces, this linter will attempt <code><a href="../../base/html/ns-reflect.html">getNamespaceExports()</a></code>
+whenever an <code>import(PKG)</code> or <code>importFrom(PKG, ...)</code> statement is found
+in your NAMESPACE file. If <code><a href="../../base/html/ns-load.html">requireNamespace()</a></code> fails (e.g., the package
+is not yet installed), the linter won't be able to ignore some usages
+that would otherwise be allowed.
+</p>
+<p>Suppose, for example, you have <code>import(upstream)</code> in your NAMESPACE,
+which makes available its exported S3 generic function
+<code>a_really_quite_long_function_name</code> that you then extend in your package
+by defining a corresponding method for your class <code>my_class</code>.
+Then, if <code>upstream</code> is not installed when this linter runs, a lint
+will be thrown on this object (even though you don't &quot;own&quot; its full name).
+</p>
+<p>The best way to get lintr to work correctly is to install the package so
+that it's available in the session where this linter is running.
+</p>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/configurable_linters.html">configurable</a>, <a href="../../lintr/help/consistency_linters.html">consistency</a>, <a href="../../lintr/help/default_linters.html">default</a>, <a href="../../lintr/help/executing_linters.html">executing</a>, <a href="../../lintr/help/style_linters.html">style</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "my_var &lt;- 1L",
+  linters = object_name_linter(styles = "CamelCase")
+)
+
+lint(
+  text = "xYz &lt;- 1L",
+  linters = object_name_linter(styles = c("UPPERCASE", "lowercase"))
+)
+
+lint(
+  text = "MyVar &lt;- 1L",
+  linters = object_name_linter(styles = "dotted.case")
+)
+
+lint(
+  text = "asd &lt;- 1L",
+  linters = object_name_linter(regexes = c(my_style = "F$", "f$"))
+)
+
+# okay
+lint(
+  text = "my_var &lt;- 1L",
+  linters = object_name_linter(styles = "snake_case")
+)
+
+lint(
+  text = "xyz &lt;- 1L",
+  linters = object_name_linter(styles = "lowercase")
+)
+
+lint(
+  text = "my.var &lt;- 1L; myvar &lt;- 2L",
+  linters = object_name_linter(styles = c("dotted.case", "lowercase"))
+)
+
+lint(
+  text = "asdf &lt;- 1L; asdF &lt;- 1L",
+  linters = object_name_linter(regexes = c(my_style = "F$", "f$"))
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

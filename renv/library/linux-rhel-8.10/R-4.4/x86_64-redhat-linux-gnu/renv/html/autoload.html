@@ -1,0 +1,60 @@
+<!DOCTYPE html><html><head><title>R: Auto-load the active project</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>autoload {renv}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Auto-load the active project</h2>
+
+<h3>Description</h3>
+
+<p>Automatically load the renv project associated with a particular directory.
+renv will search parent directories for the renv project root; if found,
+that project will be loaded via <code><a href="../../renv/help/load.html">load()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>autoload()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p>To enable the renv auto-loader, you can place:
+</p>
+<div class="sourceCode"><pre>renv::autoload()
+</pre></div>
+<p>into your site-wide or user <code>.Rprofile</code> to ensure that renv projects are
+automatically loaded for any newly-launched <span class="rlang"><b>R</b></span> sessions, even if those <span class="rlang"><b>R</b></span>
+sessions are launched within the sub-directory of an renv project.
+</p>
+<p>If you'd like to launch <span class="rlang"><b>R</b></span> within the sub-directory of an renv project
+without auto-loading renv, you can set the environment variable:
+</p>
+<div class="sourceCode"><pre>RENV_AUTOLOAD_ENABLED = FALSE
+</pre></div>
+<p>before starting <span class="rlang"><b>R</b></span>.
+</p>
+<p>Note that <code>renv::autoload()</code> is only compatible with projects using
+<code style="white-space: pre;">&#8288;renv 0.15.3&#8288;</code> or newer, as it relies on features within the <code>renv/activate.R</code>
+script that are only generated with newer versions of renv.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>renv</em> version 1.0.9 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

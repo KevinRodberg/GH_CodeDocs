@@ -1,0 +1,182 @@
+<!DOCTYPE html><html><head><title>R: Install a package from GitLab</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>install_gitlab {remotes}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Install a package from GitLab</h2>
+
+<h3>Description</h3>
+
+<p>This function is vectorised on <code>repo</code> so you can install multiple
+packages in a single command. Like other remotes the repository will skip
+installation if <code>force == FALSE</code> (the default) and the remote state has
+not changed since the previous installation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>install_gitlab(
+  repo,
+  subdir = NULL,
+  auth_token = gitlab_pat(quiet),
+  host = "gitlab.com",
+  dependencies = NA,
+  upgrade = c("default", "ask", "always", "never"),
+  force = FALSE,
+  quiet = FALSE,
+  build = TRUE,
+  build_opts = c("--no-resave-data", "--no-manual", "--no-build-vignettes"),
+  build_manual = FALSE,
+  build_vignettes = FALSE,
+  repos = getOption("repos"),
+  type = getOption("pkgType"),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="repo">repo</code></td>
+<td>
+<p>Repository address in the format
+<code style="white-space: pre;">&#8288;username/repo[@ref]&#8288;</code>.</p>
+</td></tr>
+<tr><td><code id="subdir">subdir</code></td>
+<td>
+<p>Subdirectory within repo that contains the R package.</p>
+</td></tr>
+<tr><td><code id="auth_token">auth_token</code></td>
+<td>
+<p>To install from a private repo, generate a personal access
+token (PAT) with at least read_api scope in
+<a href="https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html">https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html</a> and
+supply to this argument. This is safer than using a password because you
+can easily delete a PAT without affecting any others. Defaults to the
+GITLAB_PAT environment variable.</p>
+</td></tr>
+<tr><td><code id="host">host</code></td>
+<td>
+<p>GitLab API host to use. Override with your GitLab enterprise
+hostname, for example, <code>"&lt;PROTOCOL://&gt;gitlab.hostname.com"</code>.
+The PROTOCOL is required by packrat during Posit Connect deployment. While
+<a href="../../remotes/help/install_gitlab.html">install_gitlab</a> may work without, omitting it generally
+leads to package restoration errors.</p>
+</td></tr>
+<tr><td><code id="dependencies">dependencies</code></td>
+<td>
+<p>Which dependencies do you want to check?
+Can be a character vector (selecting from &quot;Depends&quot;, &quot;Imports&quot;,
+&quot;LinkingTo&quot;, &quot;Suggests&quot;, or &quot;Enhances&quot;), or a logical vector.
+</p>
+<p><code>TRUE</code> is shorthand for &quot;Depends&quot;, &quot;Imports&quot;, &quot;LinkingTo&quot; and
+&quot;Suggests&quot;. <code>NA</code> is shorthand for &quot;Depends&quot;, &quot;Imports&quot; and &quot;LinkingTo&quot;
+and is the default. <code>FALSE</code> is shorthand for no dependencies (i.e.
+just check this package, not its dependencies).
+</p>
+<p>The value &quot;soft&quot; means the same as <code>TRUE</code>, &quot;hard&quot; means the same as <code>NA</code>.
+</p>
+<p>You can also specify dependencies from one or more additional fields,
+common ones include:
+</p>
+
+<ul>
+<li><p> Config/Needs/website - for dependencies used in building the pkgdown site.
+</p>
+</li>
+<li><p> Config/Needs/coverage for dependencies used in calculating test coverage.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="upgrade">upgrade</code></td>
+<td>
+<p>Should package dependencies be upgraded? One of &quot;default&quot;, &quot;ask&quot;, &quot;always&quot;, or &quot;never&quot;. &quot;default&quot;
+respects the value of the <code>R_REMOTES_UPGRADE</code> environment variable if set,
+and falls back to &quot;ask&quot; if unset. &quot;ask&quot; prompts the user for which out of
+date packages to upgrade. For non-interactive sessions &quot;ask&quot; is equivalent
+to &quot;always&quot;. <code>TRUE</code> and <code>FALSE</code> are also accepted and correspond to
+&quot;always&quot; and &quot;never&quot; respectively.</p>
+</td></tr>
+<tr><td><code id="force">force</code></td>
+<td>
+<p>Force installation, even if the remote state has not changed
+since the previous install.</p>
+</td></tr>
+<tr><td><code id="quiet">quiet</code></td>
+<td>
+<p>If <code>TRUE</code>, suppress output.</p>
+</td></tr>
+<tr><td><code id="build">build</code></td>
+<td>
+<p>If <code>TRUE</code> build the package before installing.</p>
+</td></tr>
+<tr><td><code id="build_opts">build_opts</code></td>
+<td>
+<p>Options to pass to <code style="white-space: pre;">&#8288;R CMD build&#8288;</code>, only used when <code>build</code> is <code>TRUE</code>.</p>
+</td></tr>
+<tr><td><code id="build_manual">build_manual</code></td>
+<td>
+<p>If <code>FALSE</code>, don't build PDF manual ('&ndash;no-manual').</p>
+</td></tr>
+<tr><td><code id="build_vignettes">build_vignettes</code></td>
+<td>
+<p>If <code>FALSE</code>, don't build package vignettes ('&ndash;no-build-vignettes').</p>
+</td></tr>
+<tr><td><code id="repos">repos</code></td>
+<td>
+<p>A character vector giving repositories to use.</p>
+</td></tr>
+<tr><td><code id="type">type</code></td>
+<td>
+<p>Type of package to <code>update</code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Other arguments passed on to <code><a href="../../utils/help/install.packages.html">utils::install.packages()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other package installation:
+<code><a href="../../remotes/help/install_bioc.html">install_bioc</a>()</code>,
+<code><a href="../../remotes/help/install_bitbucket.html">install_bitbucket</a>()</code>,
+<code><a href="../../remotes/help/install_cran.html">install_cran</a>()</code>,
+<code><a href="../../remotes/help/install_dev.html">install_dev</a>()</code>,
+<code><a href="../../remotes/help/install_github.html">install_github</a>()</code>,
+<code><a href="../../remotes/help/install_git.html">install_git</a>()</code>,
+<code><a href="../../remotes/help/install_local.html">install_local</a>()</code>,
+<code><a href="../../remotes/help/install_svn.html">install_svn</a>()</code>,
+<code><a href="../../remotes/help/install_url.html">install_url</a>()</code>,
+<code><a href="../../remotes/help/install_version.html">install_version</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+install_gitlab("jimhester/covr")
+
+## End(Not run)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>remotes</em> version 2.5.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

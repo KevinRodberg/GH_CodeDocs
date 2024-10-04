@@ -1,0 +1,125 @@
+<!DOCTYPE html><html><head><title>R: Automatically Format Export Tables</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>autoformat {xtable}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Automatically Format Export Tables</h2>
+
+<h3>Description</h3>
+
+<p>Suggest an appropriate alignment, number of digits, and display type
+for <code>xtable</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>autoformat(xtab, zap = getOption("digits"))
+
+xalign(x, pad = TRUE)
+xdigits(x, pad = TRUE, zap = getOption("digits"))
+xdisplay(x, pad = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="xtab">xtab</code></td>
+<td>
+<p>an object of class <code>xtable</code>.</p>
+</td></tr>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a vector, matrix, or data frame.</p>
+</td></tr>
+<tr><td><code id="pad">pad</code></td>
+<td>
+<p>whether to format row names, when <code>x</code> is
+two-dimensional.</p>
+</td></tr>
+<tr><td><code id="zap">zap</code></td>
+<td>
+<p>the number of digits passed to <code>zapsmall</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>autoformat</code> returns a copy of <code>xtab</code>, after applying
+<code>xalign</code>, <code>xdigits</code>, and <code>xdisplay</code>.
+</p>
+<p><code>xalign</code> returns a character vector consisting of <code>"l"</code> and
+<code>"r"</code> elements, for left/right alignment.
+</p>
+<p><code>xdigits</code> returns an integer vector.
+</p>
+<p><code>xdisplay</code> returns a character vector of <code>"d"</code>, <code>"f"</code>,
+and <code>"s"</code> elements, for integer/double/string display.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Arni Magnusson.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../xtable/help/xtable.html">xtable</a></code>, <code><a href="../../xtable/help/align.html">align</a></code>, <code><a href="../../xtable/help/digits.html">digits</a></code>,
+<code><a href="../../xtable/help/display.html">display</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## 1  Vector
+xalign(precip)
+xdigits(precip)
+xdisplay(precip)
+
+
+## 2  Data frame
+head(mtcars)
+xdigits(mtcars, pad = FALSE)
+xdigits(mtcars, pad = TRUE)
+xalign(mtcars)
+xdisplay(mtcars)
+
+
+## 3  Autoformat when xtable is created
+xtable(mtcars, align = xalign(mtcars), digits = xdigits(mtcars),
+       display = xdisplay(mtcars))
+
+## equivalent shortcut
+xtable(mtcars, auto = TRUE)
+
+
+## 4  Autoformat existing xtable
+mt &lt;- xtable(mtcars)
+align(mt) &lt;- xalign(mt)
+digits(mt) &lt;- xdigits(mt)
+display(mt) &lt;- xdisplay(mt)
+
+## equivalent shortcut
+mt &lt;- autoformat(mt)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>xtable</em> version 1.8-4 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html><html><head><title>R: Exclude lines or files from linting</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>exclude {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Exclude lines or files from linting</h2>
+
+<h3>Description</h3>
+
+<p>Exclude lines or files from linting
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>exclude(lints, exclusions = settings$exclusions, linter_names = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="lints">lints</code></td>
+<td>
+<p>that need to be filtered.</p>
+</td></tr>
+<tr><td><code id="exclusions">exclusions</code></td>
+<td>
+<p>manually specified exclusions</p>
+</td></tr>
+<tr><td><code id="linter_names">linter_names</code></td>
+<td>
+<p>character vector of names of the active linters, used for parsing inline exclusions.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>additional arguments passed to <code><a href="../../lintr/help/parse_exclusions.html">parse_exclusions()</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Exclusions can be specified in three different ways.
+</p>
+
+<ol>
+<li><p> Single line in the source file. default: <code style="white-space: pre;">&#8288;# nolint&#8288;</code>, possibly followed by a listing of linters to exclude.
+If the listing is missing, all linters are excluded on that line. The default listing format is
+<code style="white-space: pre;">&#8288;# nolint: linter_name, linter2_name.&#8288;</code>. There may not be anything between the colon and the line exclusion tag
+and the listing must be terminated with a full stop (<code>.</code>) for the linter list to be respected.
+</p>
+</li>
+<li><p> Line range in the source file. default: <code style="white-space: pre;">&#8288;# nolint start&#8288;</code>, <code style="white-space: pre;">&#8288;# nolint end&#8288;</code>. <code style="white-space: pre;">&#8288;# nolint start&#8288;</code> accepts linter
+lists in the same form as <code style="white-space: pre;">&#8288;# nolint&#8288;</code>.
+</p>
+</li>
+<li><p> Exclusions parameter, a list with named and/or unnamed entries.
+Outer elements have the following characteristics:
+</p>
+
+<ol>
+<li><p> Unnamed elements specify filenames or directories.
+</p>
+</li>
+<li><p> Named elements are a vector or list of line numbers, with <code>Inf</code> indicating 'all lines'.
+The name gives a path relative to the config.
+</p>
+
+<ol>
+<li><p> Unnamed elements denote exclusion of all linters in the given path or directory.
+</p>
+</li>
+<li><p> Named elements, where the name specifies a linter, denote exclusion for that linter.
+For convenience, a vector can be used in place of a list whenever it would not introduce ambiguity, e.g.
+a character vector of files to exclude or a vector of lines to exclude.
+</p>
+</li></ol>
+
+</li></ol>
+
+</li></ol>
+
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

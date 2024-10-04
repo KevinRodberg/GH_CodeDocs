@@ -1,0 +1,84 @@
+<!DOCTYPE html><html><head><title>R: Block usage of 'ifelse()' where 'pmin()' or 'pmax()' is more...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ifelse_censor_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Block usage of <code>ifelse()</code> where <code>pmin()</code> or <code>pmax()</code> is more appropriate</h2>
+
+<h3>Description</h3>
+
+<p><code>ifelse(x &gt; M, M, x)</code> is the same as <code>pmin(x, M)</code>, but harder
+to read and requires several passes over the vector.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ifelse_censor_linter()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p>The same goes for other similar ways to censor a vector, e.g.
+<code>ifelse(x &lt;= M, x, M)</code> is <code>pmin(x, M)</code>,
+<code>ifelse(x &lt; m, m, x)</code> is <code>pmax(x, m)</code>, and
+<code>ifelse(x &gt;= m, x, m)</code> is <code>pmax(x, m)</code>.
+</p>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/efficiency_linters.html">efficiency</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "ifelse(5:1 &lt; pi, 5:1, pi)",
+  linters = ifelse_censor_linter()
+)
+
+lint(
+  text = "ifelse(x &gt; 0, x, 0)",
+  linters = ifelse_censor_linter()
+)
+
+# okay
+lint(
+  text = "pmin(5:1, pi)",
+  linters = ifelse_censor_linter()
+)
+
+lint(
+  text = "pmax(x, 0)",
+  linters = ifelse_censor_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html><html><head><title>R: Lint common mistakes/style issues cropping up from return...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>function_return_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Lint common mistakes/style issues cropping up from return statements</h2>
+
+<h3>Description</h3>
+
+<p><code>return(x &lt;- ...)</code> is either distracting (because <code>x</code> is ignored), or
+confusing (because assigning to <code>x</code> has some side effect that is muddled
+by the dual-purpose expression).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>function_return_linter()
+</code></pre>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/readability_linters.html">readability</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "foo &lt;- function(x) return(y &lt;- x + 1)",
+  linters = function_return_linter()
+)
+
+lint(
+  text = "foo &lt;- function(x) return(x &lt;&lt;- x + 1)",
+  linters = function_return_linter()
+)
+
+writeLines("e &lt;- new.env() \nfoo &lt;- function(x) return(e$val &lt;- x + 1)")
+lint(
+  text = "e &lt;- new.env() \nfoo &lt;- function(x) return(e$val &lt;- x + 1)",
+  linters = function_return_linter()
+)
+
+# okay
+lint(
+  text = "foo &lt;- function(x) return(x + 1)",
+  linters = function_return_linter()
+)
+
+code_lines &lt;- "
+foo &lt;- function(x) {
+  x &lt;&lt;- x + 1
+  return(x)
+}
+"
+lint(
+  text = code_lines,
+  linters = function_return_linter()
+)
+
+code_lines &lt;- "
+e &lt;- new.env()
+foo &lt;- function(x) {
+  e$val &lt;- x + 1
+  return(e$val)
+}
+"
+writeLines(code_lines)
+lint(
+  text = code_lines,
+  linters = function_return_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html><html><head><title>R: Enforce usage of scalar logical operators in conditional...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vector_logic_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Enforce usage of scalar logical operators in conditional statements</h2>
+
+<h3>Description</h3>
+
+<p>Usage of <code>&amp;</code> in conditional statements is error-prone and inefficient.
+<code>condition</code> in <code>if (condition) expr</code> must always be of length 1, in which
+case <code>&amp;&amp;</code> is to be preferred. Ditto for <code>|</code> vs. <code>||</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vector_logic_linter()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p>This linter covers inputs to <code style="white-space: pre;">&#8288;if()&#8288;</code> and <code style="white-space: pre;">&#8288;while()&#8288;</code> conditions and to
+<code><a href="../../testthat/help/logical-expectations.html">testthat::expect_true()</a></code> and <code><a href="../../testthat/help/logical-expectations.html">testthat::expect_false()</a></code>.
+</p>
+<p>Note that because <code>&amp;</code> and <code>|</code> are generics, it is possible that
+<code>&amp;&amp;</code> / <code>||</code> are not perfect substitutes because <code>&amp;</code> is doing
+method dispatch in an incompatible way.
+</p>
+<p>Moreover, be wary of code that may have side effects, most commonly
+assignments. Consider <code>if ((a &lt;- foo(x)) | (b &lt;- bar(y))) { ... }</code>
+vs. <code>if ((a &lt;- foo(x)) || (b &lt;- bar(y))) { ... }</code>. Because <code>||</code> exits
+early, if <code>a</code> is <code>TRUE</code>,  the second condition will never be evaluated
+and <code>b</code> will not be assigned. Such usage is not allowed by the Tidyverse
+style guide, and the code can easily be refactored by pulling the
+assignment outside the condition, so using <code>||</code> is still preferable.
+</p>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/default_linters.html">default</a>, <a href="../../lintr/help/efficiency_linters.html">efficiency</a>
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+</li>
+<li> <p><a href="https://style.tidyverse.org/syntax.html#if-statements">https://style.tidyverse.org/syntax.html#if-statements</a>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "if (TRUE &amp; FALSE) 1",
+  linters = vector_logic_linter()
+)
+
+lint(
+  text = "if (TRUE &amp;&amp; (TRUE | FALSE)) 4",
+  linters = vector_logic_linter()
+)
+
+# okay
+lint(
+  text = "if (TRUE &amp;&amp; FALSE) 1",
+  linters = vector_logic_linter()
+)
+
+lint(
+  text = "if (TRUE &amp;&amp; (TRUE || FALSE)) 4",
+  linters = vector_logic_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

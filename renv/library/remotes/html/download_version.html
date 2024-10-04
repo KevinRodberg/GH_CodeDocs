@@ -1,0 +1,102 @@
+<!DOCTYPE html><html><head><title>R: Download a specified version of a CRAN package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>download_version {remotes}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download a specified version of a CRAN package</h2>
+
+<h3>Description</h3>
+
+<p>It downloads the package to a temporary file, and
+returns the name of the file.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>download_version(
+  package,
+  version = NULL,
+  repos = getOption("repos"),
+  type = getOption("pkgType"),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="package">package</code></td>
+<td>
+<p>Name of the package to install.</p>
+</td></tr>
+<tr><td><code id="version">version</code></td>
+<td>
+<p>Version of the package to install.  Can either be a string giving the exact
+version required, or a specification in the same format as the parenthesized expressions used
+in package dependencies. One of the following formats:
+</p>
+
+<ul>
+<li><p> An exact version required, as a string, e.g. <code>"0.1.13"</code>
+</p>
+</li>
+<li><p> A comparison operator and a version, e.g. <code>"&gt;= 0.1.12"</code>
+</p>
+</li>
+<li><p> Several criteria to satisfy, as a comma-separated string, e.g. <code>"&gt;= 1.12.0, &lt; 1.14"</code>
+</p>
+</li>
+<li><p> Several criteria to satisfy, as elements of a character vector, e.g. <code>c("&gt;= 1.12.0", "&lt; 1.14")</code>
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="repos">repos</code></td>
+<td>
+
+<p>character vector, the base URL(s) of the repositories
+to use, e.g., the URL of a CRAN mirror such as
+<code>"https://cloud.r-project.org"</code>.  For more details on
+supported URL schemes see <code><a href="../../base/html/connections.html">url</a></code>.
+</p>
+<p>Can be <code>NULL</code> to install from local files, directories or URLs:
+this will be inferred by extension from <code>pkgs</code> if of length one.
+</p>
+</td></tr>
+<tr><td><code id="type">type</code></td>
+<td>
+<p>character, indicating the type of package to download and
+install.  Will be <code>"source"</code> except on Windows and some macOS
+builds: see the section on &lsquo;Binary packages&rsquo; for those.
+</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Other arguments passed on to <code><a href="../../utils/help/install.packages.html">utils::install.packages()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Name of the downloaded file.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>remotes</em> version 2.5.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

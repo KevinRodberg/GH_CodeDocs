@@ -1,0 +1,74 @@
+<!DOCTYPE html><html><head><title>R: Non-portable path linter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>nonportable_path_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Non-portable path linter</h2>
+
+<h3>Description</h3>
+
+<p>Check that <code><a href="../../base/html/file.path.html">file.path()</a></code> is used to construct safe and portable paths.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>nonportable_path_linter(lax = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="lax">lax</code></td>
+<td>
+<p>Less stringent linting, leading to fewer false positives.
+If <code>TRUE</code>, only lint path strings, which
+</p>
+
+<ul>
+<li><p> contain at least two path elements, with one having at least two characters and
+</p>
+</li>
+<li><p> contain only alphanumeric chars (including UTF-8), spaces, and win32-allowed punctuation
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/configurable_linters.html">configurable</a>, <a href="../../lintr/help/robustness_linters.html">robustness</a>
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+</li>
+<li> <p><code><a href="../../lintr/help/absolute_path_linter.html">absolute_path_linter()</a></code>
+</p>
+</li></ul>
+
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

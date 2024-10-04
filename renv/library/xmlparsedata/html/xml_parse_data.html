@@ -1,0 +1,113 @@
+<!DOCTYPE html><html><head><title>R: Convert R parse data to XML</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>xml_parse_data {xmlparsedata}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert R parse data to XML</h2>
+
+<h3>Description</h3>
+
+<p>In recent R versions the parser can attach source code location
+information to the parsed expressions. This information is often
+useful for static analysis, e.g. code linting. It can be accessed
+via the <code><a href="../../utils/help/getParseData.html">getParseData</a></code> function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>xml_parse_data(x, includeText = NA, pretty = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="x">x</code></td>
+<td>
+
+<p>an expression returned from <code><a href="../../base/html/parse.html">parse</a></code>, or a function or other
+object with source reference information
+</p>
+</td></tr>
+<tr><td><code id="includeText">includeText</code></td>
+<td>
+
+<p>logical; whether to include the text of parsed items in the result
+</p>
+</td></tr>
+<tr><td><code id="pretty">pretty</code></td>
+<td>
+<p>Whether to pretty-indent the XML output. It has a small
+overhead which probably only matters for very large source files.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>xml_parse_data</code> converts this information to an XML tree.
+The R parser's token names are preserved in the XML as much as
+possible, but some of them are not valid XML tag names, so they are
+renamed, see the <code><a href="../../xmlparsedata/help/xml_parse_token_map.html">xml_parse_token_map</a></code> vector for the
+mapping.
+</p>
+<p>The top XML tag is <code>&lt;exprlist&gt;</code>, which is a list of
+expressions, each expression is an <code>&lt;expr&gt;</code> tag. Each tag
+has attributes that define the location: <code>line1</code>, <code>col1</code>,
+<code>line2</code>, <code>col2</code>. These are from the <code><a href="../../utils/html/getParseData.html">getParseData</a></code>
+data frame column names.
+</p>
+<p>See an example below. See also the README at
+<a href="https://github.com/r-lib/xmlparsedata#readme">https://github.com/r-lib/xmlparsedata#readme</a>
+for examples on how to search the XML tree with the <code>xml2</code> package
+and XPath expressions.
+</p>
+<p>Note that 'xml_parse_data()' silently drops all control characters
+(0x01-0x1f) from the input, except horizontal tab (0x09) and newline
+(0x0a), because they are invalid in XML 1.0.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An XML string representing the parse data. See details below.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../xmlparsedata/help/xml_parse_token_map.html">xml_parse_token_map</a></code> for the token names.
+<a href="https://github.com/r-lib/xmlparsedata#readme">https://github.com/r-lib/xmlparsedata#readme</a> for more
+information and use cases.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>code &lt;- "function(a = 1, b = 2) {\n  a + b\n}\n"
+expr &lt;- parse(text = code, keep.source = TRUE)
+
+# The base R way:
+getParseData(expr)
+
+cat(xml_parse_data(expr, pretty = TRUE))
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>xmlparsedata</em> version 1.0.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

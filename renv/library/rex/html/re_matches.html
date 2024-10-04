@@ -1,0 +1,111 @@
+<!DOCTYPE html><html><head><title>R: Match function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>re_matches {rex}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Match function</h2>
+
+<h3>Description</h3>
+
+<p>Match function
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>re_matches(
+  data,
+  pattern,
+  global = FALSE,
+  options = NULL,
+  locations = FALSE,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="data">data</code></td>
+<td>
+<p>character vector to match against</p>
+</td></tr>
+<tr><td><code id="pattern">pattern</code></td>
+<td>
+<p>regular expression to use for matching</p>
+</td></tr>
+<tr><td><code id="global">global</code></td>
+<td>
+<p>use global matching</p>
+</td></tr>
+<tr><td><code id="options">options</code></td>
+<td>
+<p>regular expression options</p>
+</td></tr>
+<tr><td><code id="locations">locations</code></td>
+<td>
+<p>rather than returning the values of the matched (or
+captured) string, return a <code>data.frame</code> of the match locations in the
+string.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>options passed to regexpr or gregexpr</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>if no captures, returns a logical vector the same length as the
+input character vector specifying if the relevant value matched or not.  If
+there are captures in the regular expression, returns a <code>data.frame</code> with a
+column for each capture group.  If <code>global</code> is <code>TRUE</code>, returns a
+list of <code>data.frame</code>s.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/regex.html">regexp</a></code> Section &quot;Perl-like Regular Expressions&quot; for a
+discussion of the supported options
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>string &lt;- c("this is a", "test string")
+re_matches(string, rex("test")) # FALSE FALSE
+
+# named capture
+re_matches(string, rex(capture(alphas, name = "first_word"), space,
+  capture(alphas, name = "second_word")))
+#   first_word second_word
+# 1       this          is
+# 2       test      string
+
+# capture returns NA when it fails to match
+re_matches(string, rex(capture("test")))
+#      1
+# 1 test
+# 2 &lt;NA&gt;
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>rex</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

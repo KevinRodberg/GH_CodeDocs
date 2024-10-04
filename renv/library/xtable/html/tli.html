@@ -1,0 +1,62 @@
+<!DOCTYPE html><html><head><title>R: Math scores from Texas Assessment of Academic Skills (TAAS)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>tli {xtable}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Math scores from Texas Assessment of Academic Skills (TAAS)</h2>
+
+<h3>Description</h3>
+
+<p>This data set contains math scores and demographic data of
+100 randomly selected students participating in the Texas
+Assessment of Academic Skills (TAAS).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>data(tli)</code></pre>
+
+
+<h3>Format</h3>
+
+<p>A <code>data.frame</code> containing 100 observations with the
+following columns:
+</p>
+
+<dl>
+<dt><code>grade</code></dt><dd><p>Year in school of student</p>
+</dd>
+<dt><code>sex</code></dt><dd><p>Gender of student</p>
+</dd>
+<dt><code>disadvg</code></dt><dd><p>Is the student economically disadvantaged?</p>
+</dd>
+<dt><code>ethnicty</code></dt><dd><p>Race of student</p>
+</dd>
+<dt><code>tlimth</code></dt><dd><p>Math score of student</p>
+</dd>
+</dl>
+
+
+
+<h3>Source</h3>
+
+<p>Texas Education Agency, <a href="http://www.tea.state.tx.us">http://www.tea.state.tx.us</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>xtable</em> version 1.8-4 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><title>R: Equality check with NA linter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>equals_na_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Equality check with NA linter</h2>
+
+<h3>Description</h3>
+
+<p>Check for <code>x == NA</code>, <code>x != NA</code> and <code>x %in% NA</code>. Such usage is almost surely incorrect &ndash;
+checks for missing values should be done with <code><a href="../../base/html/NA.html">is.na()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>equals_na_linter()
+</code></pre>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/common_mistakes_linters.html">common_mistakes</a>, <a href="../../lintr/help/correctness_linters.html">correctness</a>, <a href="../../lintr/help/default_linters.html">default</a>, <a href="../../lintr/help/robustness_linters.html">robustness</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "x == NA",
+  linters = equals_na_linter()
+)
+
+lint(
+  text = "x != NA",
+  linters = equals_na_linter()
+)
+
+lint(
+  text = "x %in% NA",
+  linters = equals_na_linter()
+)
+
+# okay
+lint(
+  text = "is.na(x)",
+  linters = equals_na_linter()
+)
+
+lint(
+  text = "!is.na(x)",
+  linters = equals_na_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

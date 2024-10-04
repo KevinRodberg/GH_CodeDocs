@@ -1,0 +1,98 @@
+<!DOCTYPE html><html><head><title>R: Wildcards</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>wildcards {rex}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Wildcards</h2>
+
+<h3>Description</h3>
+
+<p>Wildcards
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>zero_or_more(..., type = c("greedy", "lazy", "possessive"))
+
+one_or_more(..., type = c("greedy", "lazy", "possessive"))
+
+maybe(..., type = c("greedy", "lazy", "possessive"))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="...">...</code></td>
+<td>
+<p><code><a href="../../rex/help/shortcuts.html">shortcuts</a></code>, R variables, text, or other <span class="pkg">rex</span>
+functions.</p>
+</td></tr>
+<tr><td><code id="type">type</code></td>
+<td>
+<p>the type of match to perform.
+</p>
+<p>There are three match types
+</p>
+
+<ol>
+<li> <p><code>greedy</code>: match the longest string.  This is the default matching type.
+</p>
+</li>
+<li> <p><code>lazy</code>: match the shortest string.  This matches the shortest string from the same anchor point, not necessarily the shortest global string.
+</p>
+</li>
+<li> <p><code>possessive</code>: match and don't allow backtracking
+</p>
+</li></ol>
+</td></tr>
+</table>
+
+
+<h3>Functions</h3>
+
+
+<ul>
+<li> <p><code>zero_or_more</code>: match <code>...</code> zero or more times.
+</p>
+</li>
+<li> <p><code>one_or_more</code>: match <code>...</code> one or more times.
+</p>
+</li>
+<li> <p><code>maybe</code>: match <code>...</code> zero or one times.
+</p>
+</li></ul>
+
+
+<h3>See Also</h3>
+
+<p>Other rex: 
+<code><a href="../../rex/help/+25or+25.html">%or%</a>()</code>,
+<code><a href="../../rex/help/capture.html">capture</a>()</code>,
+<code><a href="../../rex/help/character_class.html">character_class</a>()</code>,
+<code><a href="../../rex/help/counts.html">counts</a></code>,
+<code><a href="../../rex/help/group.html">group</a>()</code>,
+<code><a href="../../rex/help/lookarounds.html">lookarounds</a></code>,
+<code><a href="../../rex/help/not.html">not</a>()</code>,
+<code><a href="../../rex/help/rex.html">rex</a>()</code>,
+<code><a href="../../rex/help/shortcuts.html">shortcuts</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>rex</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

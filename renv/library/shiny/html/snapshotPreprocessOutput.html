@@ -1,0 +1,50 @@
+<!DOCTYPE html><html><head><title>R: Add a function for preprocessing an output before taking a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>snapshotPreprocessOutput {shiny}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Add a function for preprocessing an output before taking a test snapshot</h2>
+
+<h3>Description</h3>
+
+<p>Add a function for preprocessing an output before taking a test snapshot
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>snapshotPreprocessOutput(x, fun)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A reactive which will be assigned to an output.</p>
+</td></tr>
+<tr><td><code id="fun">fun</code></td>
+<td>
+<p>A function that takes the output value as an input and returns a
+modified value. The returned value will be used for the test snapshot.</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>shiny</em> version 1.9.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html><html><head><title>R: Default undesirable functions and operators</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>all_undesirable_functions {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Default undesirable functions and operators</h2>
+
+<h3>Description</h3>
+
+<p>Lists of function names and operators for <code><a href="../../lintr/help/undesirable_function_linter.html">undesirable_function_linter()</a></code> and <code><a href="../../lintr/help/undesirable_operator_linter.html">undesirable_operator_linter()</a></code>.
+There is a list for the default elements and another that contains all available elements.
+Use <code><a href="../../lintr/help/modify_defaults.html">modify_defaults()</a></code> to produce a custom list.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>all_undesirable_functions
+
+default_undesirable_functions
+
+all_undesirable_operators
+
+default_undesirable_operators
+</code></pre>
+
+
+<h3>Format</h3>
+
+<p>A named list of character strings.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The following functions are sometimes regarded as undesirable:
+</p>
+
+<ul>
+<li> <p><code><a href="../../base/html/attach.html">attach()</a></code> modifies the global search path. Use roxygen2's @importFrom statement in packages, or <code>::</code> in scripts.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/browser.html">browser()</a></code> pauses execution when run and is likely a leftover from debugging. It should be removed.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/debug.html">debug()</a></code> traps a function and causes execution to pause when that function is run. It should be removed.
+</p>
+</li>
+<li> <p><code><a href="../../utils/html/debugcall.html">debugcall()</a></code> works similarly to <code><a href="../../base/html/debug.html">debug()</a></code>, causing execution to pause. It should be removed.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/debug.html">debugonce()</a></code> is only useful for interactive debugging. It should be removed.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/detach.html">detach()</a></code> modifies the global search path. Detaching environments from the search path is rarely necessary in
+production code.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/ifelse.html">ifelse()</a></code> isn't type stable. Use an <code>if</code>/<code style="white-space: pre;">&#8288;else&#8288;</code> block for scalar logic, or use
+<code>dplyr::if_else()</code>/<code>data.table::fifelse()</code> for type stable vectorized logic.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/libPaths.html">.libPaths()</a></code> permanently modifies the library location. Use <code><a href="../../withr/help/with_libpaths.html">withr::with_libpaths()</a></code> for a temporary change
+instead.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/library.html">library()</a></code> modifies the global search path. Use roxygen2's @importFrom statement in packages, or <code>::</code> in scripts.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/ns-load.html">loadNamespace()</a></code> doesn't provide an easy way to signal failures. Use the return value of <code><a href="../../base/html/ns-load.html">requireNamespace()</a></code>
+instead.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/mapply.html">mapply()</a></code> isn't type stable. Use <code><a href="../../base/html/funprog.html">Map()</a></code> to guarantee a list is returned and simplify accordingly.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/options.html">options()</a></code> permanently modifies the session options. Use <code><a href="../../withr/help/with_options.html">withr::with_options()</a></code> for a temporary change instead.
+</p>
+</li>
+<li> <p><code><a href="../../graphics/html/par.html">par()</a></code> permanently modifies the graphics device parameters. Use <code><a href="../../withr/help/with_par.html">withr::with_par()</a></code> for a temporary change
+instead.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/library.html">require()</a></code> modifies the global search path. Use roxygen2's @importFrom statement in packages, and <code><a href="../../base/html/library.html">library()</a></code>
+or <code>::</code> in scripts.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/lapply.html">sapply()</a></code> isn't type stable. Use <code><a href="../../base/html/lapply.html">vapply()</a></code> with an appropriate <code style="white-space: pre;">&#8288;FUN.VALUE=&#8288;</code> argument to obtain type stable
+simplification.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/getwd.html">setwd()</a></code> modifies the global working directory. Use <code><a href="../../withr/help/with_dir.html">withr::with_dir()</a></code> for a temporary change instead.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/sink.html">sink()</a></code> permanently redirects output. Use <code><a href="../../withr/help/with_sink.html">withr::with_sink()</a></code> for a temporary redirection instead.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/source.html">source()</a></code> loads code into the global environment unless <code>local = TRUE</code> is used, which can cause unexpected
+behavior.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/substr.html">substring()</a></code> should be replaced by <code><a href="../../base/html/substr.html">substr()</a></code> with appropriate <code style="white-space: pre;">&#8288;stop=&#8288;</code> value.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/Sys.setenv.html">Sys.setenv()</a></code> permanently modifies the global environment variables. Use <code><a href="../../withr/help/with_envvar.html">withr::with_envvar()</a></code> for a temporary
+change instead.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/locales.html">Sys.setlocale()</a></code> permanently modifies the session locale. Use <code><a href="../../withr/help/with_locale.html">withr::with_locale()</a></code> for a temporary change
+instead.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/trace.html">trace()</a></code> traps a function and causes execution of arbitrary code when that function is run. It should be removed.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/debug.html">undebug()</a></code> is only useful for interactive debugging with <code><a href="../../base/html/debug.html">debug()</a></code>. It should be removed.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/trace.html">untrace()</a></code> is only useful for interactive debugging with <code><a href="../../base/html/trace.html">trace()</a></code>. It should be removed.
+</p>
+</li></ul>
+
+<p>The following operators are sometimes regarded as undesirable:
+</p>
+
+<ul>
+<li> <p><code><a href="../../base/help/ns-dblcolon.html">:::</a></code> accesses non-exported functions inside packages. Code relying on these is
+likely to break in future versions of the package because the functions are not part of the public interface and
+may be changed or removed by the maintainers without notice.
+Use public functions via <code>::</code> instead.
+</p>
+</li>
+<li> <p><code><a href="../../base/help/assignOps.html">&lt;&lt;-</a></code> and <code style="white-space: pre;">&#8288;-&gt;&gt;&#8288;</code> assign outside the current environment in a way that can be hard to reason
+about. Prefer fully-encapsulated functions wherever possible, or, if necessary, assign to a specific environment
+with <code><a href="../../base/html/assign.html">assign()</a></code>. Recall that you can create an environment at the desired scope with <code><a href="../../base/html/environment.html">new.env()</a></code>.
+</p>
+</li></ul>
+
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

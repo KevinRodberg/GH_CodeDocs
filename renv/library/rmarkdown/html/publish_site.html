@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><title>R: Publish an R Markdown Website</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>publish_site {rmarkdown}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Publish an R Markdown Website</h2>
+
+<h3>Description</h3>
+
+<p>Publish a website to RStudio Connect
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>publish_site(
+  site_dir = ".",
+  site_name = NULL,
+  method = c("rsconnect"),
+  server = NULL,
+  account = NULL,
+  render = TRUE,
+  launch_browser = interactive()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="site_dir">site_dir</code></td>
+<td>
+<p>Directory containing website. Defaults to current working directory.</p>
+</td></tr>
+<tr><td><code id="site_name">site_name</code></td>
+<td>
+<p>Name for the site (names must be unique within an account). Defaults
+to the 'name' provided by the site generator (or to the name of the site_dir if
+there is no 'name' specified).</p>
+</td></tr>
+<tr><td><code id="method">method</code></td>
+<td>
+<p>Publishing method (currently only &quot;rsconnect&quot; is available)</p>
+</td></tr>
+<tr><td><code id="account">account</code>, <code id="server">server</code></td>
+<td>
+<p>Uniquely identify a remote server with either your
+user <code>account</code>, the <code>server</code> name, or both. If neither are supplied, and
+there are multiple options, you'll be prompted to pick one.
+</p>
+<p>Use <code><a href="../../rsconnect/help/accounts.html">accounts()</a></code> to see the full list of available options.</p>
+</td></tr>
+<tr><td><code id="render">render</code></td>
+<td>
+<p>'TRUE' to render the site locally before publishing.</p>
+</td></tr>
+<tr><td><code id="launch_browser">launch_browser</code></td>
+<td>
+<p>If &lsquo;TRUE', the system&rsquo;s default web browser will be launched
+automatically after the site is deployed. Defaults to 'TRUE' in interactive sessions
+only.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+library(rmarkdown)
+publish_site()
+
+## End(Not run)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>rmarkdown</em> version 2.28 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

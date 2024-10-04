@@ -1,0 +1,47 @@
+<!DOCTYPE html><html><head><title>R: Register the Rex shortcuts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>register_shortcuts {rex}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Register the Rex shortcuts</h2>
+
+<h3>Description</h3>
+
+<p>If you are using rex in another package you need to call this function to
+register all of the rex shortcuts so that spurious NOTEs about global
+variables being generated during R CMD check.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>register_shortcuts(pkg_name)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="pkg_name">pkg_name</code></td>
+<td>
+<p>the package to register the shortcuts in</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>rex</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

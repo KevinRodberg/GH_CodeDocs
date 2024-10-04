@@ -1,0 +1,124 @@
+<!DOCTYPE html><html><head><title>R: Infix spaces linter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>infix_spaces_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Infix spaces linter</h2>
+
+<h3>Description</h3>
+
+<p>Check that infix operators are surrounded by spaces. Enforces the corresponding Tidyverse style guide rule;
+see <a href="https://style.tidyverse.org/syntax.html#infix-operators">https://style.tidyverse.org/syntax.html#infix-operators</a>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>infix_spaces_linter(exclude_operators = NULL, allow_multiple_spaces = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="exclude_operators">exclude_operators</code></td>
+<td>
+<p>Character vector of operators to exclude from consideration for linting.
+Default is to include the following &quot;low-precedence&quot; operators:
+<code>+</code>, <code>-</code>, <code>~</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>==</code>, <code>!=</code>, <code>&amp;</code>, <code>&amp;&amp;</code>, <code>|</code>, <code>||</code>, <code style="white-space: pre;">&#8288;&lt;-&#8288;</code>, <code style="white-space: pre;">&#8288;:=&#8288;</code>, <code style="white-space: pre;">&#8288;&lt;&lt;-&#8288;</code>, <code style="white-space: pre;">&#8288;-&gt;&#8288;</code>, <code style="white-space: pre;">&#8288;-&gt;&gt;&#8288;</code>,
+<code>=</code>, <code>/</code>, <code>*</code>, and any infix operator (exclude infixes by passing <code>"%%"</code>). Note that <code>"="</code> here includes
+three different operators, from the parser's point of view. To lint only some of these, pass the
+corresponding parse tags (i.e., some of <code>"EQ_ASSIGN"</code>, <code>"EQ_SUB"</code>, and <code>"EQ_FORMALS"</code>; see
+<code><a href="../../utils/help/getParseData.html">utils::getParseData()</a></code>).</p>
+</td></tr>
+<tr><td><code id="allow_multiple_spaces">allow_multiple_spaces</code></td>
+<td>
+<p>Logical, default <code>TRUE</code>. If <code>FALSE</code>, usage like <code>x  =  2</code> will also be linted;
+excluded by default because such usage can sometimes be used for better code alignment, as is allowed
+by the style guide.</p>
+</td></tr>
+</table>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/configurable_linters.html">configurable</a>, <a href="../../lintr/help/default_linters.html">default</a>, <a href="../../lintr/help/readability_linters.html">readability</a>, <a href="../../lintr/help/style_linters.html">style</a>
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+</li>
+<li> <p><a href="https://style.tidyverse.org/syntax.html#infix-operators">https://style.tidyverse.org/syntax.html#infix-operators</a>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "x&lt;-1L",
+  linters = infix_spaces_linter()
+)
+
+lint(
+  text = "1:4 %&gt;%sum()",
+  linters = infix_spaces_linter()
+)
+
+# okay
+lint(
+  text = "x &lt;- 1L",
+  linters = infix_spaces_linter()
+)
+
+lint(
+  text = "1:4 %&gt;% sum()",
+  linters = infix_spaces_linter()
+)
+
+code_lines &lt;- "
+ab     &lt;- 1L
+abcdef &lt;- 2L
+"
+writeLines(code_lines)
+lint(
+  text = code_lines,
+  linters = infix_spaces_linter(allow_multiple_spaces = TRUE)
+)
+
+lint(
+  text = "a||b",
+  linters = infix_spaces_linter(exclude_operators = "||")
+)
+
+lint(
+  text = "sum(1:10, na.rm=TRUE)",
+  linters = infix_spaces_linter(exclude_operators = "EQ_SUB")
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

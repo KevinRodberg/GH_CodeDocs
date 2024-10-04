@@ -1,0 +1,136 @@
+<!DOCTYPE html><html><head><title>R: Start a process</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>process_initialize {processx}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Start a process</h2>
+
+<h3>Description</h3>
+
+<p>Start a process
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>process_initialize(
+  self,
+  private,
+  command,
+  args,
+  stdin,
+  stdout,
+  stderr,
+  pty,
+  pty_options,
+  connections,
+  poll_connection,
+  env,
+  cleanup,
+  cleanup_tree,
+  wd,
+  echo_cmd,
+  supervise,
+  windows_verbatim_args,
+  windows_hide_window,
+  windows_detached_process,
+  encoding,
+  post_process
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="self">self</code></td>
+<td>
+<p>this</p>
+</td></tr>
+<tr><td><code id="private">private</code></td>
+<td>
+<p>this$private</p>
+</td></tr>
+<tr><td><code id="command">command</code></td>
+<td>
+<p>Command to run, string scalar.</p>
+</td></tr>
+<tr><td><code id="args">args</code></td>
+<td>
+<p>Command arguments, character vector.</p>
+</td></tr>
+<tr><td><code id="stdin">stdin</code></td>
+<td>
+<p>Standard input, NULL to ignore.</p>
+</td></tr>
+<tr><td><code id="stdout">stdout</code></td>
+<td>
+<p>Standard output, NULL to ignore, TRUE for temp file.</p>
+</td></tr>
+<tr><td><code id="stderr">stderr</code></td>
+<td>
+<p>Standard error, NULL to ignore, TRUE for temp file.</p>
+</td></tr>
+<tr><td><code id="pty">pty</code></td>
+<td>
+<p>Whether we create a PTY.</p>
+</td></tr>
+<tr><td><code id="connections">connections</code></td>
+<td>
+<p>Connections to inherit in the child process.</p>
+</td></tr>
+<tr><td><code id="poll_connection">poll_connection</code></td>
+<td>
+<p>Whether to create a connection for polling.</p>
+</td></tr>
+<tr><td><code id="env">env</code></td>
+<td>
+<p>Environment vaiables.</p>
+</td></tr>
+<tr><td><code id="cleanup">cleanup</code></td>
+<td>
+<p>Kill on GC?</p>
+</td></tr>
+<tr><td><code id="cleanup_tree">cleanup_tree</code></td>
+<td>
+<p>Kill process tree on GC?</p>
+</td></tr>
+<tr><td><code id="wd">wd</code></td>
+<td>
+<p>working directory (or NULL)</p>
+</td></tr>
+<tr><td><code id="echo_cmd">echo_cmd</code></td>
+<td>
+<p>Echo command before starting it?</p>
+</td></tr>
+<tr><td><code id="supervise">supervise</code></td>
+<td>
+<p>Should the process be supervised?</p>
+</td></tr>
+<tr><td><code id="encoding">encoding</code></td>
+<td>
+<p>Assumed stdout and stderr encoding.</p>
+</td></tr>
+<tr><td><code id="post_process">post_process</code></td>
+<td>
+<p>Post processing function.</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>processx</em> version 3.8.4 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

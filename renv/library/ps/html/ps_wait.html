@@ -1,0 +1,82 @@
+<!DOCTYPE html><html><head><title>R: Wait for one or more processes to terminate, with a timeout</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ps_wait {ps}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Wait for one or more processes to terminate, with a timeout</h2>
+
+<h3>Description</h3>
+
+<p>This function supports interruption with SIGINT on Unix, or CTRL+C
+or CTRL+BREAK on Windows.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ps_wait(p, timeout = -1)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="p">p</code></td>
+<td>
+<p>A process handle, or a list of process handles. The
+process(es) to wait for.</p>
+</td></tr>
+<tr><td><code id="timeout">timeout</code></td>
+<td>
+<p>Timeout in milliseconds. If -1, <code>ps_wait()</code> will wait
+indefinitely (or until it is interrupted). If 0, then it checks which
+processes have already terminated, and returns immediately.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Logical vector, with one value of each process in <code>p</code>.
+For processes that terminated it contains a <code>TRUE</code> value. For
+processes that are still running it contains a <code>FALSE</code> value.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+# this example calls `sleep`, so it only works on Unix
+p1 &lt;- processx::process$new("sleep", "100")
+p2 &lt;- processx::process$new("sleep", "100")
+
+# returns c(FALSE, FALSE) immediately if p1 and p2 are running
+ps_wait(list(p1$as_ps_handle(), p2$as_ps_handle()), 0)
+
+# timeouts at one second
+ps_wait(list(p1$as_ps_handle(), p2$as_ps_handle()), 1000)
+
+p1$kill()
+p2$kill()
+# returns c(TRUE, TRUE) immediately
+ps_wait(list(p1$as_ps_handle(), p2$as_ps_handle()), 1000)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>ps</em> version 1.8.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html><html><head><title>R: Get Linter metadata from a package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>available_linters {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get Linter metadata from a package</h2>
+
+<h3>Description</h3>
+
+<p><code>available_linters()</code> obtains a tagged list of all Linters available in a package.
+</p>
+<p><code>available_tags()</code> searches for available tags.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>available_linters(packages = "lintr", tags = NULL, exclude_tags = "deprecated")
+
+available_tags(packages = "lintr")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="packages">packages</code></td>
+<td>
+<p>A character vector of packages to search for linters.</p>
+</td></tr>
+<tr><td><code id="tags">tags</code></td>
+<td>
+<p>Optional character vector of tags to search. Only linters with at least one matching tag will be
+returned. If <code>tags</code> is <code>NULL</code>, all linters will be returned. See <code>available_tags("lintr")</code> to find out what
+tags are already used by lintr.</p>
+</td></tr>
+<tr><td><code id="exclude_tags">exclude_tags</code></td>
+<td>
+<p>Tags to exclude from the results. Linters with at least one matching tag will not be returned.
+If <code>except_tags</code> is <code>NULL</code>, no linters will be excluded. Note that <code>tags</code> takes priority, meaning that any
+tag found in both <code>tags</code> and <code>exclude_tags</code> will be included, not excluded.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>available_linters</code> returns a data frame with columns 'linter', 'package' and 'tags':
+</p>
+
+<dl>
+<dt>linter</dt><dd><p>A character column naming the function associated with the linter.</p>
+</dd>
+<dt>package</dt><dd><p>A character column containing the name of the package providing the linter.</p>
+</dd>
+<dt>tags</dt><dd><p>A list column containing tags associated with the linter.</p>
+</dd>
+</dl>
+
+<p><code>available_tags</code> returns a character vector of linter tags used by the packages.
+</p>
+
+
+<h3>Package Authors</h3>
+
+<p>To implement <code>available_linters()</code> for your package, include a file <code>inst/lintr/linters.csv</code> in your
+package.
+The CSV file must contain the columns 'linter' and 'tags', and be UTF-8 encoded.
+Additional columns will be silently ignored if present and the columns are identified by name.
+Each row describes a linter by
+</p>
+
+<ol>
+<li><p> its function name (e.g. <code>"assignment_linter"</code>) in the column 'linter'.
+</p>
+</li>
+<li><p> space-separated tags associated with the linter (e.g. <code>"style consistency default"</code>) in the column 'tags'.
+</p>
+</li></ol>
+
+<p>Tags should be snake_case.
+</p>
+<p>See <code>available_tags("lintr")</code> to find out what tags are already used by lintr.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+</li>
+<li> <p><code><a href="../../lintr/help/available_tags.html">available_tags()</a></code> to retrieve the set of valid tags.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>lintr_linters &lt;- available_linters()
+
+# If the package doesn't exist or isn't installed, an empty data frame will be returned
+available_linters("does-not-exist")
+
+lintr_linters2 &lt;- available_linters(c("lintr", "does-not-exist"))
+identical(lintr_linters, lintr_linters2)
+available_tags()
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

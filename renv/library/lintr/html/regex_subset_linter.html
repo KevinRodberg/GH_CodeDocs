@@ -1,0 +1,98 @@
+<!DOCTYPE html><html><head><title>R: Require usage of direct methods for subsetting strings via...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>regex_subset_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Require usage of direct methods for subsetting strings via regex</h2>
+
+<h3>Description</h3>
+
+<p>Using <code>value = TRUE</code> in <code><a href="../../base/html/grep.html">grep()</a></code> returns the subset of the input that matches
+the pattern, e.g. <code>grep("[a-m]", letters, value = TRUE)</code> will return the
+first 13 elements (<code>a</code> through <code>m</code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>regex_subset_linter()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p><code>letters[grep("[a-m]", letters)]</code> and <code>letters[grepl("[a-m]", letters)]</code>
+both return the same thing, but more circuitously and more verbosely.
+</p>
+<p>The <code>stringr</code> package also provides an even more readable alternative,
+namely <code>str_subset()</code>, which should be preferred to versions using
+<code>str_detect()</code> and <code>str_which()</code>.
+</p>
+
+
+<h3>Exceptions</h3>
+
+<p>Note that <code>x[grep(pattern, x)]</code> and <code>grep(pattern, x, value = TRUE)</code>
+are not <em>completely</em> interchangeable when <code>x</code> is not character
+(most commonly, when <code>x</code> is a factor), because the output of the
+latter will be a character vector while the former remains a factor.
+It still may be preferable to refactor such code, as it may be faster
+to match the pattern on <code>levels(x)</code> and use that to subset instead.
+</p>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/efficiency_linters.html">efficiency</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "x[grep(pattern, x)]",
+  linters = regex_subset_linter()
+)
+
+lint(
+  text = "x[stringr::str_which(x, pattern)]",
+  linters = regex_subset_linter()
+)
+
+# okay
+lint(
+  text = "grep(pattern, x, value = TRUE)",
+  linters = regex_subset_linter()
+)
+
+lint(
+  text = "stringr::str_subset(x, pattern)",
+  linters = regex_subset_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

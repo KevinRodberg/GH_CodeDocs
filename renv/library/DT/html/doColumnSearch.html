@@ -1,0 +1,97 @@
+<!DOCTYPE html><html><head><title>R: Server-side searching</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>doColumnSearch {DT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Server-side searching</h2>
+
+<h3>Description</h3>
+
+<p><code>doGlobalSearch()</code> can be used to search a data frame given the search
+string typed by the user into the global search box of a
+<code><a href="../../DT/help/datatable.html">datatable</a></code>. <code>doColumnSearch()</code> does the same for a vector
+given the search string typed into a column filter. These functions are used
+internally by the default <code>filter</code> function passed to
+<code><a href="../../DT/help/dataTableAjax.html">dataTableAjax</a>()</code>, allowing you to replicate the search results
+that server-side processing returns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>doColumnSearch(x, search_string, options = list())
+
+doGlobalSearch(data, search_string, options = list())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a vector, the type of which determines the expected
+<code>search_string</code> format</p>
+</td></tr>
+<tr><td><code id="search_string">search_string</code></td>
+<td>
+<p>a string that determines what to search for. The format
+depends on the type of input, matching what a user would type in the
+associated filter control.</p>
+</td></tr>
+<tr><td><code id="options">options</code></td>
+<td>
+<p>a list of options used to control how searching character
+values works. Supported options are <code>regex</code>, <code>caseInsensitive</code>
+and (for global search)
+<a href="https://datatables.net/reference/option/search.smart"><code>smart</code></a>.</p>
+</td></tr>
+<tr><td><code id="data">data</code></td>
+<td>
+<p>a data frame</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An integer vector of filtered row indices
+</p>
+
+
+<h3>See Also</h3>
+
+<p>The column filters section online for search string formats:
+<a href="https://rstudio.github.io/DT/">https://rstudio.github.io/DT/</a>
+</p>
+<p>Accessing the search strings typed by a user in a Shiny app:
+<a href="https://rstudio.github.io/DT/shiny.html">https://rstudio.github.io/DT/shiny.html</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>doGlobalSearch(iris, "versi")
+doGlobalSearch(iris, "v.r.i", options = list(regex = TRUE))
+
+doColumnSearch(iris$Species, "[\"versicolor\"]")
+doColumnSearch(iris$Sepal.Length, "4 ... 5")
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>DT</em> version 0.33 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

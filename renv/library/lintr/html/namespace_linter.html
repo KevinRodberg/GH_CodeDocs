@@ -1,0 +1,95 @@
+<!DOCTYPE html><html><head><title>R: Namespace linter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>namespace_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Namespace linter</h2>
+
+<h3>Description</h3>
+
+<p>Check for missing packages and symbols in namespace calls.
+Note that using <code>check_exports=TRUE</code> or <code>check_nonexports=TRUE</code> will load packages used in user code so it could
+potentially change the global state.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>namespace_linter(check_exports = TRUE, check_nonexports = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="check_exports">check_exports</code></td>
+<td>
+<p>Check if <code>symbol</code> is exported from <code>namespace</code> in <code>namespace::symbol</code> calls.</p>
+</td></tr>
+<tr><td><code id="check_nonexports">check_nonexports</code></td>
+<td>
+<p>Check if <code>symbol</code> exists in <code>namespace</code> in <code>namespace:::symbol</code> calls.</p>
+</td></tr>
+</table>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/configurable_linters.html">configurable</a>, <a href="../../lintr/help/correctness_linters.html">correctness</a>, <a href="../../lintr/help/executing_linters.html">executing</a>, <a href="../../lintr/help/robustness_linters.html">robustness</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "xyzxyz::sd(c(1, 2, 3))",
+  linters = namespace_linter()
+)
+
+lint(
+  text = "stats::ssd(c(1, 2, 3))",
+  linters = namespace_linter()
+)
+
+# okay
+lint(
+  text = "stats::sd(c(1, 2, 3))",
+  linters = namespace_linter()
+)
+
+lint(
+  text = "stats::ssd(c(1, 2, 3))",
+  linters = namespace_linter(check_exports = FALSE)
+)
+
+lint(
+  text = "stats:::ssd(c(1, 2, 3))",
+  linters = namespace_linter(check_nonexports = FALSE)
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

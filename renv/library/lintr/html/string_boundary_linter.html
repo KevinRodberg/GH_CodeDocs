@@ -1,0 +1,113 @@
+<!DOCTYPE html><html><head><title>R: Require usage of 'startsWith()' and 'endsWith()' over...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>string_boundary_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Require usage of <code>startsWith()</code> and <code>endsWith()</code> over <code>grepl()</code>/<code>substr()</code> versions</h2>
+
+<h3>Description</h3>
+
+<p><code><a href="../../base/html/startsWith.html">startsWith()</a></code> is used to detect fixed initial substrings; it is more
+readable and more efficient than equivalents using <code><a href="../../base/html/grep.html">grepl()</a></code> or <code><a href="../../base/html/substr.html">substr()</a></code>.
+c.f. <code>startsWith(x, "abc")</code>, <code>grepl("^abc", x)</code>,
+<code>substr(x, 1L, 3L) == "abc"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>string_boundary_linter(allow_grepl = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="allow_grepl">allow_grepl</code></td>
+<td>
+<p>Logical, default <code>FALSE</code>. If <code>TRUE</code>, usages with <code>grepl()</code>
+are ignored. Some authors may prefer the conciseness offered by <code>grepl()</code> whereby
+<code>NA</code> input maps to <code>FALSE</code> output, which doesn't have a direct equivalent
+with <code>startsWith()</code> or <code>endsWith()</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Ditto for using <code><a href="../../base/html/startsWith.html">endsWith()</a></code> to detect fixed terminal substrings.
+</p>
+<p>Note that there is a difference in behavior between how <code>grepl()</code> and <code>startsWith()</code>
+(and <code>endsWith()</code>) handle missing values. In particular, for <code>grepl()</code>, <code>NA</code> inputs
+are considered <code>FALSE</code>, while for <code>startsWith()</code>, <code>NA</code> inputs have <code>NA</code> outputs.
+That means the strict equivalent of <code>grepl("^abc", x)</code> is
+<code>!is.na(x) &amp; startsWith(x, "abc")</code>.
+</p>
+<p>We lint <code>grepl()</code> usages by default because the <code>!is.na()</code> version is more explicit
+with respect to <code>NA</code> handling &ndash; though documented, the way <code>grepl()</code> handles
+missing inputs may be surprising to some users.
+</p>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/configurable_linters.html">configurable</a>, <a href="../../lintr/help/efficiency_linters.html">efficiency</a>, <a href="../../lintr/help/readability_linters.html">readability</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = 'grepl("^a", x)',
+  linters = string_boundary_linter()
+)
+
+lint(
+  text = 'grepl("z$", x)',
+  linters = string_boundary_linter()
+)
+
+# okay
+lint(
+  text = 'startsWith(x, "a")',
+  linters = string_boundary_linter()
+)
+
+lint(
+  text = 'endsWith(x, "z")',
+  linters = string_boundary_linter()
+)
+
+# If missing values are present, the suggested alternative wouldn't be strictly
+# equivalent, so this linter can also be turned off in such cases.
+lint(
+  text = 'grepl("z$", x)',
+  linters = string_boundary_linter(allow_grepl = TRUE)
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

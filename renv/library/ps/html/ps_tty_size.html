@@ -1,0 +1,73 @@
+<!DOCTYPE html><html><head><title>R: Query the size of the current terminal</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ps_tty_size {ps}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Query the size of the current terminal</h2>
+
+<h3>Description</h3>
+
+<p>If the standard output of the current R process is not a terminal,
+e.g. because it is redirected to a file, or the R process is running in
+a GUI, then it will throw an error. You need to handle this error if
+you want to use this function in a package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ps_tty_size()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p>If an error happens, the error message is different depending on
+what type of device the standard output is. Some common error messages
+are:
+</p>
+
+<ul>
+<li><p> &quot;Inappropriate ioctl for device.&quot;
+</p>
+</li>
+<li><p> &quot;Operation not supported on socket.&quot;
+</p>
+</li>
+<li><p> &quot;Operation not supported by device.&quot;
+</p>
+</li></ul>
+
+<p>Whatever the error message, <code>ps_tty_size</code> always fails with an error of
+class <code>ps_unknown_tty_size</code>, which you can catch.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># An example that falls back to the 'width' option
+tryCatch(
+  ps_tty_size(),
+  ps_unknown_tty_size = function(err) {
+    c(width = getOption("width"), height = NA_integer_)
+  }
+)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>ps</em> version 1.8.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

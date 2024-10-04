@@ -1,0 +1,131 @@
+<!DOCTYPE html><html><head><title>R: Object usage linter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>object_usage_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Object usage linter</h2>
+
+<h3>Description</h3>
+
+<p>Check that closures have the proper usage using <code><a href="../../codetools/help/checkUsage.html">codetools::checkUsage()</a></code>.
+Note that this runs <code><a href="../../base/help/eval.html">base::eval()</a></code> on the code, so <strong>do not use with untrusted code</strong>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>object_usage_linter(interpret_glue = TRUE, skip_with = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="interpret_glue">interpret_glue</code></td>
+<td>
+<p>If <code>TRUE</code>, interpret <code><a href="../../glue/help/glue.html">glue::glue()</a></code> calls to avoid false positives caused by local variables
+which are only used in a glue expression.</p>
+</td></tr>
+<tr><td><code id="skip_with">skip_with</code></td>
+<td>
+<p>A logical. If <code>TRUE</code> (default), code in <code>with()</code> expressions
+will be skipped. This argument will be passed to <code>skipWith</code> argument of
+<code>codetools::checkUsage()</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Linters</h3>
+
+<p>The following linters are tagged with 'package_development':
+</p>
+
+<ul>
+<li><p><code><a href="../../lintr/help/backport_linter.html">backport_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/conjunct_test_linter.html">conjunct_test_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_comparison_linter.html">expect_comparison_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_identical_linter.html">expect_identical_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_length_linter.html">expect_length_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_named_linter.html">expect_named_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_not_linter.html">expect_not_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_null_linter.html">expect_null_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_s3_class_linter.html">expect_s3_class_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_s4_class_linter.html">expect_s4_class_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_true_false_linter.html">expect_true_false_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_type_linter.html">expect_type_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/package_hooks_linter.html">package_hooks_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/yoda_test_linter.html">yoda_test_linter</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = "foo &lt;- function() { x &lt;- 1 }",
+  linters = object_usage_linter()
+)
+
+# okay
+lint(
+  text = "foo &lt;- function(x) { x &lt;- 1 }",
+  linters = object_usage_linter()
+)
+
+lint(
+  text = "foo &lt;- function() { x &lt;- 1; return(x) }",
+  linters = object_usage_linter()
+)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

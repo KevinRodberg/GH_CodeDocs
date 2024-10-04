@@ -1,0 +1,94 @@
+<!DOCTYPE html><html><head><title>R: Generate a simple Markdown pipe table</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>md_table {xfun}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate a simple Markdown pipe table</h2>
+
+<h3>Description</h3>
+
+<p>A minimal Markdown table generator using the pipe <code>|</code> as column separators.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>md_table(x, digits = NULL, na = NULL, newline = NULL, limit = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A 2-dimensional object (e.g., a matrix or data frame).</p>
+</td></tr>
+<tr><td><code id="digits">digits</code></td>
+<td>
+<p>The number of decimal places to be passed to <code><a href="../../base/html/Round.html">round()</a></code>. It can
+be a integer vector of the same length as the number of columns in <code>x</code> to
+round columns separately. The default is <code>3</code>.</p>
+</td></tr>
+<tr><td><code id="na">na</code></td>
+<td>
+<p>A character string to represent <code>NA</code> values. The default is an
+empty string.</p>
+</td></tr>
+<tr><td><code id="newline">newline</code></td>
+<td>
+<p>A character string to substitute <code style="white-space: pre;">&#8288;\n&#8288;</code> in <code>x</code> (because pipe
+tables do not support line breaks in cells). The default is a space.</p>
+</td></tr>
+<tr><td><code id="limit">limit</code></td>
+<td>
+<p>The maximum number of rows to show in the table. If it is
+smaller than the number of rows, the data in the middle will be omitted. If
+it is of length 2, the second number will be used to limit the number of
+columns. Zero and negative values are ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The default argument values can be set via global options with the prefix
+<code>xfun.md_table.</code>, e.g., <code style="white-space: pre;">&#8288;options(xfun.md_table.digits 2, xfun.md_table.na = 'n/a')&#8288;</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A character vector.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../knitr/help/kable.html">knitr::kable()</a></code> (which supports more features)
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>xfun::md_table(head(iris))
+xfun::md_table(mtcars, limit = c(10, 6))
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>xfun</em> version 0.47 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html><html><head><title>R: Require usage of 'expect_s4_class(x, k)' over...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>expect_s4_class_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Require usage of <code>expect_s4_class(x, k)</code> over <code>expect_true(is(x, k))</code></h2>
+
+<h3>Description</h3>
+
+<p><code><a href="../../testthat/help/inheritance-expectations.html">testthat::expect_s4_class()</a></code> exists specifically for testing the class
+of S4 objects. <code><a href="../../testthat/help/logical-expectations.html">testthat::expect_true()</a></code> can also be used for such tests,
+but it is better to use the tailored function instead.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>expect_s4_class_linter()
+</code></pre>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/best_practices_linters.html">best_practices</a>, <a href="../../lintr/help/package_development_linters.html">package_development</a>, <a href="../../lintr/help/pkg_testthat_linters.html">pkg_testthat</a>
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+</li>
+<li> <p><code><a href="../../lintr/help/expect_s3_class_linter.html">expect_s3_class_linter()</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+lint(
+  text = 'expect_true(is(x, "Matrix"))',
+  linters = expect_s4_class_linter()
+)
+
+# okay
+lint(
+  text = 'expect_s4_class(x, "Matrix")',
+  linters = expect_s4_class_linter()
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

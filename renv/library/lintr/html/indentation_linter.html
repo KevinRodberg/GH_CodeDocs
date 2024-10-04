@@ -1,0 +1,187 @@
+<!DOCTYPE html><html><head><title>R: Check that indentation is consistent</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>indentation_linter {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Check that indentation is consistent</h2>
+
+<h3>Description</h3>
+
+<p>Check that indentation is consistent
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>indentation_linter(
+  indent = 2L,
+  hanging_indent_style = c("tidy", "always", "never"),
+  assignment_as_infix = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="indent">indent</code></td>
+<td>
+<p>Number of spaces, that a code block should be indented by relative to its parent code block.
+Used for multi-line code blocks (<code>{ ... }</code>), function calls (<code>( ... )</code>) and extractions (<code style="white-space: pre;">&#8288;[ ... ]&#8288;</code>, <code style="white-space: pre;">&#8288;[[ ... ]]&#8288;</code>).
+Defaults to 2.</p>
+</td></tr>
+<tr><td><code id="hanging_indent_style">hanging_indent_style</code></td>
+<td>
+<p>Indentation style for multi-line function calls with arguments in their first line.
+Defaults to tidyverse style, i.e. a block indent is used if the function call terminates with <code style="white-space: pre;">&#8288;)&#8288;</code> on a separate
+line and a hanging indent if not.
+Note that function multi-line function calls without arguments on their first line will always be expected to have
+block-indented arguments.
+If <code>hanging_indent_style</code> is <code>"tidy"</code>, multi-line function definitions are expected to be double-indented if the
+first line of the function definition contains no arguments and the closing parenthesis is not on its own line.
+</p>
+<div class="sourceCode r"><pre># complies to any style
+map(
+  x,
+  f,
+  additional_arg = 42
+)
+
+# complies to "tidy" and "never"
+map(x, f,
+  additional_arg = 42
+)
+
+# complies to "always"
+map(x, f,
+    additional_arg = 42
+)
+
+# complies to "tidy" and "always"
+map(x, f,
+    additional_arg = 42)
+
+# complies to "never"
+map(x, f,
+  additional_arg = 42)
+
+# complies to "tidy"
+function(
+    a,
+    b) {
+  # body
+}
+</pre></div></td></tr>
+<tr><td><code id="assignment_as_infix">assignment_as_infix</code></td>
+<td>
+<p>Treat <code style="white-space: pre;">&#8288;&lt;-&#8288;</code> as a regular (i.e. left-associative) infix operator?
+This means, that infix operators on the right hand side of an assignment do not trigger a second level of
+indentation:
+</p>
+<div class="sourceCode r"><pre># complies to any style
+variable &lt;- a %+%
+  b %+%
+  c
+
+# complies to assignment_as_infix = TRUE
+variable &lt;-
+  a %+%
+  b %+%
+  c
+
+# complies to assignment_as_infix = FALSE
+variable &lt;-
+  a %+%
+    b %+%
+    c
+</pre></div></td></tr>
+</table>
+
+
+<h3>Tags</h3>
+
+<p><a href="../../lintr/help/configurable_linters.html">configurable</a>, <a href="../../lintr/help/default_linters.html">default</a>, <a href="../../lintr/help/readability_linters.html">readability</a>, <a href="../../lintr/help/style_linters.html">style</a>
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+</li>
+<li> <p><a href="https://style.tidyverse.org/syntax.html#indenting">https://style.tidyverse.org/syntax.html#indenting</a>
+</p>
+</li>
+<li> <p><a href="https://style.tidyverse.org/functions.html#long-lines-1">https://style.tidyverse.org/functions.html#long-lines-1</a>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># will produce lints
+code_lines &lt;- "if (TRUE) {\n1 + 1\n}"
+writeLines(code_lines)
+lint(
+  text = code_lines,
+  linters = indentation_linter()
+)
+
+code_lines &lt;- "if (TRUE) {\n    1 + 1\n}"
+writeLines(code_lines)
+lint(
+  text = code_lines,
+  linters = indentation_linter()
+)
+
+code_lines &lt;- "map(x, f,\n  additional_arg = 42\n)"
+writeLines(code_lines)
+lint(
+  text = code_lines,
+  linters = indentation_linter(hanging_indent_style = "always")
+)
+
+code_lines &lt;- "map(x, f,\n    additional_arg = 42)"
+writeLines(code_lines)
+lint(
+  text = code_lines,
+  linters = indentation_linter(hanging_indent_style = "never")
+)
+
+# okay
+code_lines &lt;- "map(x, f,\n  additional_arg = 42\n)"
+writeLines(code_lines)
+lint(
+  text = code_lines,
+  linters = indentation_linter()
+)
+
+code_lines &lt;- "if (TRUE) {\n    1 + 1\n}"
+writeLines(code_lines)
+lint(
+  text = code_lines,
+  linters = indentation_linter(indent = 4)
+)
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

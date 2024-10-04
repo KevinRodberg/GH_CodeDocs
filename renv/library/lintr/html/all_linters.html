@@ -1,0 +1,77 @@
+<!DOCTYPE html><html><head><title>R: Create a linter configuration based on all available linters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>all_linters {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a linter configuration based on all available linters</h2>
+
+<h3>Description</h3>
+
+<p>Create a linter configuration based on all available linters
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>all_linters(packages = "lintr", ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="packages">packages</code></td>
+<td>
+<p>A character vector of packages to search for linters.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Arguments of elements to change. If unnamed, the argument is automatically named.
+If the named argument already exists in the list of linters, it is replaced by the new element.
+If it does not exist, it is added. If the value is <code>NULL</code>, the linter is removed.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../lintr/help/linters_with_defaults.html">linters_with_defaults</a> for basing off lintr's set of default linters.
+</p>
+</li>
+<li> <p><a href="../../lintr/help/linters_with_tags.html">linters_with_tags</a> for basing off tags attached to linters, possibly across multiple packages.
+</p>
+</li>
+<li> <p><a href="../../lintr/help/available_linters.html">available_linters</a> to get a data frame of available linters.
+</p>
+</li>
+<li> <p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>names(all_linters())
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

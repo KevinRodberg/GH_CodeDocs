@@ -1,0 +1,73 @@
+<!DOCTYPE html><html><head><title>R: Split source lines into complete expressions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>split_source {xfun}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Split source lines into complete expressions</h2>
+
+<h3>Description</h3>
+
+<p>Parse the lines of code one by one to find complete expressions in the code,
+and put them in a list.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>split_source(x, merge_comments = FALSE, line_number = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A character vector of R source code.</p>
+</td></tr>
+<tr><td><code id="merge_comments">merge_comments</code></td>
+<td>
+<p>Whether to merge consecutive lines of comments as a
+single expression to be combined with the next non-comment expression (if
+any).</p>
+</td></tr>
+<tr><td><code id="line_number">line_number</code></td>
+<td>
+<p>Whether to store the line numbers of each expression in
+the returned value.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list of character vectors, and each vector contains a complete R
+expression, with an attribute <code>lines</code> indicating the starting and ending
+line numbers of the expression if the argument <code>line_number = TRUE</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>code = c("# comment 1", "# comment 2", "if (TRUE) {", "1 + 1", "}", "print(1:5)")
+xfun::split_source(code)
+xfun::split_source(code, merge_comments = TRUE)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>xfun</em> version 0.47 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

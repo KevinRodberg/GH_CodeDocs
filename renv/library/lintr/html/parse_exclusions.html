@@ -1,0 +1,94 @@
+<!DOCTYPE html><html><head><title>R: read a source file and parse all the excluded lines from it</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>parse_exclusions {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>read a source file and parse all the excluded lines from it</h2>
+
+<h3>Description</h3>
+
+<p>read a source file and parse all the excluded lines from it
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>parse_exclusions(
+  file,
+  exclude = settings$exclude,
+  exclude_next = settings$exclude_next,
+  exclude_start = settings$exclude_start,
+  exclude_end = settings$exclude_end,
+  exclude_linter = settings$exclude_linter,
+  exclude_linter_sep = settings$exclude_linter_sep,
+  lines = NULL,
+  linter_names = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="file">file</code></td>
+<td>
+<p>R source file</p>
+</td></tr>
+<tr><td><code id="exclude">exclude</code></td>
+<td>
+<p>Regular expression used to mark lines to exclude.</p>
+</td></tr>
+<tr><td><code id="exclude_next">exclude_next</code></td>
+<td>
+<p>Regular expression used to mark lines immediately preceding excluded lines.</p>
+</td></tr>
+<tr><td><code id="exclude_start">exclude_start</code></td>
+<td>
+<p>Regular expression used to mark the start of an excluded range.</p>
+</td></tr>
+<tr><td><code id="exclude_end">exclude_end</code></td>
+<td>
+<p>Regular expression used to mark the end of an excluded range.</p>
+</td></tr>
+<tr><td><code id="exclude_linter">exclude_linter</code></td>
+<td>
+<p>Regular expression used to capture a list of to-be-excluded linters immediately following a
+<code>exclude</code> or <code>exclude_start</code> marker.</p>
+</td></tr>
+<tr><td><code id="exclude_linter_sep">exclude_linter_sep</code></td>
+<td>
+<p>Regular expression used to split a linter list into individual linter names for exclusion.</p>
+</td></tr>
+<tr><td><code id="lines">lines</code></td>
+<td>
+<p>A character vector of the content lines of <code>file</code>.</p>
+</td></tr>
+<tr><td><code id="linter_names">linter_names</code></td>
+<td>
+<p>Names of active linters.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A possibly named list of excluded lines, possibly for specific linters.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html><html><head><title>R: Best practices linters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>best_practices_linters {lintr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Best practices linters</h2>
+
+<h3>Description</h3>
+
+<p>Linters checking the use of coding best practices, such as explicit typing of numeric constants.
+</p>
+
+
+<h3>Linters</h3>
+
+<p>The following linters are tagged with 'best_practices':
+</p>
+
+<ul>
+<li><p><code><a href="../../lintr/help/absolute_path_linter.html">absolute_path_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/any_duplicated_linter.html">any_duplicated_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/any_is_na_linter.html">any_is_na_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/boolean_arithmetic_linter.html">boolean_arithmetic_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/class_equals_linter.html">class_equals_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/commented_code_linter.html">commented_code_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/condition_message_linter.html">condition_message_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/conjunct_test_linter.html">conjunct_test_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/cyclocomp_linter.html">cyclocomp_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/empty_assignment_linter.html">empty_assignment_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_comparison_linter.html">expect_comparison_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_length_linter.html">expect_length_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_named_linter.html">expect_named_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_not_linter.html">expect_not_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_null_linter.html">expect_null_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_s3_class_linter.html">expect_s3_class_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_s4_class_linter.html">expect_s4_class_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_true_false_linter.html">expect_true_false_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/expect_type_linter.html">expect_type_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/extraction_operator_linter.html">extraction_operator_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/fixed_regex_linter.html">fixed_regex_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/for_loop_index_linter.html">for_loop_index_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/function_argument_linter.html">function_argument_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/function_return_linter.html">function_return_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/ifelse_censor_linter.html">ifelse_censor_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/implicit_assignment_linter.html">implicit_assignment_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/implicit_integer_linter.html">implicit_integer_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/is_numeric_linter.html">is_numeric_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/length_levels_linter.html">length_levels_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/lengths_linter.html">lengths_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/library_call_linter.html">library_call_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/literal_coercion_linter.html">literal_coercion_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/nonportable_path_linter.html">nonportable_path_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/outer_negation_linter.html">outer_negation_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/paste_linter.html">paste_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/redundant_equals_linter.html">redundant_equals_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/redundant_ifelse_linter.html">redundant_ifelse_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/regex_subset_linter.html">regex_subset_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/routine_registration_linter.html">routine_registration_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/scalar_in_linter.html">scalar_in_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/seq_linter.html">seq_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/sort_linter.html">sort_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/system_file_linter.html">system_file_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/T_and_F_symbol_linter.html">T_and_F_symbol_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/undesirable_function_linter.html">undesirable_function_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/undesirable_operator_linter.html">undesirable_operator_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/unnecessary_lambda_linter.html">unnecessary_lambda_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/unnecessary_nested_if_linter.html">unnecessary_nested_if_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/unnecessary_placeholder_linter.html">unnecessary_placeholder_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/unreachable_code_linter.html">unreachable_code_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/unused_import_linter.html">unused_import_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/vector_logic_linter.html">vector_logic_linter</a></code>
+</p>
+</li>
+<li><p><code><a href="../../lintr/help/yoda_test_linter.html">yoda_test_linter</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><a href="../../lintr/help/linters.html">linters</a> for a complete list of linters available in lintr.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>lintr</em> version 3.1.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>
